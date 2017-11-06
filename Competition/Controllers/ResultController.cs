@@ -75,7 +75,8 @@ namespace Competition.Controllers
 
 
                 }
-                return ToJson(results.AsEnumerable());
+                List<ResultModel> resultsOrder = results.OrderByDescending(x => x.PointsSum).ThenBy(x => x.TimeSum).ToList();
+                return ToJson(resultsOrder.AsEnumerable());
             }
 
             return Request.CreateResponse(HttpStatusCode.NotFound, "No results.");
