@@ -45,8 +45,8 @@ namespace Competition.Controllers
             /** Prisikiriamas Uzregistruoto User Id */
             ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
             string username = identity.Claims.First().Value;
-            value.UserId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == username).Id.ToString();
-
+            string id = CompetitionDB.Users.FirstOrDefault(x => x.UserName == username).Id.ToString();
+            value.UserId = id;
             CompetitionDB.TblUsers.Add(value);
             return ToJson(CompetitionDB.SaveChanges());
         }

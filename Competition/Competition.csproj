@@ -231,6 +231,7 @@
     <Compile Include="Context\TblTeamMember.cs" />
     <Compile Include="Context\TblUser.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApplicationUserRole.cs" />
     <Compile Include="Controllers\BaseAPIController.cs" />
     <Compile Include="Controllers\CompetitionController.cs" />
     <Compile Include="Controllers\CompJudController.cs" />

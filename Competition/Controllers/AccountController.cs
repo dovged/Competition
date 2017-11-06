@@ -11,7 +11,7 @@ using System.Web.Http;
 namespace Competition.Controllers
 {
     [RoutePrefix("api/Account")]
-    public class AccountController : ApiController
+    public class AccountController : BaseAPIController
     {
         private AuthRepository _repo = null;
 
@@ -38,7 +38,7 @@ namespace Competition.Controllers
             {
                 return errorResult;
             }
-
+            _repo.AddUserToRole(userModel.UserName, "Climber");
             return Ok();
         }
 

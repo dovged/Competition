@@ -41,6 +41,12 @@ namespace Competition
             return user;
         }
 
+        public void AddUserToRole(string username, string rolename)
+        {
+            var user = _userManager.FindByName(username);
+            _userManager.AddToRole(user.Id, rolename);
+            _ctx.SaveChanges();
+        }
         public void Dispose()
         {
             _ctx.Dispose();
