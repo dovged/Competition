@@ -23,7 +23,7 @@ namespace Competition.Controllers
             int UserId = Convert.ToInt32(CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id.ToString());
             int teamId = Convert.ToInt32(CompetitionDB.TblTeams.FirstOrDefault(x => x.UserId == UserId).Id.ToString());
             
-            if (CompetitionDB.TblTeamMembers.ToArray().Where(x => x.TeamId == teamId).Select(x => new TeamMemberModel(x)).ToList() != null)
+            if (CompetitionDB.TblTeamMembers.ToArray().Where(x => x.TeamId == teamId).Select(x => new TeamMemberModel(x)).ToList().Count != 0)
             {
                 return ToJson(CompetitionDB.TblTeamMembers.ToArray().Where(x => x.TeamId == teamId).Select(x => new TeamMemberModel(x)).ToList());
             }

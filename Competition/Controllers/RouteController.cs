@@ -17,7 +17,7 @@ namespace Competition.Controllers
         {
             int CompId = Convert.ToInt32(CompetitionDB.TblCompetitions.FirstOrDefault(x => x.Open == true).Id.ToString());
 
-            if (CompetitionDB.TblRoutes.ToArray().Where(x => x.CompetitionId == CompId).Select(x => new RouteModel(x)).ToList() != null)
+            if (CompetitionDB.TblRoutes.ToArray().Where(x => x.CompetitionId == CompId).Select(x => new RouteModel(x)).ToList().Count != 0)
             {
                 return ToJson(CompetitionDB.TblRoutes.ToArray().Where(x => x.CompetitionId == CompId).Select(x => new RouteModel(x)).ToList());
             }

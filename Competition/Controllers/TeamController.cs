@@ -21,8 +21,9 @@ namespace Competition.Controllers
             string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == username).Id.ToString();
 
             int UserId = Convert.ToInt32(CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id.ToString());
-            
-            if (CompetitionDB.TblTeams.ToArray().Where(x => x.UserId == UserId).Select(x => new TeamModel(x)).ToList() != null)
+
+
+            if (CompetitionDB.TblTeams.ToArray().Where(x => x.UserId == UserId).Select(x => new TeamModel(x)).ToList().Count != 0)
             {
                 return ToJson(CompetitionDB.TblTeams.ToArray().Where(x => x.UserId == UserId).Select(x => new TeamModel(x)).ToList());
             }

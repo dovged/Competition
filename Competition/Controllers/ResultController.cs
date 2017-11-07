@@ -13,72 +13,75 @@ namespace Competition.Controllers
     {
         public HttpResponseMessage Get(int id)
         {
-            if (CompetitionDB.TblCompTeams.Where(x => x.CompetitionId == id).AsEnumerable() != null)
+            if(CompetitionDB.TblCompetitions.FirstOrDefault(x => x.Id == id) != null)
             {
-
-                List<CompTeamModel> compTeam = new List<CompTeamModel>();
-                List<ResultModel> results = new List<ResultModel>();
-                List<RouteModel> routes = new List<RouteModel>();
-
-                compTeam = CompetitionDB.TblCompTeams.ToArray().Where(x => x.CompetitionId == id).Select(x => new CompTeamModel(x)).ToList();
-                routes = CompetitionDB.TblRoutes.ToArray().Where(x => x.CompetitionId == id).Select(x => new RouteModel(x)).ToList();
-
-                foreach (var ct in compTeam)
+                if (CompetitionDB.TblCompTeams.ToArray().Where(x => x.CompetitionId == id).Select(x=> new CompTeamModel(x)).ToList().Count != 0)
                 {
-                    ResultModel result = new ResultModel();
-                    int teamId = ct.TeamId;
-                    result.SetTeamName(CompetitionDB.TblTeams.Find(teamId).Name.ToString());
-                    List<JudgesPaperModel> judgesPapers = new List<JudgesPaperModel>();
-                    int sumTime = 0;
-                    foreach (var r in routes)
+
+                    List<CompTeamModel> compTeam = new List<CompTeamModel>();
+                    List<ResultModel> results = new List<ResultModel>();
+                    List<RouteModel> routes = new List<RouteModel>();
+
+                    compTeam = CompetitionDB.TblCompTeams.ToArray().Where(x => x.CompetitionId == id).Select(x => new CompTeamModel(x)).ToList();
+                    routes = CompetitionDB.TblRoutes.ToArray().Where(x => x.CompetitionId == id).Select(x => new RouteModel(x)).ToList();
+
+                    foreach (var ct in compTeam)
                     {
-                        JudgesPaperModel jp = CompetitionDB.TblJudgesPapers.ToArray().Where(x => x.RouteId == r.Id && x.TeamId == teamId).Select(x => new JudgesPaperModel(x)).FirstOrDefault();
-                        if (jp != null)
+                        ResultModel result = new ResultModel();
+                        int teamId = ct.TeamId;
+                        result.SetTeamName(CompetitionDB.TblTeams.Find(teamId).Name.ToString());
+                        List<JudgesPaperModel> judgesPapers = new List<JudgesPaperModel>();
+                        int sumTime = 0;
+                        foreach (var r in routes)
                         {
-                            jp.SetRouteName(r.Name);
-                            if (TimeCompare(MaxTimeRoute(r.Id), jp.Time))
+                            JudgesPaperModel jp = CompetitionDB.TblJudgesPapers.ToArray().Where(x => x.RouteId == r.Id && x.TeamId == teamId).Select(x => new JudgesPaperModel(x)).FirstOrDefault();
+                            if (jp != null)
                             {
-                                jp.SetPoints(r.Points);
-                                int penaltySum = PointsFromPenalties(jp.Id);
-                                jp.SetPenalySum(penaltySum);
-                                int routeTimeFromJP = TimeToSec(jp.Time);
-                                sumTime += (penaltySum * 30) + routeTimeFromJP;
-                                if (penaltySum == 0)
+                                jp.SetRouteName(r.Name);
+                                if (TimeCompare(MaxTimeRoute(r.Id), jp.Time))
                                 {
-                                    jp.SetTimeWithPenalty(jp.Time);
+                                    jp.SetPoints(r.Points);
+                                    int penaltySum = PointsFromPenalties(jp.Id);
+                                    jp.SetPenalySum(penaltySum);
+                                    int routeTimeFromJP = TimeToSec(jp.Time);
+                                    sumTime += (penaltySum * 30) + routeTimeFromJP;
+                                    if (penaltySum == 0)
+                                    {
+                                        jp.SetTimeWithPenalty(jp.Time);
+                                    }
+                                    else
+                                    {
+                                        jp.SetTimeWithPenalty(SecToTime((penaltySum * 30) + routeTimeFromJP));
+                                    }
+
+                                    result.PlusPoints(r.Points);
                                 }
                                 else
                                 {
-                                    jp.SetTimeWithPenalty(SecToTime((penaltySum * 30) + routeTimeFromJP));
+                                    jp.SetTime("00:00:00");
+                                    jp.SetTimeWithPenalty("00:00:00");
                                 }
 
-                                result.PlusPoints(r.Points);
+                                judgesPapers.Add(jp);
                             }
                             else
                             {
-                                jp.SetTime("00:00:00");
-                                jp.SetTimeWithPenalty("00:00:00");
+                                JudgesPaperModel newJp = new JudgesPaperModel();
+                                newJp.SetRouteName(r.Name);
+                                judgesPapers.Add(newJp);
                             }
+                        }
+                        result.SetJudgesPapers(judgesPapers);
+                        result.SetTime(SecToTime(sumTime));
+                        results.Add(result);
 
-                            judgesPapers.Add(jp);
-                        }
-                        else
-                        {
-                            JudgesPaperModel newJp = new JudgesPaperModel();
-                            newJp.SetRouteName(r.Name);
-                            judgesPapers.Add(newJp);
-                        }
+
                     }
-                    result.SetJudgesPapers(judgesPapers);
-                    result.SetTime(SecToTime(sumTime));
-                    results.Add(result);
-
-
+                    List<ResultModel> resultsOrder = results.OrderByDescending(x => x.PointsSum).ThenBy(x => x.TimeSum).ToList();
+                    return ToJson(resultsOrder.AsEnumerable());
                 }
-                List<ResultModel> resultsOrder = results.OrderByDescending(x => x.PointsSum).ThenBy(x => x.TimeSum).ToList();
-                return ToJson(resultsOrder.AsEnumerable());
             }
-
+            
             return Request.CreateResponse(HttpStatusCode.NotFound, "No results.");
 
         }

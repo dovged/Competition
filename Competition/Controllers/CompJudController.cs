@@ -1,4 +1,5 @@
 ﻿using Competition.Context;
+using Competition.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -14,7 +15,8 @@ namespace Competition.Controllers
         [Authorize(Roles = "Org")]
         public HttpResponseMessage Get()
         {
-            if (CompetitionDB.TblCompJuds.AsEnumerable() != null)
+            int CompId = Convert.ToInt32(CompetitionDB.TblCompetitions.FirstOrDefault(x => x.Open == true).Id.ToString());
+            if (CompetitionDB.TblCompJuds.ToArray().Where(x => x.CompId == CompId).Select(x => new CompJudModel(x)).ToList().Count != 0)
             {
                 return ToJson(CompetitionDB.TblCompJuds.AsEnumerable());
             }
