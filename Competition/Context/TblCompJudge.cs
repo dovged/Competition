@@ -7,8 +7,8 @@ using System.Web;
 
 namespace Competition.Context
 {
-    [Table("TblCompJudClimb")]
-    public class TblCompJudClim
+    [Table("TblCompJudg")]
+    public class TblCompJudge
     {
         [Key]
         public int Id { get; set; }

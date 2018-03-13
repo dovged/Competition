@@ -9,6 +9,7 @@ namespace Competition.Models
     public class CompetitionKKTModel : CompetitionModel
     {
         List<TeamModel> Teams { get; set; }
+        List<>
 
         public CompetitionKKTModel(TblCompetition row)
         {

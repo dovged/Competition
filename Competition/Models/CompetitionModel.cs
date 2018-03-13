@@ -14,6 +14,7 @@ namespace Competition.Models
         public string Club { get; set; }
         //Nustatyti ar laipiojimo varžybos (true), ar KKT varžybos (false);
         public Boolean Type { get; set; }
+        public List<>
 
         
     }

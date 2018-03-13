@@ -11,7 +11,7 @@ namespace Competition.Models
         //Teisėjo vardas ir pavardė string formatu
         public string JudgeName { get; set; }
 
-        public CompJudgeClimModel(TblCompJudClim row)
+        public CompJudgeClimModel(TblCompJud row)
         {
             Id = row.Id;
             UserId = row.UserId;

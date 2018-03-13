@@ -223,8 +223,7 @@
     <Compile Include="Context\TblClub.cs" />
     <Compile Include="Context\TblCompetition.cs" />
     <Compile Include="Context\DbContext.cs" />
-    <Compile Include="Context\TblCompJudClim.cs" />
-    <Compile Include="Context\TblCompJudKKT.cs" />
+    <Compile Include="Context\TblCompJudge.cs" />
     <Compile Include="Context\TblCompetitorsClimb.cs" />
     <Compile Include="Context\TblCompetitorsKKT.cs" />
     <Compile Include="Context\TblCompType.cs" />
@@ -237,7 +236,6 @@
     <Compile Include="Context\TblRouteClimb.cs" />
     <Compile Include="Context\TblRouteKKT.cs" />
     <Compile Include="Context\TblTeam.cs" />
-    <Compile Include="Context\TblTeamMember.cs" />
     <Compile Include="Context\TblUser.cs" />
     <Compile Include="Context\TblUserRole.cs" />
     <Compile Include="Controllers\AccountController.cs" />
