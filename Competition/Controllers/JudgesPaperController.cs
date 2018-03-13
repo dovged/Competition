@@ -30,7 +30,7 @@ namespace Competition.Controllers
         {
             if (CompetitionDB.TblJudgesPapers.FirstOrDefault(x => x.Id == id) != null)
             {
-                JudgesPaperModel paper = CompetitionDB.TblJudgesPapers.ToArray().Where(x => x.Id == id).Select(x => new JudgesPaperModel(x)).FirstOrDefault();
+                JudgesPaperKKTModel paper = CompetitionDB.TblJudgesPapers.ToArray().Where(x => x.Id == id).Select(x => new JudgesPaperKKTModel(x)).FirstOrDefault();
                 List<PenaltyQuantityModel> quantity = CompetitionDB.TblPenaltyQuantities.ToArray().Where(x => x.JudgesPaperId == id).Select(x => new PenaltyQuantityModel(x)).ToList();
                 foreach (var q in quantity)
                 {

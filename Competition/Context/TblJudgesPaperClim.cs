@@ -8,7 +8,7 @@ namespace Competition.Context
     {
         public int Id { get; set; }
         public int TopAttempt { get; set; }
-        public int BonusAttemot { get; set; }
+        public int BonusAttempt { get; set; }
         public DateTime Date { get; set; }
         public int JudgeId { get; set; }
         public int RouteId { get; set; }

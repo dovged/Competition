@@ -11,7 +11,7 @@ namespace Competition.Models
         public string TeamName { get; set; }
         public string TimeSum { get; set; }
         public int PointsSum { get; set; }
-        public List<JudgesPaperModel> judgesPapers { get; set; }
+        public List<JudgesPaperKKTModel> judgesPapers { get; set; }
 
         public ResultModel()
         {
@@ -37,7 +37,7 @@ namespace Competition.Models
             PointsSum += points;
         }
 
-        public void SetJudgesPapers(List<JudgesPaperModel> papers)
+        public void SetJudgesPapers(List<JudgesPaperKKTModel> papers)
         {
             judgesPapers = papers;
         }

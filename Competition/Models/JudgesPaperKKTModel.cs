@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Competition.Models
 {
-    public class JudgesPaperModel
+    public class JudgesPaperKKTModel
     {
         public int Id { get; set; }
         public int TeamId { get; set; }
@@ -19,14 +19,14 @@ namespace Competition.Models
         public int Points { get; set; }
         public List<PenaltyQuantityModel> Penalties { get; set; }
 
-        public JudgesPaperModel()
+        public JudgesPaperKKTModel()
         {
             Time = "00:00:00";
             TimewithPenalty = "00:00:00";
             Points = 0;
         }
 
-        public JudgesPaperModel(TblJudgesPaperKKT row)
+        public JudgesPaperKKTModel(TblJudgesPaperKKT row)
         {
             Id = row.Id;
             RouteId = row.RouteId;

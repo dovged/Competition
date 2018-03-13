@@ -30,11 +30,11 @@ namespace Competition.Controllers
                         ResultModel result = new ResultModel();
                         int teamId = ct.TeamId;
                         result.SetTeamName(CompetitionDB.TblTeams.Find(teamId).Name.ToString());
-                        List<JudgesPaperModel> judgesPapers = new List<JudgesPaperModel>();
+                        List<JudgesPaperKKTModel> judgesPapers = new List<JudgesPaperKKTModel>();
                         int sumTime = 0;
                         foreach (var r in routes)
                         {
-                            JudgesPaperModel jp = CompetitionDB.TblJudgesPapers.ToArray().Where(x => x.RouteId == r.Id && x.TeamId == teamId).Select(x => new JudgesPaperModel(x)).FirstOrDefault();
+                            JudgesPaperKKTModel jp = CompetitionDB.TblJudgesPapers.ToArray().Where(x => x.RouteId == r.Id && x.TeamId == teamId).Select(x => new JudgesPaperKKTModel(x)).FirstOrDefault();
                             if (jp != null)
                             {
                                 jp.SetRouteName(r.Name);
@@ -66,7 +66,7 @@ namespace Competition.Controllers
                             }
                             else
                             {
-                                JudgesPaperModel newJp = new JudgesPaperModel();
+                                JudgesPaperKKTModel newJp = new JudgesPaperKKTModel();
                                 newJp.SetRouteName(r.Name);
                                 judgesPapers.Add(newJp);
                             }

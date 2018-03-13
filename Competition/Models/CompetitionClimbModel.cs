@@ -6,12 +6,12 @@ using System.Web;
 
 namespace Competition.Models
 {
-    public class CompetitionKKTModel : CompetitionModel
+    public class CompetitionClimbModel : CompetitionModel
     {
-        List<TeamModel> Teams { get; set; }
-        List<RouteKKTModel> Routes { get; set; }
+        List<UserModel> Climbers { get; set; }
+        List<RouteClimbModel> Routes { get; set; }
 
-        public CompetitionKKTModel(TblCompetition row)
+        public CompetitionClimbModel(TblCompetition row)
         {
             Id = row.Id;
             Name = row.Name;
