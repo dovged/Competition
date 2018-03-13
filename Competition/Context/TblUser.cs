@@ -14,7 +14,6 @@ namespace Competition.Context
         public string LastName { get; set; }
         public string TelNumber { get; set; }
         public string Email { get; set; }
-        public string Club { get; set; }
-        public string UserId { get; set; }
+        public int ClubId { get; set; }
     }
 }

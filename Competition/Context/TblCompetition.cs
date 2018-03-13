@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
+
 
 namespace Competition.Context
 {
@@ -11,8 +10,11 @@ namespace Competition.Context
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public System.DateTime Date { get; set; }
-        public int UserId { get; set; }
-        public bool Open { get; set; }
+        public DateTime Date { get; set; }
+        public int OrgId { get; set; }
+        public int MainRouteCreatorId { get; set; }
+        public int MainJudgeId { get; set; }
+        //Nustatyti ar laipiojimo varžybos (true), ar KKT varžybos (false);
+        public Boolean Type { get; set }
     }
 }

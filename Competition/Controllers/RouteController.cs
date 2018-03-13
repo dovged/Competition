@@ -12,19 +12,20 @@ namespace Competition.Controllers
 {
     public class RouteController : BaseAPIController
     {
-        [Authorize]
+
         public HttpResponseMessage Get()
         {
             int CompId = Convert.ToInt32(CompetitionDB.TblCompetitions.FirstOrDefault(x => x.Open == true).Id.ToString());
 
-            if (CompetitionDB.TblRoutes.ToArray().Where(x => x.CompetitionId == CompId).Select(x => new RouteModel(x)).ToList().Count != 0)
+            if (CompetitionDB.TblRoutes.ToArray().Where(x => x.CompetitionId == CompId).Select(x => new RouteKKTModel(x)).ToList().Count != 0)
             {
-                return ToJson(CompetitionDB.TblRoutes.ToArray().Where(x => x.CompetitionId == CompId).Select(x => new RouteModel(x)).ToList());
+                return ToJson(CompetitionDB.TblRoutes.ToArray().Where(x => x.CompetitionId == CompId).Select(x => new RouteKKTModel(x)).ToList());
             }
-            return Request.CreateResponse(HttpStatusCode.NotFound, "Empty list.");
+            List<RouteKKTModel> list = new List<RouteKKTModel>();
+            return ToJson(list);
         }
 
-        [Authorize]
+
         public HttpResponseMessage Get(int id)
         {
             if (CompetitionDB.TblRoutes.FirstOrDefault(x => x.Id == id) != null)
@@ -35,16 +36,16 @@ namespace Competition.Controllers
             return Request.CreateResponse(HttpStatusCode.NotFound, "Item not found.");
         }
 
-        [Authorize(Roles = "Org")]
-        public HttpResponseMessage Post([FromBody]TblRoute value)
+
+        public HttpResponseMessage Post([FromBody]TblRouteKKT value)
         {
             value.CompetitionId = Convert.ToInt32(CompetitionDB.TblCompetitions.FirstOrDefault(x => x.Open == true).Id.ToString());
             CompetitionDB.TblRoutes.Add(value);
             return ToJson(CompetitionDB.SaveChanges());
         }
 
-        [Authorize(Roles = "Org")]
-        public HttpResponseMessage Put(int id, [FromBody]TblRoute value)
+
+        public HttpResponseMessage Put(int id, [FromBody]TblRouteKKT value)
         {
             if (CompetitionDB.TblRoutes.FirstOrDefault(x => x.Id == id) != null)
             {
@@ -55,7 +56,7 @@ namespace Competition.Controllers
             return Request.CreateResponse(HttpStatusCode.NotFound, "Item not found.");
         }
 
-        [Authorize(Roles = "Org")]
+
         public HttpResponseMessage Delete(int id)
         {
             if (CompetitionDB.TblRoutes.FirstOrDefault(x => x.Id == id) != null)

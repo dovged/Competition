@@ -26,7 +26,7 @@ namespace Competition.Models
             Points = 0;
         }
 
-        public JudgesPaperModel(TblJudgesPaper row)
+        public JudgesPaperModel(TblJudgesPaperKKT row)
         {
             Id = row.Id;
             RouteId = row.RouteId;

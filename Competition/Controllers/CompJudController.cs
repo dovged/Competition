@@ -16,7 +16,7 @@ namespace Competition.Controllers
         public HttpResponseMessage Get()
         {
             int CompId = Convert.ToInt32(CompetitionDB.TblCompetitions.FirstOrDefault(x => x.Open == true).Id.ToString());
-            if (CompetitionDB.TblCompJuds.ToArray().Where(x => x.CompId == CompId).Select(x => new CompJudModel(x)).ToList().Count != 0)
+            if (CompetitionDB.TblCompJuds.ToArray().Where(x => x.CompId == CompId).Select(x => new CompJudKKTModel(x)).ToList().Count != 0)
             {
                 return ToJson(CompetitionDB.TblCompJuds.AsEnumerable());
             }
@@ -36,14 +36,14 @@ namespace Competition.Controllers
         }
 
         [Authorize(Roles = "Org")]
-        public HttpResponseMessage Post([FromBody]TblCompJud value)
+        public HttpResponseMessage Post([FromBody]TblCompJudKKT value)
         {
             CompetitionDB.TblCompJuds.Add(value);
             return ToJson(CompetitionDB.SaveChanges());
         }
 
         [Authorize(Roles = "Org")]
-        public HttpResponseMessage Put(int id, [FromBody]TblCompJud value)
+        public HttpResponseMessage Put(int id, [FromBody]TblCompJudKKT value)
         {
             if (CompetitionDB.TblCompJuds.AsEnumerable() != null)
             {

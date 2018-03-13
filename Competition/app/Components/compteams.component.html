@@ -1,0 +1,31 @@
+﻿<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        Užsiregistravusios komandos
+    </div>
+    <div class='panel-body'>
+        <div class='table-responsive'>
+            <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+            <div *ngIf='compteams && compteams.length==0' class="alert alert-info" role="alert">Dar nėra užsiregistravusių komandų!</div>
+            <table class='table table-striped' *ngIf='compteams && compteams.length'>
+                <thead>
+                    <tr>
+                        <th>Pavadinimas</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let compteam of compteams">
+                        <td>{{compteam.TeamName}}</td>
+                        <td>
+                            <button title="AddJP" class="btn btn-primary" (click)="AddJP(compteam.Id)">Pildyti naują teisėjo lapą</button>
+                            <button title="GetJP" class="btn btn-primary" (click)="GetAllJP(compteam.Id)">Komandos teisjėjo lapai</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+            </div>
+        </div>
+    </div>
+</div>
+

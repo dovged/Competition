@@ -13,7 +13,6 @@ namespace Competition.Controllers
 {
     public class TeamController : BaseAPIController
     {
-        [Authorize]
         public HttpResponseMessage Get()
         {
             ClaimsIdentity identity = (ClaimsIdentity)User.Identity;

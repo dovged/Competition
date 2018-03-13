@@ -11,7 +11,6 @@ namespace Competition.Controllers
 {
     public class PenaltyQuantityController : BaseAPIController
     {
-        [Authorize]
         public HttpResponseMessage Get(int id)
         {
             if (CompetitionDB.TblPenaltyQuantities.FirstOrDefault(x => x.Id == id) != null)

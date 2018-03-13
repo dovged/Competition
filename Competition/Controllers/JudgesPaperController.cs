@@ -13,7 +13,6 @@ namespace Competition.Controllers
 {
     public class JudgesPaperController : BaseAPIController
     {
-        [Authorize]
         /***/
         public HttpResponseMessage Get()
         {
@@ -24,6 +23,7 @@ namespace Competition.Controllers
             return Request.CreateResponse(HttpStatusCode.NotFound, "Empty list.");
         }
 
+ 
         [Authorize]
         /***/
         public HttpResponseMessage Get(int id)
@@ -47,28 +47,27 @@ namespace Competition.Controllers
 
             return Request.CreateResponse(HttpStatusCode.NotFound, "Item not found");
         }
-
         [Authorize]
         /***/
-        public HttpResponseMessage Post([FromBody]TblJudgesPaper value)
+        public HttpResponseMessage Post([FromBody]TblJudgesPaperKKT value)
         {
-            ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
+            /*ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
             string username = identity.Claims.First().Value;
-            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == username).Id.ToString();
-
+            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == username).Id.ToString();*/
+          /*  string accountId = "3";
             int UserId = Convert.ToInt32(CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id.ToString());
             if (CompetitionDB.TblCompJuds.FirstOrDefault(x => x.UserId == UserId) != null)
-            {
+            {*/
                 CompetitionDB.TblJudgesPapers.Add(value);
                 return ToJson(CompetitionDB.SaveChanges());
-            }
+           /* }
 
-            return Request.CreateResponse(HttpStatusCode.NotFound, "NO access!");
+            return Request.CreateResponse(HttpStatusCode.NotFound, "NO access!");*/
         }
 
-        [Authorize]
+ 
         /***/
-        public HttpResponseMessage Put(int id, [FromBody]TblJudgesPaper value)
+        public HttpResponseMessage Put(int id, [FromBody]TblJudgesPaperKKT value)
         {
 
             if (CompetitionDB.TblJudgesPapers.AsEnumerable() != null)
@@ -80,8 +79,7 @@ namespace Competition.Controllers
             return Request.CreateResponse(HttpStatusCode.NotFound, "Item not found.");
 
         }
-
-        [Authorize]
+        
         /***/
         public HttpResponseMessage Delete(int id)
         {

@@ -1,0 +1,32 @@
+﻿<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        Results
+    </div>
+    <div class='panel-body'>
+        <div class='table-responsive'>
+            <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+            <div *ngIf='results && results.length==0' class="alert alert-info" role="alert">Šiuo metu dar nėra rezultatų!</div>
+            <table class='table table-striped' *ngIf='results && results.length'>
+                <thead>
+                    <tr>
+                        <th>Vieta</th>
+                        <th>Komanda</th>
+                        <th>Bendras laikas</th>
+                        <th>Taškų suma</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let result of results">
+                        <td>{{result.Place}}</td>
+                        <td>{{result.TeamName}}</td>
+                        <td>{{result.TimeSum}}}</td>
+                        <td>{{result.PointsSum}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+            </div>
+        </div>
+    </div>
+</div>
+

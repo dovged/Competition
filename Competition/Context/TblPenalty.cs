@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Competition.Context
 {
@@ -12,5 +8,6 @@ namespace Competition.Context
         public int Id { get; set; }
         public string Name { get; set; }
         public int Points { get; set; }
+        public bool Active { get;  set; }
     }
 }

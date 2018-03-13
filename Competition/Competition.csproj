@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -46,10 +47,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -219,23 +220,36 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="AuthRepository.cs" />
+    <Compile Include="Context\TblClub.cs" />
     <Compile Include="Context\TblCompetition.cs" />
     <Compile Include="Context\DbContext.cs" />
-    <Compile Include="Context\TblCompJud.cs" />
-    <Compile Include="Context\TblCompTeam.cs" />
-    <Compile Include="Context\TblJudgesPaper.cs" />
+    <Compile Include="Context\TblCompJudClim.cs" />
+    <Compile Include="Context\TblCompJudKKT.cs" />
+    <Compile Include="Context\TblCompetitorsClimb.cs" />
+    <Compile Include="Context\TblCompetitorsKKT.cs" />
+    <Compile Include="Context\TblCompType.cs" />
+    <Compile Include="Context\TblJudgesPaperClim.cs" />
+    <Compile Include="Context\TblJudgesPaperKKT.cs" />
+    <Compile Include="Context\TblPaperType.cs" />
     <Compile Include="Context\TblPenalty.cs" />
     <Compile Include="Context\TblPenaltyQuantity.cs" />
-    <Compile Include="Context\TblRoute.cs" />
+    <Compile Include="Context\TblRole.cs" />
+    <Compile Include="Context\TblRouteClimb.cs" />
+    <Compile Include="Context\TblRouteKKT.cs" />
     <Compile Include="Context\TblTeam.cs" />
     <Compile Include="Context\TblTeamMember.cs" />
     <Compile Include="Context\TblUser.cs" />
+    <Compile Include="Context\TblUserRole.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseAPIController.cs" />
+    <Compile Include="Controllers\ClubController.cs" />
     <Compile Include="Controllers\CompetitionController.cs" />
     <Compile Include="Controllers\CompJudController.cs" />
+    <Compile Include="Controllers\CompTeamController.cs" />
+    <Compile Include="Controllers\CompTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JudgesPaperController.cs" />
+    <Compile Include="Controllers\PaperTypeController.cs" />
     <Compile Include="Controllers\PenaltyController.cs" />
     <Compile Include="Controllers\PenaltyQuantityController.cs" />
     <Compile Include="Controllers\ResultController.cs" />
@@ -245,20 +259,48 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\CompetitionModel.cs" />
-    <Compile Include="Models\CompJudModel.cs" />
-    <Compile Include="Models\CompTeamModel.cs" />
+    <Compile Include="Models\CompetitorsClimModel.cs" />
+    <Compile Include="Models\CompJudgeClimModel.cs" />
+    <Compile Include="Models\CompJudKKTModel.cs" />
+    <Compile Include="Models\CompetitionKKTModel.cs" />
+    <Compile Include="Models\CompetitorsKKTModel.cs" />
+    <Compile Include="Models\CompTypeModel.cs" />
     <Compile Include="Models\JudgesPaperModel.cs" />
+    <Compile Include="Models\PaperTypeModel.cs" />
     <Compile Include="Models\PenaltyModel.cs" />
     <Compile Include="Models\PenaltyQuantityModel.cs" />
     <Compile Include="Models\ResultModel.cs" />
-    <Compile Include="Models\RouteModel.cs" />
-    <Compile Include="Models\TeamMemberModel.cs" />
+    <Compile Include="Models\RouteKKTModel.cs" />
     <Compile Include="Models\TeamModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\apps.component.html" />
+    <Content Include="app\Components\accounts.component.html" />
+    <Content Include="app\Components\calendar.component.css" />
+    <Content Include="app\Components\calendar1.component.html" />
+    <TypeScriptCompile Include="app\Components\calendar2.component.ts" />
+    <Content Include="app\Components\judgesPaper.component.html" />
+    <Content Include="app\Components\login.component.html" />
+    <Content Include="app\Components\register.component.html" />
+    <Content Include="app\Components\route.component.html" />
+    <Content Include="app\Components\penalty.component.html" />
+    <Content Include="app\Components\results.component.html" />
+    <Content Include="app\Components\compteams.component.html" />
+    <Content Include="app\Components\user.component.css" />
+    <Content Include="app\Components\user.component.html" />
+    <Content Include="app\footer\footer.component.html" />
+    <TypeScriptCompile Include="app\Components\account.component.ts" />
+    <TypeScriptCompile Include="app\Components\judgesPaper.component.ts" />
+    <TypeScriptCompile Include="app\Components\login.component.ts" />
+    <TypeScriptCompile Include="app\Components\register.component.ts" />
+    <TypeScriptCompile Include="app\Components\route.component.ts" />
+    <TypeScriptCompile Include="app\Components\results.component.ts" />
+    <TypeScriptCompile Include="app\Components\compteams.component.ts" />
+    <TypeScriptCompile Include="app\Model\compTeam.ts" />
+    <TypeScriptCompile Include="app\Model\judgesPaper.ts" />
     <Content Include="App_Data\Competition.mdf" />
     <Content Include="App_Data\Competition_log.ldf">
       <DependentUpon>Competition.mdf</DependentUpon>
@@ -268,6 +310,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="images\climb.png" />
+    <Content Include="images\loading.gif" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -292,12 +336,15 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="package.json" />
+    <Content Include="app\Components\calendar2.component.html" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="systemjs.config.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -312,6 +359,16 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="tsconfig.json" />
+    <TypeScriptCompile Include="app\Model\login.ts" />
+    <TypeScriptCompile Include="app\Model\register.ts" />
+    <TypeScriptCompile Include="app\Model\results.ts" />
+    <TypeScriptCompile Include="app\Model\route.ts" />
+    <TypeScriptCompile Include="app\Service\compTeam.service.ts" />
+    <TypeScriptCompile Include="app\Service\identity.service.ts" />
+    <TypeScriptCompile Include="app\Service\results.service.ts" />
+    <TypeScriptCompile Include="app\Service\route.service.ts" />
+    <TypeScriptCompile Include="app\Shared\DataService.ts" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -329,11 +386,38 @@
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="app\app.component.ts" />
+    <TypeScriptCompile Include="app\app.module.ts" />
+    <TypeScriptCompile Include="app\app.routing.ts" />
+    <TypeScriptCompile Include="app\Components\calendar.component.ts" />
+    <TypeScriptCompile Include="app\Components\home.component.ts" />
+    <TypeScriptCompile Include="app\Components\penalty.component.ts" />
+    <TypeScriptCompile Include="app\Components\user.component.ts" />
+    <TypeScriptCompile Include="app\footer\footer.component.ts" />
+    <TypeScriptCompile Include="app\main.ts" />
+    <TypeScriptCompile Include="app\Model\competition.ts" />
+    <TypeScriptCompile Include="app\Model\penalty.ts" />
+    <TypeScriptCompile Include="app\Model\team.ts" />
+    <TypeScriptCompile Include="app\Model\user.ts" />
+    <TypeScriptCompile Include="app\Service\account.service.ts" />
+    <TypeScriptCompile Include="app\Service\calendor.service.ts" />
+    <TypeScriptCompile Include="app\Service\judgespaper.service.ts" />
+    <TypeScriptCompile Include="app\Service\penalty.service.ts" />
+    <TypeScriptCompile Include="app\Service\team.service.ts" />
+    <TypeScriptCompile Include="app\Service\user.service.ts" />
+    <TypeScriptCompile Include="app\Shared\enum.ts" />
+    <TypeScriptCompile Include="app\Shared\global.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">

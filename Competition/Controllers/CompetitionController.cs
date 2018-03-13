@@ -1,4 +1,5 @@
 ﻿using Competition.Context;
+using Competition.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -19,7 +20,8 @@ namespace Competition.Controllers
                 return ToJson(CompetitionDB.TblCompetitions.AsEnumerable());
             }
 
-            return Request.CreateResponse(HttpStatusCode.NotFound, "Empty list.");
+            List<RouteKKTModel> list = new List<RouteKKTModel>();
+            return ToJson(list);
 
         }
 
@@ -34,23 +36,22 @@ namespace Competition.Controllers
 
         }
 
-        [Authorize(Roles = "Org")]
         /** */
         public HttpResponseMessage Post([FromBody]TblCompetition value)
         {
             /** Prisikiriamas  TblUser Id */
-            ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
-            string username = identity.Claims.First().Value;
-            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == username).Id.ToString();
+            /* ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
+             string username = identity.Claims.First().Value;
+             string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == username).Id.ToString();
 
-            value.UserId = Convert.ToInt32(CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id.ToString());
-
+             value.UserId = Convert.ToInt32(CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id.ToString());
+             */
+            value.UserId = 3;
             CompetitionDB.TblCompetitions.Add(value);
             return ToJson(CompetitionDB.SaveChanges());
         }
 
         /***/
-        [Authorize(Roles = "Org")]
         public HttpResponseMessage Put(int id, [FromBody]TblCompetition value)
         {
             CompetitionDB.Entry(value).State = EntityState.Modified;

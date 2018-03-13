@@ -1,0 +1,35 @@
+﻿<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        Admin area
+    </div>
+    <div class='panel-body'>
+        <div class='table-responsive'>
+            <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+            <div *ngIf='users && users.length==0' class="alert alert-info" role="alert">Nėra užsiregistravusių dalyvių!</div>
+            <table class='table table-striped' *ngIf='users && users.length'>
+                <thead>
+                    <tr>
+                        <th>Vardas</th>
+                        <th>Pavardė</th>
+                        <th>Tel numeris</th>
+                        <th>E. pašto adresas</th>
+                        <th>Klubas</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of users">
+                        <td>{{user.Name}}</td>
+                        <td>{{user.LastName}}</td>
+                        <td>{{user.TelNumber}}</td>
+                        <td>{{user.Email}}</td>
+                        <td>{{user.Club}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+            </div>
+        </div>
+    </div>
+</div>
+

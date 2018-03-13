@@ -1,67 +1,78 @@
 ﻿using Competition.Context;
+using Competition.Models;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
 namespace Competition.Controllers
 {
+    [RoutePrefix("api/penalty")]
     public class PenaltyController : BaseAPIController
     {
+        /** Grąžina visų baudų sąrašą,
+         * tik tuos, kur Penalty.Active == true;*/
         public HttpResponseMessage Get()
         {
             if (CompetitionDB.TblPenalties.AsEnumerable() != null)
             {
-                return ToJson(CompetitionDB.TblPenalties.AsEnumerable());
+                 return ToJsonOK(CompetitionDB.TblPenalties.ToArray().Where(x => x.Active == true).Select(x => new PenaltyModel(x)).ToList());
             }
-            return Request.CreateResponse(HttpStatusCode.NotFound, "Empty list.");
 
+             return ToJsonNotFound("Sąrašas tuščias.");
         }
 
+        /** Grąžina vieną baudą,
+         * kuri yra Penalty.Active == true;*/
         public HttpResponseMessage Get(int id)
         {
-            if (CompetitionDB.TblPenalties.AsEnumerable() != null)
+            if (CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id && x.Active == true) != null)
             {
-                return ToJson(CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id));
+                return ToJsonOK(CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id));
             }
-            return Request.CreateResponse(HttpStatusCode.NotFound, "Item not found.");
 
+            return ToJsonNotFound("Objektas nerastas.");
         }
 
-        [Authorize(Roles = "Org")]
+        /** Pridedama nauja bauda*/
         public HttpResponseMessage Post([FromBody]TblPenalty value)
         {
             CompetitionDB.TblPenalties.Add(value);
-            return ToJson(CompetitionDB.SaveChanges());
+            CompetitionDB.SaveChanges();
+            return ToJsonCreated(value);
         }
 
-        [Authorize(Roles = "Org")]
+        /** Pakoreguojama bauda;
+          * galima koreguoti baudą, kuri yra duomenų bazėje ir yra Penalty.Active == true*/
         public HttpResponseMessage Put(int id, [FromBody]TblPenalty value)
         {
-            if (CompetitionDB.TblPenalties.AsEnumerable() != null)
+            if (CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id && x.Active == true) != null)
             {
                 CompetitionDB.Entry(value).State = EntityState.Modified;
-                return ToJson(CompetitionDB.SaveChanges());
+                CompetitionDB.SaveChanges();
+                return ToJsonOK(value);
             }
 
-            return Request.CreateResponse(HttpStatusCode.NotFound, "Item not found");
-
+            return ToJsonNotFound("Objektas nerastas.");
         }
 
-        [Authorize(Roles = "Org")]
+        /** Fiktyvus Delete metodas;
+          * Bauda padarome neaktyve;
+          * Penalty.Acrive == false;
+          * Tai galima padaryti tik daudai, kuri  yra duomenų bazėje ir yra Penalty.Active == true*/
         public HttpResponseMessage Delete(int id)
         {
-            if (CompetitionDB.TblPenalties.AsEnumerable() != null)
+            if (CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id && x.Active == true) != null)
             {
-                CompetitionDB.TblPenalties.Remove(CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id));
-                return ToJson(CompetitionDB.SaveChanges());
+                TblPenalty penalty = CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id);
+                penalty.Active = false;
+                CompetitionDB.Entry(penalty).State = EntityState.Modified;
+                CompetitionDB.SaveChanges();
+                return ToJson(penalty);
             }
 
-            return Request.CreateResponse(HttpStatusCode.NotFound, "Item not found.");
-
+            return ToJsonNotFound("Objektas nerastas.");
         }
     }
 }

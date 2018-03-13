@@ -13,10 +13,9 @@ namespace Competition.Controllers
 {
     public class UserController : BaseAPIController
     {
-        [Authorize(Roles = "Admin")]
         public HttpResponseMessage Get()
-        {
-            if (CompetitionDB.TblUsers.AsEnumerable() != null)
+        {            
+            if(CompetitionDB.TblUsers.AsEnumerable() != null)
             {
                 return ToJson(CompetitionDB.TblUsers.AsEnumerable());
             }
@@ -25,7 +24,6 @@ namespace Competition.Controllers
 
         }
 
-        [Authorize]
         /** Grazinama vieno User papildoma informacija*/
         public HttpResponseMessage Get(int id)
         {
@@ -38,21 +36,20 @@ namespace Competition.Controllers
 
         }
 
-        [Authorize]
+
         /** Uzpildoma User papildoma informacija */
         public HttpResponseMessage Post([FromBody]TblUser value)
         {
             /** Prisikiriamas Uzregistruoto User Id */
-            ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
+           /* ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
             string username = identity.Claims.First().Value;
             string id = CompetitionDB.Users.FirstOrDefault(x => x.UserName == username).Id.ToString();
-            value.UserId = id;
+            value.UserId = id;*/
             CompetitionDB.TblUsers.Add(value);
             return ToJson(CompetitionDB.SaveChanges());
         }
 
         /***/
-        [Authorize]
         public HttpResponseMessage Put(int id, [FromBody]TblUser value)
         {
             CompetitionDB.Entry(value).State = EntityState.Modified;

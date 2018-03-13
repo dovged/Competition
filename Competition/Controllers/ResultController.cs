@@ -15,15 +15,15 @@ namespace Competition.Controllers
         {
             if(CompetitionDB.TblCompetitions.FirstOrDefault(x => x.Id == id) != null)
             {
-                if (CompetitionDB.TblCompTeams.ToArray().Where(x => x.CompetitionId == id).Select(x=> new CompTeamModel(x)).ToList().Count != 0)
+                if (CompetitionDB.TblCompTeams.ToArray().Where(x => x.CompetitionId == id).Select(x=> new CompetitorsKKTModel(x)).ToList().Count != 0)
                 {
 
-                    List<CompTeamModel> compTeam = new List<CompTeamModel>();
+                    List<CompetitorsKKTModel> compTeam = new List<CompetitorsKKTModel>();
                     List<ResultModel> results = new List<ResultModel>();
-                    List<RouteModel> routes = new List<RouteModel>();
+                    List<RouteKKTModel> routes = new List<RouteKKTModel>();
 
-                    compTeam = CompetitionDB.TblCompTeams.ToArray().Where(x => x.CompetitionId == id).Select(x => new CompTeamModel(x)).ToList();
-                    routes = CompetitionDB.TblRoutes.ToArray().Where(x => x.CompetitionId == id).Select(x => new RouteModel(x)).ToList();
+                    compTeam = CompetitionDB.TblCompTeams.ToArray().Where(x => x.CompetitionId == id).Select(x => new CompetitorsKKTModel(x)).ToList();
+                    routes = CompetitionDB.TblRoutes.ToArray().Where(x => x.CompetitionId == id).Select(x => new RouteKKTModel(x)).ToList();
 
                     foreach (var ct in compTeam)
                     {
@@ -78,11 +78,18 @@ namespace Competition.Controllers
 
                     }
                     List<ResultModel> resultsOrder = results.OrderByDescending(x => x.PointsSum).ThenBy(x => x.TimeSum).ToList();
+                    int i = 1;
+                    foreach(ResultModel res in resultsOrder){
+                        res.Place = i;
+                        i++;
+                    }
+                    
                     return ToJson(resultsOrder.AsEnumerable());
                 }
             }
-            
-            return Request.CreateResponse(HttpStatusCode.NotFound, "No results.");
+
+            List<RouteKKTModel> list = new List<RouteKKTModel>();
+            return ToJson(list);
 
         }
 
