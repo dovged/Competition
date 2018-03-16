@@ -252,7 +252,8 @@
     <Compile Include="Controllers\PenaltyController.cs" />
     <Compile Include="Controllers\PenaltyQuantityController.cs" />
     <Compile Include="Controllers\ResultController.cs" />
-    <Compile Include="Controllers\RouteController.cs" />
+    <Compile Include="Controllers\RouteClimController.cs" />
+    <Compile Include="Controllers\RouteKKTController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\TeamMemberController.cs" />
     <Compile Include="Controllers\UserController.cs" />
