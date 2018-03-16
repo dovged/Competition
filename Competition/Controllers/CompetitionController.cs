@@ -8,6 +8,7 @@ using System.Web.Http;
 
 namespace Competition.Controllers
 {
+    [RoutePrefix("/api/competition")]
     public class CompetitionController : BaseAPIController
     {
         /** Grąžina visų varžybų sąrašą;*/

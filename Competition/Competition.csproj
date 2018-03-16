@@ -242,8 +242,9 @@
     <Compile Include="Controllers\BaseAPIController.cs" />
     <Compile Include="Controllers\ClubController.cs" />
     <Compile Include="Controllers\CompetitionController.cs" />
+    <Compile Include="Controllers\CompetitorsClimController.cs" />
     <Compile Include="Controllers\CompJudController.cs" />
-    <Compile Include="Controllers\CompTeamController.cs" />
+    <Compile Include="Controllers\CompetitorsKKTController.cs" />
     <Compile Include="Controllers\CompTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JudgesPaperController.cs" />
