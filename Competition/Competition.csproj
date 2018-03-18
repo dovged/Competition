@@ -245,7 +245,7 @@
     <Compile Include="Controllers\ClubController.cs" />
     <Compile Include="Controllers\CompetitionController.cs" />
     <Compile Include="Controllers\CompetitorsClimController.cs" />
-    <Compile Include="Controllers\CompJudController.cs" />
+    <Compile Include="Controllers\CompJudgeKKTController.cs" />
     <Compile Include="Controllers\CompetitorsKKTController.cs" />
     <Compile Include="Controllers\CompTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
