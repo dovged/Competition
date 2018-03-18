@@ -2,7 +2,7 @@
 
 namespace Competition.Models
 {
-    public class CompJudKKTModel
+    public class CompJudgeModel
     {
         public int Id { get; set; }
         public int UserId { get; set; }
@@ -11,7 +11,7 @@ namespace Competition.Models
         //Teisėjo vardas ir pavardė string formatu
         public string JudgeName { get; set; }
 
-        public CompJudKKTModel(TblCompJudKKT row)
+        public CompJudgeModel(TblCompJudKKT row)
         {
             Id = row.Id;
             UserId = row.UserId;
