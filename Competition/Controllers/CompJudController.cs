@@ -16,7 +16,7 @@ namespace Competition.Controllers
         public HttpResponseMessage Get()
         {
             int CompId = Convert.ToInt32(CompetitionDB.TblCompetitions.FirstOrDefault(x => x.Open == true).Id.ToString());
-            if (CompetitionDB.TblCompJuds.ToArray().Where(x => x.CompId == CompId).Select(x => new CompJudgeModel(x)).ToList().Count != 0)
+            if (CompetitionDB.TblCompJuds.ToArray().Where(x => x.CompId == CompId).Select(x => new CompJudgeKKTModel(x)).ToList().Count != 0)
             {
                 return ToJson(CompetitionDB.TblCompJuds.AsEnumerable());
             }

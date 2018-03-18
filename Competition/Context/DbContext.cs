@@ -26,7 +26,9 @@ namespace Competition.Context
         public DbSet<TblRouteKKT> TblRoutesKKT { get; set; }
         public DbSet<TblRouteClimb> TblRoutesClim { get; set; }
         public DbSet<TblTeam> TblTeams { get; set; }
-        public DbSet<TblCompJudge> TblCompJudges { get; set; }
+        public DbSet<TblCompJudgeClim> TblCompJudgesClim { get; set; }
+        public DbSet<TblJudgeRoute> TblJudgeRoutes { get; set; }
+        public DbSet<TblCompJudgeKKT> TblCompJudgesKKT { get; set; }
         public DbSet<TblPaperType> TblPaperTypes { get; set; }
         public DbSet<TblCompType> TblCompTypes { get; set; }
         public DbSet<TblClub> TblClubs { get; set; }

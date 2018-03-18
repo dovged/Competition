@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace Competition.Context
 {
-    [Table("TblCompJudg")]
-    public class TblCompJudge
+    [Table("TblJudgeRouteClimb")]
+    public class TblJudgeRoute
     {
-        [Key]
         public int Id { get; set; }
-        public int UserId { get; set; }
-        public int CompId { get; set; }
-        public string Group { get; set; }
+        public int JudgeId { get; set; }
         public int RouteId { get; set; }
     }
 }
