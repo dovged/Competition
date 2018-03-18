@@ -10,19 +10,23 @@ using System.Web.Http;
 
 namespace Competition.Controllers
 {
-    [RoutePrefix("/api/competition/id/judgesKKT")]
-    public class CompJudgeKKTController : BaseAPIController
+    [RoutePrefix("/api/competition/id/judgesClimb")]
+    public class CompJudgeClimbController : BaseAPIController
     {
         /** Grąžina sąrašą teisėjų pagal varžybų id*/
         public HttpResponseMessage Get(int compId)
         {
-            if (CompetitionDB.TblCompJudgesKKT.ToArray().Where(x => x.CompId == compId).Select(x => new CompJudgeKKTModel(x)).ToList().Count != 0)
+            if (CompetitionDB.TblCompJudgesClim.ToArray().Where(x => x.CompId == compId).Select(x => new CompJudgeClimModel(x)).ToList().Count != 0)
             {
-                List<CompJudgeKKTModel> judges = CompetitionDB.TblCompJudgesKKT.ToArray().Where(x => x.CompId == compId).Select(x => new CompJudgeKKTModel(x)).ToList();
-                foreach(CompJudgeKKTModel j in judges)
+                List<CompJudgeClimModel> judges = CompetitionDB.TblCompJudgesClim.ToArray().Where(x => x.CompId == compId).Select(x => new CompJudgeClimModel(x)).ToList();
+                foreach(CompJudgeClimModel j in judges)
                 {
                     j.JudgeName = "" + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == j.UserId).Name.ToString() + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == j.UserId).LastName.ToString();
-                    j.RouteName = CompetitionDB.TblRoutesKKT.FirstOrDefault(x => x.Id == j.RouteId).Name.ToString();
+                    j.Routes = CompetitionDB.TblJudgeRoutes.ToArray().Where(x => x.JudgeId == j.Id).Select(x => new JudgeRouteModel(x)).ToList();
+                    foreach(JudgeRouteModel r in j.Routes)
+                    {
+                        r.RouteNumber = CompetitionDB.TblRoutesClim.FirstOrDefault(x => x.Id == r.RouteId).Number;
+                    }
                 }
 
                 return ToJsonOK(judges);
@@ -36,10 +40,14 @@ namespace Competition.Controllers
         {
             if (CompetitionDB.TblCompJudgesKKT.FirstOrDefault(x => x.Id == JudgeId) != null)
             {
-                CompJudgeKKTModel judge = CompetitionDB.TblCompJudgesKKT.Where(x => x.Id == JudgeId).Select(x => new CompJudgeKKTModel(x)).FirstOrDefault();
+                CompJudgeClimModel judge = CompetitionDB.TblCompJudgesClim.Where(x => x.Id == JudgeId).Select(x => new CompJudgeClimModel(x)).FirstOrDefault();
                 judge.JudgeName = "" + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == judge.UserId).Name.ToString() + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == judge.UserId).LastName.ToString();
-                judge.RouteName = CompetitionDB.TblRoutesKKT.FirstOrDefault(x => x.Id == judge.RouteId).Name.ToString();
-                
+                judge.Routes = CompetitionDB.TblJudgeRoutes.ToArray().Where(x => x.JudgeId == judge.Id).Select(x => new JudgeRouteModel(x)).ToList();
+                foreach (JudgeRouteModel r in judge.Routes)
+                {
+                    r.RouteNumber = CompetitionDB.TblRoutesClim.FirstOrDefault(x => x.Id == r.RouteId).Number;
+                }
+
                 return ToJsonOK(judge);
             }
 
@@ -47,18 +55,18 @@ namespace Competition.Controllers
         }
 
         /** Sukuriama naujas teisėjas*/
-        public HttpResponseMessage Post([FromBody]TblCompJudgeKKT value)
+        public HttpResponseMessage Post([FromBody]TblCompJudgeClim value)
         {
-            CompetitionDB.TblCompJudgesKKT.Add(value);
+            CompetitionDB.TblCompJudgesClim.Add(value);
             CompetitionDB.SaveChanges();
 
             return ToJsonCreated(value);
         }
 
         /** Redaguojama teisėjo informacija*/
-        public HttpResponseMessage Put(int id, [FromBody]TblCompJudgeKKT value)
+        public HttpResponseMessage Put(int id, [FromBody]TblCompJudgeClim value)
         {
-            if (CompetitionDB.TblCompJudgesKKT.FirstOrDefault(x => x.Id == id) != null)
+            if (CompetitionDB.TblCompJudgesClim.FirstOrDefault(x => x.Id == id) != null)
             {
                 CompetitionDB.Entry(value).State = EntityState.Modified;
                 CompetitionDB.SaveChanges();
@@ -72,9 +80,9 @@ namespace Competition.Controllers
         /**Naikinamas teisėjas varžyboms*/
         public HttpResponseMessage Delete(int id)
         {
-            if (CompetitionDB.TblCompJudgesKKT.FirstOrDefault(x => x.Id == id) != null)
+            if (CompetitionDB.TblCompJudgesClim.FirstOrDefault(x => x.Id == id) != null)
             {
-                CompetitionDB.TblCompJudgesKKT.Remove(CompetitionDB.TblCompJudgesKKT.FirstOrDefault(x => x.Id == id));
+                CompetitionDB.TblCompJudgesClim.Remove(CompetitionDB.TblCompJudgesClim.FirstOrDefault(x => x.Id == id));
                 CompetitionDB.SaveChanges();
 
                 return ToJsonOK("Objetkas ištrintas");

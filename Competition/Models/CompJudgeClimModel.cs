@@ -12,7 +12,7 @@ namespace Competition.Models
 
         //Teisėjo vardas ir pavardė string formatu
         public string JudgeName { get; set; }
-        public List<JudgeRouteModel> Route { get; set; }
+        public List<JudgeRouteModel> Routes { get; set; }
 
         public CompJudgeClimModel(TblCompJudgeClim row)
         {
