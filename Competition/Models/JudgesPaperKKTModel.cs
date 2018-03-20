@@ -18,6 +18,8 @@ namespace Competition.Models
         public int PenaltySum { get; set; }
         public int Points { get; set; }
         public List<PenaltyQuantityModel> Penalties { get; set; }
+        public int TypeId { get; set; }
+        public string TypeName { get; set; }
 
         public JudgesPaperKKTModel()
         {
@@ -32,41 +34,7 @@ namespace Competition.Models
             RouteId = row.RouteId;
             TeamId = row.TeamId;
             Time = row.Time;
-        }
-
-        public void SetPenalties(List<PenaltyQuantityModel> penalties)
-        {
-            Penalties = penalties;
-        }
-
-        public void SetTimeWithPenalty(string time)
-        {
-            TimewithPenalty = time;
-        }
-
-        public void SetPoints(int points)
-        {
-            Points = points;
-        }
-
-        public void SetTime(string time)
-        {
-            Time = time;
-        }
-
-        public void SetPenalySum(int sum)
-        {
-            PenaltySum = sum;
-        }
-
-        public void SetRouteName(string name)
-        {
-            RouteName = name;
-        }
-
-        public void SetTeamName(string name)
-        {
-            TeamName = name;
+            TypeId = row.TypeId;
         }
     }
 }

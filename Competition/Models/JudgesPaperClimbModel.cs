@@ -19,13 +19,19 @@ namespace Competition.Models
         // Laipiotojo vardas ir pavardė string formatu;
         public string Climber { get; set; }
         public int PaperTypeId { get; set; }
+        public string TypeName { get; set; }
+        public int RouteId { get; set; }
+        public int RouteNumber { get; set; }
 
+        public JudgesPaperClimbModel() { }
         public JudgesPaperClimbModel(TblJudgesPaperClim row)
         {
             Id = row.Id;
             TopAttempt = row.TopAttempt;
             BonusAttempt = row.BonusAttempt;
             Date = row.Date;
+            PaperTypeId = row.TypeId;
+            RouteId = row.RouteId;
         }
     }
 }
