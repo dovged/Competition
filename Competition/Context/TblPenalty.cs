@@ -8,6 +8,6 @@ namespace Competition.Context
         public int Id { get; set; }
         public string Name { get; set; }
         public int Points { get; set; }
-        public bool Active { get;  set; }
+        public bool Yra { get;  set; }
     }
 }

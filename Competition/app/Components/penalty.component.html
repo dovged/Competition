@@ -1,17 +1,17 @@
 ﻿<div class='panel panel-primary'>
     <div class='panel-heading'>
-        Penalty Management
+        Baudų administravimas
     </div>
     <div class='panel-body'>
         <div class='table-responsive'>
-            <div style="padding-bottom:10px"><button class="btn btn-primary" (click)="addPenalty()">Add</button></div>
-            <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
-            <div *ngIf='penalties && penalties.length==0' class="alert alert-info" role="alert">No record found!</div>
+            <div style="padding-bottom:10px"><button class="btn btn-primary" (click)="addPenalty()">Pridėti naują</button></div>
+            <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /></div>
+            <div *ngIf='penalties && penalties.length==0' class="alert alert-info" role="alert">Šiuo metu nėra užregistruotų baudų!</div>
             <table class='table table-striped' *ngIf='penalties && penalties.length'>
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Points</th>
+                        <th>Pavadinimas</th>
+                        <th>Taškai</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -20,8 +20,8 @@
                         <td>{{penalty.Name}}</td>
                         <td>{{penalty.Points}}</td>
                         <td>
-                            <button title="Edit" class="btn btn-primary" (click)="editPenalty(penalty.Id)">Edit</button>
-                            <button title="Delete" class="btn btn-danger" (click)="deletePenalty(penalty.Id)">Delete</button>
+                            <button title="Redaguoti" class ="btn btn-info"> <span class="glyphicon glyphicon-edit" (click)="editPenalty(penalty.Id)"></span></button>
+                            <button title="Naikinti" class="btn btn-danger"> <span class="glyphicon glyphicon-remove"  (click)="deletePenalty(penalty.Id)"></span></button>
                         </td>
                     </tr>
                 </tbody>
@@ -46,18 +46,18 @@
         <modal-body>
             <div class="form-group">
                 <div>
-                    <span>Name*</span>
+                    <span>Pavadinimas*</span>
                     <input type="text" class="form-control" placeholder="Name" formControlName="Name">
                 </div>
                 <div>
-                    <span>Points</span>
+                    <span>Taškai*</span>
                     <input type="text" class="form-control" placeholder="Points" formControlName="Points">
                 </div>
             </div>
         </modal-body>
         <modal-footer>
             <div>
-                <a class="btn btn-default" (click)="modal.dismiss()">Cancel</a>
+                <button title="Atšaukti" class="btn btn-danger"> <span class="glyphicon glyphicon-remove" (click)="modal.dismiss()"></span></button>
                 <button type="submit" [disabled]="penaltyFrm.invalid" class="btn btn-primary">{{modalBtnTitle}}</button>
             </div>
         </modal-footer>

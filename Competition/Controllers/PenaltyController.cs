@@ -1,6 +1,7 @@
 ﻿using Competition.Context;
 using Competition.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net.Http;
@@ -8,7 +9,7 @@ using System.Web.Http;
 
 namespace Competition.Controllers
 {
-    [RoutePrefix("api/penalty")]
+    [RoutePrefix("api/penalty/")]
     public class PenaltyController : BaseAPIController
     {
         /** Grąžina visų baudų sąrašą,
@@ -17,7 +18,7 @@ namespace Competition.Controllers
         {
             if (CompetitionDB.TblPenalties.AsEnumerable() != null)
             {
-                 return ToJsonOK(CompetitionDB.TblPenalties.ToArray().Where(x => x.Active == true).Select(x => new PenaltyModel(x)).ToList());
+                 return ToJsonOK(CompetitionDB.TblPenalties.ToArray().Where(x => x.Yra == true).Select(x => new PenaltyModel(x)).ToList());
             }
 
              return ToJsonNotFound("Sąrašas tuščias.");
@@ -27,7 +28,7 @@ namespace Competition.Controllers
          * kuri yra Penalty.Active == true;*/
         public HttpResponseMessage Get(int id)
         {
-            if (CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id && x.Active == true) != null)
+            if (CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id && x.Yra == true) != null)
             {
                 return ToJsonOK(CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id));
             }
@@ -38,23 +39,23 @@ namespace Competition.Controllers
         /** Pridedama nauja bauda*/
         public HttpResponseMessage Post([FromBody]TblPenalty value)
         {
+            value.Yra = true;
             CompetitionDB.TblPenalties.Add(value);
-            CompetitionDB.SaveChanges();
-            return ToJsonCreated(value);
+            return ToJsonCreated(CompetitionDB.SaveChanges());
         }
 
         /** Pakoreguojama bauda;
           * galima koreguoti baudą, kuri yra duomenų bazėje ir yra Penalty.Active == true*/
         public HttpResponseMessage Put(int id, [FromBody]TblPenalty value)
         {
-            if (CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id && x.Active == true) != null)
-            {
+           /* if (CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id /**&& x.Active == true*//*) != null)
+            {*/
+                
                 CompetitionDB.Entry(value).State = EntityState.Modified;
-                CompetitionDB.SaveChanges();
-                return ToJsonOK(value);
-            }
+                return ToJsonOK(CompetitionDB.SaveChanges());
+           /* }
 
-            return ToJsonNotFound("Objektas nerastas.");
+            return ToJsonNotFound("Objektas nerastas.");*/
         }
 
         /** Fiktyvus Delete metodas;
@@ -63,13 +64,12 @@ namespace Competition.Controllers
           * Tai galima padaryti tik daudai, kuri  yra duomenų bazėje ir yra Penalty.Active == true*/
         public HttpResponseMessage Delete(int id)
         {
-            if (CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id && x.Active == true) != null)
+            if (CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id /**&& x.Active == true*/) != null)
             {
                 TblPenalty penalty = CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id);
-                penalty.Active = false;
+                penalty.Yra = false;
                 CompetitionDB.Entry(penalty).State = EntityState.Modified;
-                CompetitionDB.SaveChanges();
-                return ToJson(penalty);
+                return ToJsonOK(CompetitionDB.SaveChanges());
             }
 
             return ToJsonNotFound("Objektas nerastas.");

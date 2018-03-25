@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace Competition.Controllers
 {
+    [RoutePrefix("api/penaltyquantity")]
     public class PenaltyQuantityController : BaseAPIController
     {
         public HttpResponseMessage Get(int id)

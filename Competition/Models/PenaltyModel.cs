@@ -15,7 +15,7 @@ namespace Competition.Models
             Id = row.Id;
             Name = row.Name;
             Points = row.Points;
-            Active = row.Active;
+            Active = row.Yra;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Competition.Controllers
 
     public class ResultController : BaseAPIController
     {
-        public HttpResponseMessage Get(int id)
+      /*  public HttpResponseMessage Get(int id)
         {
             if(CompetitionDB.TblCompetitions.FirstOrDefault(x => x.Id == id) != null)
             {
@@ -104,7 +104,7 @@ namespace Competition.Controllers
          * @param time1 - routes maxtime;
          * @param time2 - teams time;
          */
-        public bool TimeCompare(string time1, string time2)
+      /*  public bool TimeCompare(string time1, string time2)
         {
 
             return TimeToSec(time1) >= TimeToSec(time2);
@@ -190,6 +190,6 @@ namespace Competition.Controllers
             }
 
             return points;
-        }
+        }*/
     }
 }

@@ -1,5 +1,6 @@
 ﻿export interface IPenalty {
     Id: number,
     Name: string,
-    Points: number
+    Points: number,
+    Active: boolean
 }

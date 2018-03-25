@@ -15,6 +15,6 @@ namespace Competition.Context
         public int MainRouteCreatorId { get; set; }
         public int MainJudgeId { get; set; }
         //Nustatyti ar laipiojimo varžybos (true), ar KKT varžybos (false);
-        public Boolean Type { get; set }
+        public Boolean Type { get; set; }
     }
 }

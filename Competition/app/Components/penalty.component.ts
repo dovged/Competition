@@ -31,7 +31,8 @@ export class PenaltyComponent implements OnInit {
         this.penaltyFrm = this.fb.group({
             Id: [''],
             Name: ['', Validators.required],
-            Points: ['', Validators.required]           
+            Points: ['', Validators.required],
+            Active: ['']
         });
         this.LoadPenalty();
     }
@@ -46,8 +47,8 @@ export class PenaltyComponent implements OnInit {
     addPenalty() {
         this.dbops = DBOperation.create;
         this.SetControlsState(true);
-        this.modalTitle = "Add New User";
-        this.modalBtnTitle = "Add";
+        this.modalTitle = "Pridėti naują baudą";
+        this.modalBtnTitle = "Išsaugoti";
         this.penaltyFrm.reset();
         this.modal.open();
     }
@@ -55,8 +56,8 @@ export class PenaltyComponent implements OnInit {
     editPenalty(id: number) {
         this.dbops = DBOperation.update;
         this.SetControlsState(true);
-        this.modalTitle = "Edit User";
-        this.modalBtnTitle = "Update";
+        this.modalTitle = "Redaguoti baudos duomenis";
+        this.modalBtnTitle = "Atnaujinti";
         this.penalty = this.penalties.filter(x => x.Id == id)[0];
         this.penaltyFrm.setValue(this.penalty);
         this.modal.open();
@@ -65,8 +66,8 @@ export class PenaltyComponent implements OnInit {
     deletePenalty(id: number) {
         this.dbops = DBOperation.delete;
         this.SetControlsState(false);
-        this.modalTitle = "Confirm to Delete?";
-        this.modalBtnTitle = "Delete";
+        this.modalTitle = "Patvirtinkite, kad norite ištrinti šią baudą";
+        this.modalBtnTitle = "Ištrinti";
         this.penalty = this.penalties.filter(x => x.Id == id)[0];
         this.penaltyFrm.setValue(this.penalty);
         this.modal.open();
@@ -81,11 +82,11 @@ export class PenaltyComponent implements OnInit {
                     data => {
                         if (data == 1) //Success
                         {
-                            this.msg = "Data successfully added.";
+                            this.msg = "Informacija sėkmingai išsaugota.";
                             this.LoadPenalty();
                         }
                         else {
-                            this.msg = "There is some issue in saving records, please contact to system administrator!"
+                            this.msg = "Dėl klaidos prašau kreiptis į administratorių!"
                         }
 
                         this.modal.dismiss();
@@ -100,11 +101,11 @@ export class PenaltyComponent implements OnInit {
                     data => {
                         if (data == 1) //Success
                         {
-                            this.msg = "Data successfully updated.";
+                            this.msg = "Informacija sėkmingai atnaujinta.";
                             this.LoadPenalty();
                         }
                         else {
-                            this.msg = "There is some issue in saving records, please contact to system administrator!"
+                            this.msg = "Dėl klaidos prašau kreiptis į administratorių!"
                         }
 
                         this.modal.dismiss();
@@ -119,11 +120,11 @@ export class PenaltyComponent implements OnInit {
                     data => {
                         if (data == 1) //Success
                         {
-                            this.msg = "Data successfully deleted.";
+                            this.msg = "Informacija sėkmingai ištrinta.";
                             this.LoadPenalty();
                         }
                         else {
-                            this.msg = "There is some issue in saving records, please contact to system administrator!"
+                            this.msg = "Dėl klaidos prašau kreiptis į administratorių!"
                         }
 
                         this.modal.dismiss();

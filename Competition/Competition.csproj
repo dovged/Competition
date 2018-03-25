@@ -259,8 +259,8 @@
     <Compile Include="Controllers\RouteClimController.cs" />
     <Compile Include="Controllers\RouteKKTController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
-    <Compile Include="Controllers\TeamMemberController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\CompetitionClimbModel.cs" />
     <Compile Include="Models\CompetitionModel.cs" />

@@ -25,7 +25,8 @@ var PenaltyComponent = (function () {
         this.penaltyFrm = this.fb.group({
             Id: [''],
             Name: ['', forms_1.Validators.required],
-            Points: ['', forms_1.Validators.required]
+            Points: ['', forms_1.Validators.required],
+            Active: ['']
         });
         this.LoadPenalty();
     };
@@ -38,16 +39,16 @@ var PenaltyComponent = (function () {
     PenaltyComponent.prototype.addPenalty = function () {
         this.dbops = enum_1.DBOperation.create;
         this.SetControlsState(true);
-        this.modalTitle = "Add New User";
-        this.modalBtnTitle = "Add";
+        this.modalTitle = "Pridėti naują baudą";
+        this.modalBtnTitle = "Išsaugoti";
         this.penaltyFrm.reset();
         this.modal.open();
     };
     PenaltyComponent.prototype.editPenalty = function (id) {
         this.dbops = enum_1.DBOperation.update;
         this.SetControlsState(true);
-        this.modalTitle = "Edit User";
-        this.modalBtnTitle = "Update";
+        this.modalTitle = "Redaguoti baudos duomenis";
+        this.modalBtnTitle = "Atnaujinti";
         this.penalty = this.penalties.filter(function (x) { return x.Id == id; })[0];
         this.penaltyFrm.setValue(this.penalty);
         this.modal.open();
@@ -55,8 +56,8 @@ var PenaltyComponent = (function () {
     PenaltyComponent.prototype.deletePenalty = function (id) {
         this.dbops = enum_1.DBOperation.delete;
         this.SetControlsState(false);
-        this.modalTitle = "Confirm to Delete?";
-        this.modalBtnTitle = "Delete";
+        this.modalTitle = "Patvirtinkite, kad norite ištrinti šią baudą";
+        this.modalBtnTitle = "Ištrinti";
         this.penalty = this.penalties.filter(function (x) { return x.Id == id; })[0];
         this.penaltyFrm.setValue(this.penalty);
         this.modal.open();
@@ -68,11 +69,11 @@ var PenaltyComponent = (function () {
             case enum_1.DBOperation.create:
                 this._penaltyService.post(global_1.Global.BASE_PENALTY_ENDPOINT, formData._value).subscribe(function (data) {
                     if (data == 1) {
-                        _this.msg = "Data successfully added.";
+                        _this.msg = "Informacija sėkmingai išsaugota.";
                         _this.LoadPenalty();
                     }
                     else {
-                        _this.msg = "There is some issue in saving records, please contact to system administrator!";
+                        _this.msg = "Dėl klaidos prašau kreiptis į administratorių!";
                     }
                     _this.modal.dismiss();
                 }, function (error) {
@@ -82,11 +83,11 @@ var PenaltyComponent = (function () {
             case enum_1.DBOperation.update:
                 this._penaltyService.put(global_1.Global.BASE_PENALTY_ENDPOINT, formData._value.Id, formData._value).subscribe(function (data) {
                     if (data == 1) {
-                        _this.msg = "Data successfully updated.";
+                        _this.msg = "Informacija sėkmingai atnaujinta.";
                         _this.LoadPenalty();
                     }
                     else {
-                        _this.msg = "There is some issue in saving records, please contact to system administrator!";
+                        _this.msg = "Dėl klaidos prašau kreiptis į administratorių!";
                     }
                     _this.modal.dismiss();
                 }, function (error) {
@@ -96,11 +97,11 @@ var PenaltyComponent = (function () {
             case enum_1.DBOperation.delete:
                 this._penaltyService.delete(global_1.Global.BASE_PENALTY_ENDPOINT, formData._value.Id).subscribe(function (data) {
                     if (data == 1) {
-                        _this.msg = "Data successfully deleted.";
+                        _this.msg = "Informacija sėkmingai ištrinta.";
                         _this.LoadPenalty();
                     }
                     else {
-                        _this.msg = "There is some issue in saving records, please contact to system administrator!";
+                        _this.msg = "Dėl klaidos prašau kreiptis į administratorių!";
                     }
                     _this.modal.dismiss();
                 }, function (error) {
