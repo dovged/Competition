@@ -10,12 +10,12 @@ import { DataService } from '../Shared/DataService';
 import { Router } from '@angular/router';
 
 @Component({
-    templateUrl: 'app/Components/calendar1.component.html',
+    templateUrl: 'app/Components/calendarForComp.component.html',
     styleUrls: ['app/Components/calendar.component.css']
 
 })
 
-export class CalendarComponent implements OnInit {
+export class CalendarForCompComponent implements OnInit {
 
     @ViewChild('modal') modal: ModalComponent;
     comps: ICompetition[];
@@ -46,43 +46,28 @@ export class CalendarComponent implements OnInit {
             error => this.msg = <any>error);
     }
 
-    addCompetition() {
+    registration(id: number, open: boolean) {
+        if (open) {
+            this.addRegistration(id);
+        }
+        else {
+            // TO DO
+        }
+
+    }
+
+    addRegistration(id: number) {
         this.dbops = DBOperation.create;
         this.SetControlsState(true);
-        this.modalTitle = "Regsitruoti varžybas";
-        this.modalBtnTitle = "Registruoti";
+        this.modalTitle = "Regsitruotis į varžybas";
+        this.modalBtnTitle = "Registruotis";
         this.compFrm.reset();
-        this.modal.open();
-    }
-
-    editComp(id: number) {
-        this.dbops = DBOperation.update;
-        this.SetControlsState(true);
-        this.modalTitle = "Redaguoti varžybų informaciją";
-        this.modalBtnTitle = "Redaguoti";
-        this.comp = this.comps.filter(x => x.Id == id)[0];
-        this.compFrm.setValue(this.comp);
-        this.modal.open();
-    }
-
-    deleteComp(id: number) {
-        this.dbops = DBOperation.delete;
-        this.SetControlsState(false);
-        this.modalTitle = "Patvirtinke naikinimą?";
-        this.modalBtnTitle = "Naikinti";
-        this.comp = this.comps.filter(x => x.Id == id)[0];
-        this.compFrm.setValue(this.comp);
         this.modal.open();
     }
 
     getResults(id: number) {
         this._dataService.saveData(id);
         this._router.navigate(['/results']);
-    }
-
-    getRoutes(id: number) {
-        this._dataService.saveData(id);
-        this._router.navigate(['/routes']);
     }
 
     onSubmit(formData: any) {

@@ -10,12 +10,12 @@ import { DataService } from '../Shared/DataService';
 import { Router } from '@angular/router';
 
 @Component({
-    templateUrl: 'app/Components/calendar2.component.html',
+    templateUrl: 'app/Components/calendarForOrg.component.html',
     styleUrls: ['app/Components/calendar.component.css']
 
 })
 
-export class Calendar2Component implements OnInit {
+export class CalendarForOrgComponent implements OnInit {
 
     @ViewChild('modal') modal: ModalComponent;
     comps: ICompetition[];
@@ -38,6 +38,15 @@ export class Calendar2Component implements OnInit {
         this._calendarService.get(Global.BASE_COMPETITION_ENDPOINT)
             .subscribe(comps => { this.comps = comps; this.indLoading = false; },
             error => this.msg = <any>error);
+    }
+
+    addCompetition() {
+        this.dbops = DBOperation.create;
+        this.SetControlsState(true);
+        this.modalTitle = "Regsitruoti varžybas";
+        this.modalBtnTitle = "Registruoti";
+        this.compFrm.reset();
+        this.modal.open();
     }
 
     getRoutes(id: number) {

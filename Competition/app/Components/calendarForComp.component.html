@@ -1,17 +1,17 @@
 ﻿<div class='panel panel-primary'>
     <div class='panel-heading'>
-        Calendar
+        Kalendorius
     </div>
     <div class='panel-body'>
         <div class='table-responsive'>
-            <div style="padding-bottom:10px"><button class="btn btn-primary" (click)="addCompetition()">Papildyti kalendorių</button></div>
-            <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loadinganimation2.gif" width="32" height="32" /> Loading...</div>
-            <div *ngIf='comps && comps.length==0' class="alert alert-info" role="alert">Nėra patvirtintas kalendorius!</div>
+            <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> </div>
+            <div *ngIf='comps && comps.length==0' class="alert alert-info" role="alert">Dar nėra patvirtintas kalendorius!</div>
             <table class='table table-striped' *ngIf='comps && comps.length'>
                 <thead>
                     <tr>
                         <th>Pavadinimas</th>
                         <th>Data</th>
+                        <th>Vieta</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -19,10 +19,10 @@
                     <tr *ngFor="let comp of comps">
                         <td>{{comp.Name}}</td>
                         <td>{{comp.Date}}</td>
+                        <td>{{comp.Club}}</td>
                         <td>
-                            <button title="Edit" class="btn btn-primary" (click)="editComp(comp.Id)">Redaguoti</button>
                             <button title="Results" class="btn btn-primary" (click)="getResults(comp.Id)">Rezultatai</button>
-                            <button title="Register" class="btn btn-primary" (click)="addTeamToComp(comp.Id, comp.UserId)">Registruotis</button>
+                            <button title="Register" class="btn btn-primary" *ngIf="comp.Open" (click)="addTeamToComp(comp.Id, comp.UserId)">Registruotis</button>
                         </td>
                     </tr>
                 </tbody>
@@ -49,7 +49,7 @@
             <div class="form-group">
                 <div>
                     <span>Pavadinimas*</span>
-                    <input type="text" class="form-control" formControlName="Name">
+                    <input type="radio" class="form-control" formControlName="Name">
                 </div>
                 <div>
                     <span>Data*</span>

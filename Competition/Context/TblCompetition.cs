@@ -12,9 +12,11 @@ namespace Competition.Context
         public string Name { get; set; }
         public DateTime Date { get; set; }
         public int OrgId { get; set; }
+        public int MainJugdeId { get; set; }
         public int MainRouteCreatorId { get; set; }
-        public int MainJudgeId { get; set; }
         //Nustatyti ar laipiojimo varžybos (true), ar KKT varžybos (false);
         public Boolean Type { get; set; }
+        // Nustatoma ar jau gali rezistruotis į varžybas
+        public Boolean Open { get; set; }
     }
 }

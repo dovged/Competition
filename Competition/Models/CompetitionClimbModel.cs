@@ -10,16 +10,18 @@ namespace Competition.Models
     {
         List<UserModel> Climbers { get; set; }
         List<RouteClimbModel> Routes { get; set; }
+        List<CompJudgeClimModel> Judges { get; set; }
 
         public CompetitionClimbModel(TblCompetition row)
+            : base(row)
         {
-            Id = row.Id;
+          /*  Id = row.Id;
             Name = row.Name;
             Date = row.Date;
             OrgId = row.OrgId;
             MainJudgeId = row.MainJudgeId;
             MainRouteCreatorId = row.MainRouteCreatorId;
-            Type = row.Type;
+            Type = row.Type;*/
         }
 
     }

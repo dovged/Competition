@@ -11,8 +11,8 @@ import { routing } from './app.routing';
 import { UserComponent } from './components/user.component';
 import { HomeComponent } from './components/home.component';
 import { FooterComponent } from './footer/footer.component';
-import { CalendarComponent } from './components/calendar.component';
-import { Calendar2Component } from './components/calendar2.component';
+import { CalendarForCompComponent } from './components/calendarForComp.component';
+import { CalendarForOrgComponent } from './components/calendarForOrg.component';
 import { PenaltyComponent } from './components/penalty.component';
 import { ResultsComponent } from './components/results.component';
 import { RouteComponent } from './components/route.component';
@@ -31,9 +31,9 @@ import { CompTeamService } from './Service/compTeam.service';
 
 @NgModule({
     imports: [BrowserModule, ReactiveFormsModule, HttpModule, routing, Ng2Bs3ModalModule],
-    declarations: [AppComponent, UserComponent, CalendarComponent, PenaltyComponent,
+    declarations: [AppComponent, UserComponent, CalendarForCompComponent, PenaltyComponent,
         HomeComponent, FooterComponent, ResultsComponent, RouteComponent,
-        Calendar2Component, CompTeamsComponent, LoginComponent, RegisterComponent],
+        CalendarForOrgComponent, CompTeamsComponent, LoginComponent, RegisterComponent],
     providers: [{ provide: APP_BASE_HREF, useValue: '/' }, UserService, PenaltyService, CalendarService, DataService, ResultsService, RouteService, CompTeamService],
     bootstrap: [AppComponent]
 

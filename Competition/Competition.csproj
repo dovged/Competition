@@ -289,8 +289,8 @@
     <Content Include="app\apps.component.html" />
     <Content Include="app\Components\accounts.component.html" />
     <Content Include="app\Components\calendar.component.css" />
-    <Content Include="app\Components\calendar1.component.html" />
-    <TypeScriptCompile Include="app\Components\calendar2.component.ts" />
+    <Content Include="app\Components\calendarForComp.component.html" />
+    <TypeScriptCompile Include="app\Components\calendarForOrg.component.ts" />
     <Content Include="app\Components\judgesPaper.component.html" />
     <Content Include="app\Components\login.component.html" />
     <Content Include="app\Components\register.component.html" />
@@ -346,7 +346,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="package.json" />
-    <Content Include="app\Components\calendar2.component.html" />
+    <Content Include="app\Components\calendarForOrg.component.html" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -399,7 +399,7 @@
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\app.routing.ts" />
-    <TypeScriptCompile Include="app\Components\calendar.component.ts" />
+    <TypeScriptCompile Include="app\Components\calendarForComp.component.ts" />
     <TypeScriptCompile Include="app\Components\home.component.ts" />
     <TypeScriptCompile Include="app\Components\penalty.component.ts" />
     <TypeScriptCompile Include="app\Components\user.component.ts" />

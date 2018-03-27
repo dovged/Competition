@@ -2,6 +2,13 @@
     Id: number,
     Name: string,
     Date: Date,
-    UserId: number,
+    OrgId: number,
+    OrgName: string,
+    RouteCId: number,
+    RouteCName: string,
+    JugDeId: number,
+    JudgeName: string,
+    Club: string,
+    Type: boolean,
     Open: boolean
 }

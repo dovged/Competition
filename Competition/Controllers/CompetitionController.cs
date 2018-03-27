@@ -1,5 +1,6 @@
 ﻿using Competition.Context;
 using Competition.Models;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -16,7 +17,12 @@ namespace Competition.Controllers
         {
             if (CompetitionDB.TblCompetitions.AsEnumerable() != null)
             {
-                return ToJsonOK(CompetitionDB.TblCompetitions.AsEnumerable());
+                List<CompetitionModel> comps = CompetitionDB.TblCompetitions.ToArray().Select(x => new CompetitionModel(x)).ToList();
+                foreach(CompetitionModel c in comps)
+                {
+                    c.Club = "kkc";//CompetitionDB.TblClubs.Find(CompetitionDB.TblUsers.Find(c.OrgId).ClubId).Name;
+                }
+                return ToJsonOK(comps);
             }
 
             return ToJsonNotFound("Sąrašas tuščias.");
@@ -25,6 +31,8 @@ namespace Competition.Controllers
         /** Grąžina vienų varžybų duomenis*/
         public HttpResponseMessage Get(int id)
         {
+            // TO DO
+            /** Atrušiuoti pagal prisijungusio vartotojo ID*/
             if (CompetitionDB.TblCompetitions.FirstOrDefault(x => x.Id == id) != null)
             {
                 return ToJsonOK(CompetitionDB.TblCompetitions.FirstOrDefault(x => x.Id == id));

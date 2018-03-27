@@ -18,8 +18,8 @@ var app_routing_1 = require("./app.routing");
 var user_component_1 = require("./components/user.component");
 var home_component_1 = require("./components/home.component");
 var footer_component_1 = require("./footer/footer.component");
-var calendar_component_1 = require("./components/calendar.component");
-var calendar2_component_1 = require("./components/calendar2.component");
+var calendarForComp_component_1 = require("./components/calendarForComp.component");
+var calendarForOrg_component_1 = require("./components/calendarForOrg.component");
 var penalty_component_1 = require("./components/penalty.component");
 var results_component_1 = require("./components/results.component");
 var route_component_1 = require("./components/route.component");
@@ -42,9 +42,9 @@ var AppModule = (function () {
 AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, forms_1.ReactiveFormsModule, http_1.HttpModule, app_routing_1.routing, ng2_bs3_modal_1.Ng2Bs3ModalModule],
-        declarations: [app_component_1.AppComponent, user_component_1.UserComponent, calendar_component_1.CalendarComponent, penalty_component_1.PenaltyComponent,
+        declarations: [app_component_1.AppComponent, user_component_1.UserComponent, calendarForComp_component_1.CalendarForCompComponent, penalty_component_1.PenaltyComponent,
             home_component_1.HomeComponent, footer_component_1.FooterComponent, results_component_1.ResultsComponent, route_component_1.RouteComponent,
-            calendar2_component_1.Calendar2Component, compteams_component_1.CompTeamsComponent, login_component_1.LoginComponent, register_component_1.RegisterComponent],
+            calendarForOrg_component_1.CalendarForOrgComponent, compteams_component_1.CompTeamsComponent, login_component_1.LoginComponent, register_component_1.RegisterComponent],
         providers: [{ provide: common_1.APP_BASE_HREF, useValue: '/' }, user_service_1.UserService, penalty_service_1.PenaltyService, calendor_service_1.CalendarService, DataService_1.DataService, results_service_1.ResultsService, route_service_1.RouteService, compTeam_service_1.CompTeamService],
         bootstrap: [app_component_1.AppComponent]
     })
