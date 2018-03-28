@@ -16,5 +16,6 @@ namespace Competition.Context
         public string Email { get; set; }
         public int ClubId { get; set; }
         public int TeamId { get; set; }
+        public string UserId { get; set; }
     }
 }

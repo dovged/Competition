@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Competition", "Competition\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{784CA846-6453-43AD-A982-E31BF6E9BCC3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngularJSAuthentication.Web", "..\Downloads\AngularJSAuthentication-master\AngularJSAuthentication-master\AngularJSAuthentication.Web\AngularJSAuthentication.Web.csproj", "{E4156422-2684-4222-95C2-4B9AE4CBA7E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngularJSAuthentication.ResourceServer", "..\Downloads\AngularJSAuthentication-master\AngularJSAuthentication-master\AngularJSAuthentication.ResourceServer\AngularJSAuthentication.ResourceServer.csproj", "{69BC6280-CF91-409C-81BF-28B95417ACBF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{784CA846-6453-43AD-A982-E31BF6E9BCC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{784CA846-6453-43AD-A982-E31BF6E9BCC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{784CA846-6453-43AD-A982-E31BF6E9BCC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4156422-2684-4222-95C2-4B9AE4CBA7E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4156422-2684-4222-95C2-4B9AE4CBA7E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4156422-2684-4222-95C2-4B9AE4CBA7E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4156422-2684-4222-95C2-4B9AE4CBA7E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69BC6280-CF91-409C-81BF-28B95417ACBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69BC6280-CF91-409C-81BF-28B95417ACBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69BC6280-CF91-409C-81BF-28B95417ACBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69BC6280-CF91-409C-81BF-28B95417ACBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

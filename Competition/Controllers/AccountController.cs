@@ -14,6 +14,7 @@ namespace Competition.Controllers
     public class AccountController : BaseAPIController
     {
         private AuthRepository _repo = null;
+        private RoleController conRole = null;
 
         public AccountController()
         {
@@ -38,7 +39,7 @@ namespace Competition.Controllers
             {
                 return errorResult;
             }
-            _repo.AddUserToRole(userModel.UserName, "Climber");
+
             return Ok();
         }
 

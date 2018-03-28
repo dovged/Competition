@@ -17,7 +17,11 @@ namespace Competition.Controllers
         {            
             if(CompetitionDB.TblUsers.AsEnumerable() != null)
             {
-                return ToJson(CompetitionDB.TblUsers.AsEnumerable());
+                ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
+                string username = identity.Claims.First().Value;
+                string id = CompetitionDB.Users.FirstOrDefault(x => x.UserName == username).Id.ToString();
+                // return ToJson(CompetitionDB.TblUsers.AsEnumerable());
+                return ToJsonOK(id);
             }
 
             return Request.CreateResponse(HttpStatusCode.NotFound, "Empty list.");
@@ -25,14 +29,18 @@ namespace Competition.Controllers
         }
 
         /** Grazinama vieno User papildoma informacija*/
-        public HttpResponseMessage Get(int id)
+        public HttpResponseMessage Get(int i)
         {
-            if (CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == id) != null)
-            {
-                return ToJson(CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == id));
-            }
+            ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
+            string username = identity.Claims.First().Value;
+            string id = CompetitionDB.Users.FirstOrDefault(x => x.UserName == username).Id.ToString();
+            /* if (CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == id) != null)
+             {
+                 return ToJsonOK(CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == id));
+             }*/
 
-            return Request.CreateResponse(HttpStatusCode.NotFound, "Item not found");
+            // return Request.CreateResponse(HttpStatusCode.NotFound, "Item not found");
+            return ToJsonOK(id);
 
         }
 
