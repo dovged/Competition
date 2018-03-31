@@ -10,20 +10,20 @@ using System.Web.Http;
 
 namespace Competition.Controllers
 {
-    [RoutePrefix("/api/competition/id/routeKKT/")]
     public class RouteKKTController : BaseAPIController
     {
         /** Grąžina visas vienų varžybų KKT trasas*/
+        [Route("api/competition/{compId}/routeKKT")]
         public HttpResponseMessage Get(int compId)
         {
             if (CompetitionDB.TblCompetitions.FirstOrDefault(x => x.Id == compId) != null)
             {
-                if (CompetitionDB.TblRoutesKKT.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteKKTModel(x)).ToList() != null)
-                {
+             /*   if (CompetitionDB.TblRoutesKKT.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteKKTModel(x)).ToList() != null)
+                {*/
                     return ToJsonOK(CompetitionDB.TblRoutesKKT.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteKKTModel(x)).ToList());
-                }
+              /*  }
 
-                return ToJsonNotFound("Tuščias sąrašas.");
+                return ToJsonNotFound("Tuščias sąrašas.");*/
             }
 
             return ToJsonNotFound("Tuščias sąrašas.");

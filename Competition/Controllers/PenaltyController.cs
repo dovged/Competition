@@ -14,7 +14,7 @@ namespace Competition.Controllers
     {
         /** Grąžina visų baudų sąrašą,
          * tik tuos, kur Penalty.Active == true;*/
-         [Authorize]
+        [Authorize]
         public HttpResponseMessage Get()
         {
             if (CompetitionDB.TblPenalties.AsEnumerable() != null)

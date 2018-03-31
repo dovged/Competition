@@ -1,0 +1,36 @@
+﻿
+<div class="row">
+    <div class="col-md-2">
+        &nbsp;
+    </div>
+    <div class="col-md-8">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Pavadinimas</th>
+                    <th>Data</th>
+                    <th>Vieta</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="comp in calendar">
+                    <td>
+                        {{ comp.Name }}
+                    </td>
+                    <td>
+                        {{ comp.Date }}
+                    </td>
+                    <td>
+                        {{ comp.Club }}
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-2">
+        &nbsp;
+    </div>
+</div>

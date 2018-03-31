@@ -45,18 +45,15 @@ namespace Competition.Controllers
         public HttpResponseMessage Post([FromBody]TblCompetition value)
         { 
             CompetitionDB.TblCompetitions.Add(value);
-            CompetitionDB.SaveChanges();
-
-            return ToJsonCreated(value);
+            return ToJsonCreated(CompetitionDB.SaveChanges());
         }
 
         /** Atnaujina varžybų duomenis*/
         public HttpResponseMessage Put(int id, [FromBody]TblCompetition value)
         {
             CompetitionDB.Entry(value).State = EntityState.Modified;
-            CompetitionDB.SaveChanges();
 
-            return ToJsonOK(value);
+            return ToJsonOK(CompetitionDB.SaveChanges());
         }
     }
 }

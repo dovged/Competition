@@ -252,6 +252,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JudgesPaperClimController.cs" />
     <Compile Include="Controllers\JudgesPaperKKTController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\PaperTypeController.cs" />
     <Compile Include="Controllers\PenaltyController.cs" />
     <Compile Include="Controllers\PenaltyQuantityController.cs" />
@@ -309,6 +310,7 @@
     <TypeScriptCompile Include="app\Components\route.component.ts" />
     <TypeScriptCompile Include="app\Components\results.component.ts" />
     <TypeScriptCompile Include="app\Components\compteams.component.ts" />
+    <TypeScriptCompile Include="app\Guard\auth.guard.ts" />
     <TypeScriptCompile Include="app\Model\compTeam.ts" />
     <TypeScriptCompile Include="app\Model\judgesPaper.ts" />
     <Content Include="App_Data\Competition.mdf" />
@@ -374,6 +376,8 @@
     <TypeScriptCompile Include="app\Model\register.ts" />
     <TypeScriptCompile Include="app\Model\results.ts" />
     <TypeScriptCompile Include="app\Model\route.ts" />
+    <TypeScriptCompile Include="app\Model\token.ts" />
+    <TypeScriptCompile Include="app\Service\auth.service.ts" />
     <TypeScriptCompile Include="app\Service\compTeam.service.ts" />
     <TypeScriptCompile Include="app\Service\identity.service.ts" />
     <TypeScriptCompile Include="app\Service\results.service.ts" />
