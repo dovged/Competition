@@ -288,31 +288,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\apps.component.html" />
-    <Content Include="app\Components\accounts.component.html" />
-    <Content Include="app\Components\calendar.component.css" />
-    <Content Include="app\Components\calendarForComp.component.html" />
-    <TypeScriptCompile Include="app\Components\calendarForOrg.component.ts" />
-    <Content Include="app\Components\judgesPaper.component.html" />
-    <Content Include="app\Components\login.component.html" />
-    <Content Include="app\Components\register.component.html" />
-    <Content Include="app\Components\route.component.html" />
-    <Content Include="app\Components\penalty.component.html" />
-    <Content Include="app\Components\results.component.html" />
-    <Content Include="app\Components\compteams.component.html" />
-    <Content Include="app\Components\user.component.css" />
-    <Content Include="app\Components\user.component.html" />
-    <Content Include="app\footer\footer.component.html" />
-    <TypeScriptCompile Include="app\Components\account.component.ts" />
-    <TypeScriptCompile Include="app\Components\judgesPaper.component.ts" />
-    <TypeScriptCompile Include="app\Components\login.component.ts" />
-    <TypeScriptCompile Include="app\Components\register.component.ts" />
-    <TypeScriptCompile Include="app\Components\route.component.ts" />
-    <TypeScriptCompile Include="app\Components\results.component.ts" />
-    <TypeScriptCompile Include="app\Components\compteams.component.ts" />
-    <TypeScriptCompile Include="app\Guard\auth.guard.ts" />
-    <TypeScriptCompile Include="app\Model\compTeam.ts" />
-    <TypeScriptCompile Include="app\Model\judgesPaper.ts" />
     <Content Include="App_Data\Competition.mdf" />
     <Content Include="App_Data\Competition_log.ldf">
       <DependentUpon>Competition.mdf</DependentUpon>
@@ -349,7 +324,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="package.json" />
-    <Content Include="app\Components\calendarForOrg.component.html" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -371,18 +345,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="tsconfig.json" />
-    <TypeScriptCompile Include="app\Model\login.ts" />
-    <TypeScriptCompile Include="app\Model\register.ts" />
-    <TypeScriptCompile Include="app\Model\results.ts" />
-    <TypeScriptCompile Include="app\Model\route.ts" />
-    <TypeScriptCompile Include="app\Model\token.ts" />
-    <TypeScriptCompile Include="app\Service\auth.service.ts" />
-    <TypeScriptCompile Include="app\Service\compTeam.service.ts" />
-    <TypeScriptCompile Include="app\Service\identity.service.ts" />
-    <TypeScriptCompile Include="app\Service\results.service.ts" />
-    <TypeScriptCompile Include="app\Service\route.service.ts" />
-    <TypeScriptCompile Include="app\Shared\DataService.ts" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -399,29 +361,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="app\app.component.ts" />
-    <TypeScriptCompile Include="app\app.module.ts" />
-    <TypeScriptCompile Include="app\app.routing.ts" />
-    <TypeScriptCompile Include="app\Components\calendarForComp.component.ts" />
-    <TypeScriptCompile Include="app\Components\home.component.ts" />
-    <TypeScriptCompile Include="app\Components\penalty.component.ts" />
-    <TypeScriptCompile Include="app\Components\user.component.ts" />
-    <TypeScriptCompile Include="app\footer\footer.component.ts" />
-    <TypeScriptCompile Include="app\main.ts" />
-    <TypeScriptCompile Include="app\Model\competition.ts" />
-    <TypeScriptCompile Include="app\Model\penalty.ts" />
-    <TypeScriptCompile Include="app\Model\team.ts" />
-    <TypeScriptCompile Include="app\Model\user.ts" />
-    <TypeScriptCompile Include="app\Service\account.service.ts" />
-    <TypeScriptCompile Include="app\Service\calendor.service.ts" />
-    <TypeScriptCompile Include="app\Service\judgespaper.service.ts" />
-    <TypeScriptCompile Include="app\Service\penalty.service.ts" />
-    <TypeScriptCompile Include="app\Service\team.service.ts" />
-    <TypeScriptCompile Include="app\Service\user.service.ts" />
-    <TypeScriptCompile Include="app\Shared\enum.ts" />
-    <TypeScriptCompile Include="app\Shared\global.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

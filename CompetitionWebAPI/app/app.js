@@ -43,6 +43,11 @@ app.config(function ($routeProvider) {
         templateUrl: "app/views/penaltyModal.html"
     });
 
+    $routeProvider.when("/competitionOrg", {
+        controller: "competitionController",
+        templateUrl: "app/competition/competitionList.html"
+    });
+
     $routeProvider.otherwise({ redirectTo: "/home" });
 
 });

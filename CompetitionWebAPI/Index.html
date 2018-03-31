@@ -19,10 +19,12 @@
             </div>
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
-                    <li data-ng-hide="!authentication.isAuth"><a  class="glyphicon glyphicon-user" href="#/user"></a></li>
+                    
                     <li data-ng-hide="!authentication.isAuth"><a href="#/penalties">Baudų adminsitravimas</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/orders">My Orders</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/calendar">Kalendorius</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="#/competitionOrg">Varžybos</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a class="glyphicon glyphicon-user" href="#/user"></a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Logout</a></li>
                     <li data-ng-hide="authentication.isAuth"> <a href="#/login">Login</a></li>
                     <li data-ng-hide="authentication.isAuth"> <a href="#/signup">Sign Up</a></li>
@@ -62,6 +64,7 @@
     <script src="app/services/calendarService.js"></script>
     <script src="app/services/userService.js"></script>
     <script src="app/services/penaltyService.js"></script>
+    <script src="app/competition/competitionService.js"></script>
 
     <!-- Load controllers -->
     <script src="app/controllers/indexController.js"></script>
@@ -72,6 +75,7 @@
     <script src="app/controllers/calendarController.js"></script>
     <script src="app/controllers/userController.js"></script>
     <script src="app/controllers/penaltyController.js"></script>
+    <script src="app/competition/competitionController.js"></script>
 
 </body>
 </html>

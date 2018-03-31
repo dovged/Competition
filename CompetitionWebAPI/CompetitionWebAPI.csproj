@@ -148,6 +148,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\competition\competitionController.js" />
+    <Content Include="app\competition\competitionList.html" />
+    <Content Include="app\competition\competitionService.js" />
     <Content Include="app\controllers\calendarController.js" />
     <Content Include="app\controllers\homeController.js" />
     <Content Include="app\controllers\indexController.js" />
