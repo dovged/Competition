@@ -7,12 +7,20 @@ app.factory('competitionService', ['$http', 'authService', function ($http, auth
 
     var _getCompetitionList = function () {
 
-        return $http.get(serviceBase + 'api/competition/' + user + '/1').then(function (results) {
+       return $http.get(serviceBase + 'api/competition/' + user + '/1').then(function (results) {
+            return results;
+        });
+    };
+
+    var _getCompetitionListAll = function () {
+
+        return $http.get(serviceBase + 'api/competition/').then(function (results) {
             return results;
         });
     };
 
     competitionServiceFactory.getCompetitionList = _getCompetitionList;
+    competitionServiceFactory.getCompetitionListAll = _getCompetitionListAll;
 
     return competitionServiceFactory;
 

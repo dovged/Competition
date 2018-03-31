@@ -48,6 +48,16 @@ app.config(function ($routeProvider) {
         templateUrl: "app/competition/competitionList.html"
     });
 
+    $routeProvider.when("/admin", {
+        controller: "adminController",
+        templateUrl: "app/admin/userList.html"
+    });
+
+    $routeProvider.when("/trainer", {
+        controller: "trainerController",
+        templateUrl: "app/trainer/trainerMain.html"
+    });
+
     $routeProvider.otherwise({ redirectTo: "/home" });
 
 });

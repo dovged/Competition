@@ -1,6 +1,13 @@
 ﻿<h2>
-    Kalendorius
+    Trenerių erdvė
 </h2>
+<br>
+<td>
+    <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>    Užregistruoti naują</button>
+    <a href="" type="button" class="btn btn-info">Varžybų registracija</a>
+
+</td>
+
 <br> <br>
 <div class="row">
     <div class="col-md-2">
@@ -10,21 +17,21 @@
         <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>Pavadinimas</th>
-                    <th>Data</th>
-                    <th>Vieta</th>
+                    <th>Vardas</th>
+                    <th>Pavardė</th>
+                    <th>Gimimo metai</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr data-ng-repeat="competition in competitionList">
+               <!-- <tr data-ng-repeat="competition in competitionList">
                     <td> {{ competition.Name }} </td>
                     <td> {{ competition.Date }} </td>
                     <td> {{ competition.Club }} </td>
                     <td>
                         <button type="button" class="btn btn-info"><span class="glyphicon glyphicon-list"></span> Informacija</button>
                     </td>
-                </tr>
+                </tr>-->
             </tbody>
         </table>
     </div>

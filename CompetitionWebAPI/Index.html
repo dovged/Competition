@@ -15,15 +15,14 @@
                 <button class="btn btn-success navbar-toggle" data-ng-click="navbarExpanded = !navbarExpanded">
                     <span class="glyphicon glyphicon-chevron-down"></span>
                 </button>
-                <a class="navbar-brand" href="">Home</a>
+                <a class="navbar-brand glyphicon glyphicon-home" href="#/home"></a>
             </div>
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
-                    
-                    <li data-ng-hide="!authentication.isAuth"><a href="#/penalties">Baudų adminsitravimas</a></li>
-                    <li data-ng-hide="!authentication.isAuth"><a href="#/orders">My Orders</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/calendar">Kalendorius</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="#/trainer">Treneriams</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/competitionOrg">Varžybos</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="#/admin">Vartotojai</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a class="glyphicon glyphicon-user" href="#/user"></a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Atsijungti</a></li>
                     <li data-ng-hide="authentication.isAuth"> <a href="#/login">Prisijungti</a></li>
@@ -65,6 +64,8 @@
     <script src="app/services/userService.js"></script>
     <script src="app/penalty/penaltyService.js"></script>
     <script src="app/competition/competitionService.js"></script>
+    <script src="app/admin/adminService.js"></script>
+    <script src="app/trainer/trainerService.js"></script>
 
     <!-- Load controllers -->
     <script src="app/controllers/indexController.js"></script>
@@ -76,6 +77,8 @@
     <script src="app/controllers/userController.js"></script>
     <script src="app/penalty/penaltyController.js"></script>
     <script src="app/competition/competitionController.js"></script>
+    <script src="app/admin/adminController.js"></script>
+    <script src="app/trainer/trainerController.js"></script>
 
 </body>
 </html>

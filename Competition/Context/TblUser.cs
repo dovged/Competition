@@ -17,5 +17,6 @@ namespace Competition.Context
         public int ClubId { get; set; }
         public int TeamId { get; set; }
         public string UserId { get; set; }
+        public Boolean Active { get; set; }
     }
 }

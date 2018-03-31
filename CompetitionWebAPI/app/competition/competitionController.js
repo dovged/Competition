@@ -2,9 +2,7 @@
 app.controller('competitionController', ['$scope', 'competitionService', function ($scope, competitionService) {
 
     $scope.competitionList = [];
-   
-
-
+  
     // užkraunamas varžybų sąrašas;
  
         competitionService.getCompetitionList().then(function (results) {

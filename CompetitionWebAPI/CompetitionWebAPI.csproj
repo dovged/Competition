@@ -147,11 +147,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\admin\adminController.js" />
+    <Content Include="app\admin\adminService.js" />
+    <Content Include="app\admin\userList.html" />
     <Content Include="app\app.js" />
+    <Content Include="app\calendar\calendarService.js" />
     <Content Include="app\competition\competitionController.js" />
     <Content Include="app\competition\competitionList.html" />
     <Content Include="app\competition\competitionService.js" />
-    <Content Include="app\controllers\calendarController.js" />
+    <Content Include="app\calendar\calendarController.js" />
     <Content Include="app\controllers\homeController.js" />
     <Content Include="app\controllers\indexController.js" />
     <Content Include="app\controllers\loginController.js" />
@@ -161,11 +165,15 @@
     <Content Include="app\controllers\userController.js" />
     <Content Include="app\services\authInterceptorService.js" />
     <Content Include="app\services\authService.js" />
-    <Content Include="app\services\calendarService.js" />
     <Content Include="app\services\ordersService.js" />
     <Content Include="app\penalty\penaltyService.js" />
     <Content Include="app\services\userService.js" />
-    <Content Include="app\views\calendar.html" />
+    <Content Include="app\calendar\calendar.html" />
+    <Content Include="app\trainer\compTrainerController.js" />
+    <Content Include="app\trainer\compTrainer.html" />
+    <Content Include="app\trainer\trainerController.js" />
+    <Content Include="app\trainer\trainerMain.html" />
+    <Content Include="app\trainer\trainerService.js" />
     <Content Include="app\views\home.html" />
     <Content Include="app\views\login.html" />
     <Content Include="app\views\orders.html" />
@@ -182,6 +190,7 @@
     <Content Include="content\css\social-buttons.css" />
     <Content Include="content\fonts\fontawesome-webfont.svg" />
     <Content Include="content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="content\images\climbing.jpg" />
     <Content Include="content\ui-bootstrap-csp.css" />
     <Content Include="favicon.ico" />
     <Content Include="Index.html" />

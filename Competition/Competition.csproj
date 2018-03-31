@@ -279,6 +279,7 @@
     <Compile Include="Models\PenaltyModel.cs" />
     <Compile Include="Models\PenaltyQuantityModel.cs" />
     <Compile Include="Models\ResultModel.cs" />
+    <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\RouteClimbModel.cs" />
     <Compile Include="Models\RouteKKTModel.cs" />
     <Compile Include="Models\TeamModel.cs" />

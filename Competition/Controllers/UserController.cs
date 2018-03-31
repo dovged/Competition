@@ -1,4 +1,5 @@
 ﻿using Competition.Context;
+using Competition.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -13,11 +14,24 @@ namespace Competition.Controllers
 {
     public class UserController : BaseAPIController
     {
+        /** Grąžinami visi aktyvūs vartotojais su jų pagrindine informacija*/
+        [Route("api/user")]
         public HttpResponseMessage Get()
         {            
             if(CompetitionDB.TblUsers.AsEnumerable() != null)
             {
-                return ToJson(CompetitionDB.TblUsers.AsEnumerable());
+                List<UserModel> users = CompetitionDB.TblUsers.ToArray().Where(x => x.Active == true).Select(x => new UserModel(x)).ToList();
+                foreach(UserModel u in users)
+                {
+                    u.Club = CompetitionDB.TblClubs.Find(u.ClubId).Name;
+                    List<RoleModel> roles = CompetitionDB.TblUserRoles.ToArray().Where(x => x.UserId == u.Id).Select(x => new RoleModel(x)).ToList();
+                    foreach(RoleModel r in roles)
+                    {
+                        r.RoleName = CompetitionDB.TblRoles.Find(r.RoleId).Name;
+                    }
+                    u.roles = roles;
+                }
+                return ToJsonOK(users);
             }
 
             return Request.CreateResponse(HttpStatusCode.NotFound, "Empty list.");

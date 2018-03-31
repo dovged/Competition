@@ -1,0 +1,58 @@
+﻿<h2>
+    Vartotojų sąrašas
+</h2>
+<br> <br>
+<div class="row">
+    <div class="col-md-2">
+        &nbsp;
+    </div>
+    <div class="col-md-8">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Vardas</th>
+                    <th>Pavardė</th>
+                    <th>Klubas</th>
+                    <th colspan="7">Rolės</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="user in userList">
+                    <td> {{ user.Name }} </td>
+                    <td> {{ user.LastName }} </td>
+                    <td> {{ user.Club }} </td>
+                    <td data-ng-repeat="role in user.roles">
+                         {{role.RoleName}} 
+                        <button title="Naikinti" class="btn btn-danger" style="padding: 3px 4px; float:right"><span class="glyphicon glyphicon-remove"></span></button>
+                    </td>
+                    <td>
+                        <button title="Pridėti" class="btn btn-success" style="padding: 3px 4px; float:right" ng-click="AddRole()"><span class="glyphicon glyphicon-plus"></span></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-2">
+        &nbsp;
+    </div>
+</div>
+
+    <div class="modal" data-ng-hide="!openModalAdd">
+        <div class="modal-header" [show-close]="true">
+            <h4>Pridėti naują rolę</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <div>
+                    <span>Pavadinimas*</span>
+                    <input type="text" class="form-control" placeholder="Name" formControlName="Name">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div>
+                <button title="Atšaukti" class="btn btn-danger"> <span class="glyphicon glyphicon-remove" (click)="modal.dismiss()"></span></button>
+                <button type="submit"  class="btn btn-primary">Pridėti</button>
+            </div>
+        </div>
+    </div>
