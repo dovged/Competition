@@ -1,14 +1,14 @@
 ﻿'use strict';
 app.controller('penaltyController', ['$scope', 'penaltyService', function ($scope, penaltyService) {
 
-    $scope.penalties = [];
-    loadPenalties();
+    $scope.penaltyList = [];
+    loadPenaltyList();
 
     // Užkraunami duomenys į lentelę
-    function loadPenalties() {
-         penaltyService.getPenalties().then(function (results) {
+    function loadPenaltyList() {
+         penaltyService.getPenaltyList().then(function (results) {
 
-                $scope.penalties = results.data;
+                $scope.penaltyList = results.data;
 
           }, function (error) {
                 //alert(error.data.message);

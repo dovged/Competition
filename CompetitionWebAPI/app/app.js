@@ -25,7 +25,7 @@ app.config(function ($routeProvider) {
 
     $routeProvider.when("/calendar", {
         controller: "calendarController",
-        templateUrl: "/app/views/calendar.html"
+        templateUrl: "/app/calendar/calendar.html"
     });
 
     $routeProvider.when("/user", {
@@ -35,7 +35,7 @@ app.config(function ($routeProvider) {
 
     $routeProvider.when("/penalties", {
         controller: "penaltyController",
-        templateUrl: "app/views/penalties.html"
+        templateUrl: "app/penalty/penalties.html"
     });
 
     $routeProvider.when("/addNew", {

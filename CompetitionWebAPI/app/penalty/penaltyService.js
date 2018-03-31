@@ -5,7 +5,7 @@ app.factory('penaltyService', function ($http) {
     var penaltyServiceFactory = {};
 
     // Grąžinti sąrašą
-    var _getPenalties = function () {
+    var _getPenaltyList = function () {
 
         return $http.get(serviceBase + "api/penalty").then(function (results) {
             return results;
@@ -48,7 +48,7 @@ app.factory('penaltyService', function ($http) {
         return deleterequest;
     }
 
-    penaltyServiceFactory.getPenalties = _getPenalties;
+    penaltyServiceFactory.getPenaltyList = _getPenaltyList;
     penaltyServiceFactory.add = _add;
     penaltyServiceFactory.get = _get;
     penaltyServiceFactory.update = _update;
