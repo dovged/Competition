@@ -39,24 +39,20 @@ namespace Competition.Controllers
         }
 
         /** Grazinama vieno User papildoma informacija*/
-        public HttpResponseMessage Get(int i)
+        [Route("api/user/{userName}")]
+        public HttpResponseMessage Get(string userName)
         {
-             ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
-             string username = identity.Claims.First().Value;
-             string id = CompetitionDB.Users.FirstOrDefault(x => x.UserName == username).Id.ToString();
-            if (CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == id) != null)
+            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
+            if(CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id != 0)
             {
-                return ToJsonOK(CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == id));
+                int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
+           
+                return ToJsonOK(CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == id));
             }
-            else
-            {
-                TblUser user = new TblUser();
-                user.Email = CompetitionDB.Users.FirstOrDefault(x => x.Id == id).UserName;
-                user.UserId = id;
 
-                return ToJsonOK(user);
-            }
+            return ToJsonNotFound("Objektas nerastas.");
         }
+
         /** Grąžinami visi nepilnamečiai dalyviai, pagal vieną trenerį (LAIPIOJIMAS)*/
         [Route("api/user/{user}/{n}")]
         public HttpResponseMessage Get(string user, int n)
@@ -69,24 +65,44 @@ namespace Competition.Controllers
         }
 
         /** Uzpildoma User papildoma informacija */
-        public HttpResponseMessage Post([FromBody]TblUser value)
+        [Route("api/user/{userName}")]
+        public HttpResponseMessage Post(string userName)
         {
-            /** Prisikiriamas Uzregistruoto User Id */
-           /* ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
-            string username = identity.Claims.First().Value;
-            string id = CompetitionDB.Users.FirstOrDefault(x => x.UserName == username).Id.ToString();
-            value.UserId = id;*/
-            CompetitionDB.TblUsers.Add(value);
-            return ToJson(CompetitionDB.SaveChanges());
+            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
+            TblUser user = new TblUser();
+            user.Email = userName;
+            user.UserId = accountId;
+            user.Active = true;
+            CompetitionDB.TblUsers.Add(user);
+            return ToJsonCreated(CompetitionDB.SaveChanges());
         }
 
-        /***/
-        public HttpResponseMessage Put(int id, [FromBody]TblUser value)
+        /** Atnujinama vartotojo informacija*/
+        [Route("api/user/{user}")]
+        public HttpResponseMessage Put(string user, [FromBody]TblUser value)
         {
             CompetitionDB.Entry(value).State = EntityState.Modified;
-            return ToJson(CompetitionDB.SaveChanges());
+            return ToJsonOK(CompetitionDB.SaveChanges());
 
         }
 
+        /** Fiktyvus Delete metodas;
+          * Tai galima padaryti tik vartotojui, kuris yra duomenų bazėje ir yra User.Active == true*/
+          [Route("api/user/{userName}")]
+        public HttpResponseMessage Delete(string userName)
+        {
+            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
+            int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
+
+            if (CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == id && x.Active == true) != null)
+            {                
+                TblUser user = CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == id);
+                user.Active = false;
+                CompetitionDB.Entry(user).State = EntityState.Modified;
+                return ToJsonOK(CompetitionDB.SaveChanges());
+            }
+
+            return ToJsonNotFound("Objektas nerastas.");
+        }
     }
 }

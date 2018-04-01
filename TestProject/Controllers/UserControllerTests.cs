@@ -14,6 +14,9 @@ namespace Competition.Controllers.Tests
         [TestMethod()]
         public void GetTest()
         {
+            var con = new UserController();
+            var response = con.Get();
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
 
             Assert.Fail();
         }
