@@ -18,5 +18,7 @@ namespace Competition.Context
         public int TeamId { get; set; }
         public string UserId { get; set; }
         public Boolean Active { get; set; }
+        public int TrainerId { get; set; }
+        public DateTime BirthYear { get; set; }
     }
 }

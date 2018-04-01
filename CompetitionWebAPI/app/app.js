@@ -58,6 +58,11 @@ app.config(function ($routeProvider) {
         templateUrl: "app/trainer/trainerMain.html"
     });
 
+    $routeProvider.when("/results", {
+        controller: "resultsController",
+        templateUrl: "app/calendar/results.html"
+    });
+
     $routeProvider.otherwise({ redirectTo: "/home" });
 
 });

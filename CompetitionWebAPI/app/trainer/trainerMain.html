@@ -24,14 +24,15 @@
                 </tr>
             </thead>
             <tbody>
-               <!-- <tr data-ng-repeat="competition in competitionList">
-                    <td> {{ competition.Name }} </td>
-                    <td> {{ competition.Date }} </td>
-                    <td> {{ competition.Club }} </td>
+                <tr data-ng-repeat="user in userList">
+                    <td> {{ user.Name }} </td>
+                    <td> {{ user.LastName }} </td>
+                    <td> {{ user.BirthYear }} </td>
                     <td>
-                        <button type="button" class="btn btn-info"><span class="glyphicon glyphicon-list"></span> Informacija</button>
+                        <button title="Redaguoti" class="btn btn-info" style="padding: 10px 12px"> <span class="glyphicon glyphicon-edit"></span></button>
+                        <button title="Naikinti" class="btn btn-danger" style="padding: 10px 12px"><span class="glyphicon glyphicon-remove"></span></button>
                     </td>
-                </tr>-->
+                </tr>
             </tbody>
         </table>
     </div>

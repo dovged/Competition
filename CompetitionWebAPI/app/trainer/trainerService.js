@@ -5,6 +5,14 @@ app.factory('trainerService', ['$http', 'authService', function ($http, authServ
     var trainerServiceFactory = {};
     var user = authService.authentication.userName;
 
+    var _getUserList = function () {
+        return $http.get(serviceBase + 'api/user/' + user + '/1').then(function (results) {
+            return results;
+        });
+    };
+
+    trainerServiceFactory.getUserList = _getUserList;
+
     return trainerServiceFactory;
 
 }]);

@@ -15,6 +15,8 @@ namespace Competition.Models
         public string Club { get; set; }
         public string Team { get; set; }
         public Boolean Active { get; set; }
+        public int TrainerId { get; set; }
+        public DateTime BirthYear { get; set; }
 
         public List<RoleModel> roles { get; set; }
 
@@ -25,6 +27,8 @@ namespace Competition.Models
             LastName = row.LastName;
             Active = row.Active;
             ClubId = row.ClubId;
+            TrainerId = row.TrainerId;
+            BirthYear = row.BirthYear;
 
         }
     }

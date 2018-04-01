@@ -19,6 +19,7 @@
             </div>
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
+                    <li data-ng-hide="!authentication.isAuth"><a href="">Sveiki,{{authentication.userName}}</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/calendar">Kalendorius</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/trainer">Treneriams</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/competitionOrg">Varžybos</a></li>

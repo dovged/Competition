@@ -57,7 +57,16 @@ namespace Competition.Controllers
                 return ToJsonOK(user);
             }
         }
-
+        /** Grąžinami visi nepilnamečiai dalyviai, pagal vieną trenerį (LAIPIOJIMAS)*/
+        [Route("api/user/{user}/{n}")]
+        public HttpResponseMessage Get(string user, int n)
+        {
+            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == user).Id;
+            int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
+            List<UserModel> users = CompetitionDB.TblUsers.ToArray().Where(x => x.TrainerId == id).Select(x => new UserModel(x)).ToList();
+           
+            return ToJsonOK(users);
+        }
 
         /** Uzpildoma User papildoma informacija */
         public HttpResponseMessage Post([FromBody]TblUser value)
