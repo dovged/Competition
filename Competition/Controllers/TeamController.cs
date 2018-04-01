@@ -11,28 +11,22 @@ using System.Web.Http;
 
 namespace Competition.Controllers
 {
-    [RoutePrefix("/api/user/id/team")]
     public class TeamController : BaseAPIController
     {
         /**Grąžinamas sąrašas komandų, pagal ID vadovo;
          naduojama treneriams, nes paprasti dalyviai turi tik po vieną komandą*/
-        public HttpResponseMessage Get(int CaptainId)
+        [Route("api/team/{userName}")]
+        public HttpResponseMessage Get(string userName)
         {
-            /**Gauti CaptainId išprisijungusio vartotojo*/
-            // TO DO
-           /* ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
-            string username = identity.Claims.First().Value;
-            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == username).Id.ToString();
+            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
+            int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
 
-            int UserId = Convert.ToInt32(CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id.ToString());*/
-
-            if (CompetitionDB.TblTeams.ToArray().Where(x => x.TeamCaptainId == CaptainId).Select(x => new TeamModel(x)).ToList().Count != 0)
+            if (CompetitionDB.TblTeams.ToArray().Where(x => x.TeamCaptainId == id).Select(x => new TeamModel(x)).ToList().Count != 0)
             {
-                List<TeamModel> teams = CompetitionDB.TblTeams.ToArray().Where(x => x.TeamCaptainId == CaptainId).Select(x => new TeamModel(x)).ToList();
+                List<TeamModel> teams = CompetitionDB.TblTeams.ToArray().Where(x => x.TeamCaptainId == id).Select(x => new TeamModel(x)).ToList();
 
                 foreach(TeamModel team in teams)
                 {
-                    team.Captain = CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == team.CaptainId);
                     team.Teammates = CompetitionDB.TblUsers.ToArray().Where(x => x.TeamId == team.Id).Select(x => new UserModel(x)).ToList();
                 }
 
@@ -43,21 +37,20 @@ namespace Competition.Controllers
         }
 
         /** Grąžinama vienos komandos inforamcija*/
-        public HttpResponseMessage Get(int CaptainId, int TeamId)
+        [Route("api/team/{TeamId}")]
+        public HttpResponseMessage Get(int TeamId)
         {
-            /**paimti komandos Id iš prisijungusio vartotojo*/
-            // TO DO
 
-            if (CompetitionDB.TblTeams.FirstOrDefault(x => x.Id == TeamId) != null)
-            {
+            /*if (CompetitionDB.TblTeams.FirstOrDefault(x => x.Id == TeamId) != null)
+            {*/
                 TeamModel team = CompetitionDB.TblTeams.Where(x => x.Id == TeamId).Select(x => new TeamModel(x)).FirstOrDefault();
                 team.Captain = CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == team.CaptainId);
                 team.Teammates = CompetitionDB.TblUsers.ToArray().Where(x => x.TeamId == team.Id).Select(x => new UserModel(x)).ToList();
 
                 return ToJson(team);
-            }
+          /*  }
 
-            return ToJsonNotFound("Objektas nerastas.");
+            return ToJsonNotFound("Objektas nerastas.");*/
         }
 
         /** Sukurti komandą*/
