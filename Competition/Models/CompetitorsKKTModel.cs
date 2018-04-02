@@ -10,7 +10,7 @@ namespace Competition.Models
         public string Group { get; set; }
         public bool Paid { get; set; }
         public string TeamName { get; set; }
-        
+        public string CompetitionName { get; set; }
 
         public CompetitorsKKTModel(TblCompetitorsKKT row)
         {

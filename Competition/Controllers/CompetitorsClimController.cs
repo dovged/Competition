@@ -12,8 +12,8 @@ namespace Competition.Controllers
     
     public class CompetitorsClimController : BaseAPIController
     {
-        /** Grąžinamas sąrašas dalyvių vienose varžybose, kurie susimokėjo*/
-        [Route("api/competitions/clim/{compid}")]
+        /** Grąžinamas sąrašas dalyvių vienose varžybose*/
+        [Route("api/competitionsclim/{compid}")]
         public HttpResponseMessage Get(int compid)
         {
             if (CompetitionDB.TblCompetitorsClim.ToArray().Where(x => x.CompetitionId == compid).Select(x => new CompetitorsClimModel(x)).ToList().Count != 0)
@@ -46,7 +46,7 @@ namespace Competition.Controllers
         }
 
 
-        /** Sukuriamas dalyvaujančios vartotojo varžybose objektas*/
+        /** Sukuriamas dalyvaujančios vartotojo varžybose objektas SUAGUSIEMS*/
         [Route("api/competition/{compId}/clim/{userName}")]
         public HttpResponseMessage Post(int compId, string userName, [FromBody]TblCompetitorsClimb value)
         {
