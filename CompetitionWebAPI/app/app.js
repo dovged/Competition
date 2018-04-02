@@ -63,6 +63,11 @@ app.config(function ($routeProvider) {
         templateUrl: "app/calendar/results.html"
     });
 
+    $routeProvider.when("/modalTest", {
+        controller: "modalTestController",
+        templateUrl: "app/modal/modalTest.html"
+    });
+
     $routeProvider.otherwise({ redirectTo: "/home" });
 
 });

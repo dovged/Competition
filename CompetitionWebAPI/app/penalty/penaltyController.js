@@ -75,5 +75,7 @@ app.controller('penaltyController', ['$scope', 'penaltyService', function ($scop
         });
     }
 
+   
+   
 
 }]);

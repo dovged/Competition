@@ -19,6 +19,7 @@
             </div>
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
+                    <li data-ng-hide="!authentication.isAuth"><a href="#/modalTest">ModalTest</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="">Sveiki,{{authentication.userName}}</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/calendar">Kalendorius</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/trainer">Treneriams</a></li>
@@ -67,6 +68,7 @@
     <script src="app/competition/competitionService.js"></script>
     <script src="app/admin/adminService.js"></script>
     <script src="app/trainer/trainerService.js"></script>
+    <script src="app/modal/modalService.js"></script>
 
     <!-- Load controllers -->
     <script src="app/controllers/indexController.js"></script>
@@ -80,6 +82,10 @@
     <script src="app/competition/competitionController.js"></script>
     <script src="app/admin/adminController.js"></script>
     <script src="app/trainer/trainerController.js"></script>
+    <script src="app/modal/modalTestController.js"></script>
+
+    <!-- Load directives-->
+    <script src="app/modal/modalDirectives.js"></script>
 
 </body>
 </html>

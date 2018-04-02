@@ -39,15 +39,32 @@ namespace Competition.Controllers
         }
 
         /** Grazinama vieno User papildoma informacija*/
+        /**NUSPRĘSTI KAIP GERIAU PADARYTI!!!!!!
+         KAI USER NETURI PAPILDOMOS INFO*/
         [Route("api/user/{userName}")]
         public HttpResponseMessage Get(string userName)
         {
             string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
-            if(CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id != 0)
+            if(CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id.ToString() != null)
             {
                 int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
            
                 return ToJsonOK(CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == id));
+            }
+            else
+            {
+                TblUser user = new TblUser();
+                user.Email = userName;
+                user.UserId = accountId;
+                user.Active = true;
+                CompetitionDB.TblUsers.Add(user);
+                CompetitionDB.SaveChanges();
+                int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.Email == userName).Id;
+                TblUserRole role = new TblUserRole();
+                role.RoleId = 1;
+                role.UserId = id;
+                CompetitionDB.TblUserRoles.Add(role);
+                return ToJsonOK(user);
             }
 
             return ToJsonNotFound("Objektas nerastas.");
@@ -74,6 +91,12 @@ namespace Competition.Controllers
             user.UserId = accountId;
             user.Active = true;
             CompetitionDB.TblUsers.Add(user);
+            CompetitionDB.SaveChanges();
+            int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.Email == userName).Id;
+            TblUserRole role = new TblUserRole();
+            role.RoleId = 1;
+            role.UserId = id;
+            CompetitionDB.TblUserRoles.Add(role);
             return ToJsonCreated(CompetitionDB.SaveChanges());
         }
 

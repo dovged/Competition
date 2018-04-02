@@ -86,6 +86,10 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
         });
     }
 
+   /* var _userInfo(userName){
+    
+    }*/
+
     authServiceFactory.saveRegistration = _saveRegistration;
     authServiceFactory.login = _login;
     authServiceFactory.logOut = _logOut;
