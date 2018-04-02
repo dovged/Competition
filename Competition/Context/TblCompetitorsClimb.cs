@@ -12,7 +12,7 @@ namespace Competition.Context
         public int Id { get; set; }
         public int CompetitionId { get; set; }
         public int UserId { get; set; }
-        public int Group { get; set; }
+        public string Group { get; set; }
         public Boolean Paid { get; set; }
         public Boolean Tag { get; set; }
     }

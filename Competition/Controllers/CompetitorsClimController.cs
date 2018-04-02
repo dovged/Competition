@@ -9,18 +9,19 @@ using System.Web.Http;
 
 namespace Competition.Controllers
 {
-    [RoutePrefix("/api/competition/id/competitorsClim")]
+    
     public class CompetitorsClimController : BaseAPIController
     {
         /** Grąžinamas sąrašas dalyvių vienose varžybose, kurie susimokėjo*/
-        public HttpResponseMessage Get(int Compid, int id)
+        [Route("api/competitions/clim/{compid}")]
+        public HttpResponseMessage Get(int compid)
         {
-            if (CompetitionDB.TblCompetitorsClim.ToArray().Where(x => x.CompetitionId == Compid).Select(x => new CompetitorsClimModel(x)).ToList().Count != 0)
+            if (CompetitionDB.TblCompetitorsClim.ToArray().Where(x => x.CompetitionId == compid).Select(x => new CompetitorsClimModel(x)).ToList().Count != 0)
             {
-                List<CompetitorsClimModel> compUsers = CompetitionDB.TblCompetitorsClim.ToArray().Where(x => x.CompetitionId == id && x.Paid).Select(x => new CompetitorsClimModel(x)).ToList();
+                List<CompetitorsClimModel> compUsers = CompetitionDB.TblCompetitorsClim.ToArray().Where(x => x.CompetitionId == compid).Select(x => new CompetitorsClimModel(x)).ToList();
                 foreach (CompetitorsClimModel competitor in compUsers)
                 {
-                    competitor.ClimberName = ""+ CompetitionDB.TblUsers.Find(competitor.ClimberId).Name.ToString() + CompetitionDB.TblUsers.Find(competitor.ClimberId).LastName.ToString();
+                    competitor.ClimberName = ""+ CompetitionDB.TblUsers.Find(competitor.ClimberId).Name.ToString() +" "+ CompetitionDB.TblUsers.Find(competitor.ClimberId).LastName.ToString();
                 }
                 return ToJsonOK(compUsers);
             }
@@ -28,22 +29,44 @@ namespace Competition.Controllers
             return ToJsonNotFound("Tuščias sąrašas.");
         }
 
-        /** Sukuriamas dalyvaujančios komandos varžybose objektas*/
-        public HttpResponseMessage Post([FromBody]TblCompetitorsClimb value)
+        /** Grąžinamas sąrašas varžybų į kurias užsiregistravo vartotojas*/
+        [Route("api/clim/{userName}/{n}")]
+        public HttpResponseMessage Get(string userName, int n)
         {
+            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
+            int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
+
+            List<CompetitorsClimModel> clim = CompetitionDB.TblCompetitorsClim.ToArray().Where(x => x.UserId == id).Select(x => new CompetitorsClimModel(x)).ToList();
+            foreach(CompetitorsClimModel c in clim)
+            {
+                c.CompetitionName = CompetitionDB.TblCompetitions.Find(c.CompId).Name;
+            }
+
+            return ToJsonOK(clim);
+        }
+
+
+        /** Sukuriamas dalyvaujančios vartotojo varžybose objektas*/
+        [Route("api/competition/{compId}/clim/{userName}")]
+        public HttpResponseMessage Post(int compId, string userName, [FromBody]TblCompetitorsClimb value)
+        {
+            value.Paid = false;
+            value.CompetitionId = compId;
+            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
+            value.UserId = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
             CompetitionDB.TblCompetitorsClim.Add(value);
-            CompetitionDB.SaveChanges();
-            return ToJsonCreated(value);
+
+            return ToJsonCreated(CompetitionDB.SaveChanges());
         }
 
         /** Ištrinamas objektas - panaikinama registraciją į varžybas*/
+        [Route("api/clim/{id}")]
         public HttpResponseMessage Delete(int id)
         {
             if (CompetitionDB.TblCompetitorsClim.FirstOrDefault(x => x.Id == id) != null)
             {
                 CompetitionDB.TblCompetitorsClim.Remove(CompetitionDB.TblCompetitorsClim.FirstOrDefault(x => x.Id == id));
-                CompetitionDB.SaveChanges();
-                return ToJsonOK("Objektas ištrintas.");
+                return ToJsonOK(CompetitionDB.SaveChanges());
             }
 
             return ToJsonNotFound("Objektas nerastas.");
