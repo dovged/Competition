@@ -40,10 +40,9 @@ app.factory('penaltyService', function ($http) {
 
     // Ištrinti objektą
     var _delete = function (Id) {
-        debugger;
         var deleterequest = $http({
             method: 'delete',
-            url: seriveBase + "api/penalty/" + Id
+            url: serviceBase + "api/penalty/" + Id
         });
         return deleterequest;
     }

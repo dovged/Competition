@@ -156,6 +156,8 @@
     <Content Include="app\calendar\results.html" />
     <Content Include="app\calendar\resultsController.js" />
     <Content Include="app\competition\competitionController.js" />
+    <Content Include="app\competition\competitionInfo.html" />
+    <Content Include="app\competition\competitionInfoController.js" />
     <Content Include="app\competition\competitionList.html" />
     <Content Include="app\competition\competitionService.js" />
     <Content Include="app\calendar\calendarController.js" />
@@ -163,10 +165,6 @@
     <Content Include="app\controllers\indexController.js" />
     <Content Include="app\controllers\loginController.js" />
     <Content Include="app\controllers\ordersController.js" />
-    <Content Include="app\modal\modalDirectives.js" />
-    <Content Include="app\modal\modalService.js" />
-    <Content Include="app\modal\modalTest.html" />
-    <Content Include="app\modal\modalTestController.js" />
     <Content Include="app\penalty\deletePenalty.html" />
     <Content Include="app\penalty\penaltyController.js" />
     <Content Include="app\controllers\signupController.js" />

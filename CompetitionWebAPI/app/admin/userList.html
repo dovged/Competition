@@ -23,7 +23,7 @@
                     <td> {{ user.Club }} </td>
                     <td data-ng-repeat="role in user.roles">
                          {{role.RoleName}} 
-                        <button title="Naikinti" class="btn btn-danger" style="padding: 3px 4px; float:right"><span class="glyphicon glyphicon-remove"></span></button>
+                        <button title="Naikinti" class="btn btn-danger" style="padding: 3px 4px; float:right" ng-click="removeRole(role.Id)"><span class="glyphicon glyphicon-remove"></span></button>
                     </td>
                     <td>
                         <button title="Pridėti" class="btn btn-success" style="padding: 3px 4px; float:right" ng-click="AddRole()"><span class="glyphicon glyphicon-plus"></span></button>

@@ -52,7 +52,6 @@ app.controller('penaltyController', ['$scope', 'penaltyService', function ($scop
             Name: $scope.UpdateName,
             Points: $scope.UpdatePoints
         };
-        debugger;
         penaltyService.update($scope.UpdateId, Penalty).then(function (results) {
             loadPenalties();
         },
@@ -64,7 +63,6 @@ app.controller('penaltyController', ['$scope', 'penaltyService', function ($scop
 
     // Ištrinti objektą
     $scope.delete = function (UpdateId) {
-        debugger;
         penaltyService.delete($scope.UpdateId).then(function (results) {
             var Penalty = {
                 Id: '',

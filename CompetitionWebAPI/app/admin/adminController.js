@@ -20,4 +20,10 @@ app.controller('adminController', ['$scope', 'adminService', function ($scope, a
         $scope.openModalAdd = true;
     }
 
+    $scope.removeRole = function (Id) {
+        adminService.removeRole(Id).then(function (results) {
+            loadUserList();
+        });
+    }
+
 }]);

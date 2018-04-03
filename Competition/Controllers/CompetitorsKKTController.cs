@@ -2,6 +2,7 @@
 using Competition.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -16,6 +17,40 @@ namespace Competition.Controllers
         public HttpResponseMessage Get(int compId)
         {
             if (CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => x.CompetitionId == compId).Select(x => new CompetitorsKKTModel(x)).ToList().Count != 0)
+            {
+                List<CompetitorsKKTModel> compTeams = CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => x.CompetitionId == compId).Select(x => new CompetitorsKKTModel(x)).ToList();
+                foreach (CompetitorsKKTModel competitor in compTeams)
+                {
+                    competitor.TeamName = CompetitionDB.TblTeams.Find(competitor.TeamId).Name.ToString();
+                }
+                return ToJsonOK(compTeams);
+            }
+
+            return ToJsonNotFound("Tuščias sąrašas.");
+        }
+
+        /** Grąžinamas sąrašas dalyvių vienose varžybose*/
+        [Route("api/competitionsKKTFalse/{compId}/{n}")]
+        public HttpResponseMessage Get(int compId, string n)
+        {
+            if (CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => !x.Paid && x.CompetitionId == compId).Select(x => new CompetitorsKKTModel(x)).ToList().Count != 0)
+            {
+                List<CompetitorsKKTModel> compTeams = CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => !x.Paid && x.CompetitionId == compId).Select(x => new CompetitorsKKTModel(x)).ToList();
+                foreach (CompetitorsKKTModel competitor in compTeams)
+                {
+                    competitor.TeamName = CompetitionDB.TblTeams.Find(competitor.TeamId).Name.ToString();
+                }
+                return ToJsonOK(compTeams);
+            }
+
+            return ToJsonNotFound("Tuščias sąrašas.");
+        }
+
+        /** Grąžinamas sąrašas dalyvių vienose varžybose, kurie susimokėjo*/
+        [Route("api/competitionsKKT/{compId}/{n}")]
+        public HttpResponseMessage Get(int compId, int n)
+        {
+            if (CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => x.CompetitionId == compId && x.Paid).Select(x => new CompetitorsKKTModel(x)).ToList().Count != 0)
             {
                 List<CompetitorsKKTModel> compTeams = CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => x.CompetitionId == compId).Select(x => new CompetitorsKKTModel(x)).ToList();
                 foreach (CompetitorsKKTModel competitor in compTeams)
@@ -56,6 +91,17 @@ namespace Competition.Controllers
             CompetitionDB.TblCompetitorsKKT.Add(value);
     
             return ToJsonCreated(CompetitionDB.SaveChanges());
+        }
+
+        /** Pažymima, kad dalyvis susimokėjo*/
+        [Route("api/competitionKKTPaid/{id}")]
+        public HttpResponseMessage Put(int id)
+        {
+            TblCompetitorsKKT value = CompetitionDB.TblCompetitorsKKT.Find(id);
+            value.Paid = false;
+            CompetitionDB.Entry(value).State = EntityState.Modified;
+
+            return ToJsonOK(CompetitionDB.SaveChanges());
         }
 
         /** Ištrinamas objektas - panaikinama registraciją į varžybas*/

@@ -2,6 +2,7 @@
 using Competition.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -22,6 +23,40 @@ namespace Competition.Controllers
                 foreach (CompetitorsClimModel competitor in compUsers)
                 {
                     competitor.ClimberName = ""+ CompetitionDB.TblUsers.Find(competitor.ClimberId).Name.ToString() +" "+ CompetitionDB.TblUsers.Find(competitor.ClimberId).LastName.ToString();
+                }
+                return ToJsonOK(compUsers);
+            }
+
+            return ToJsonNotFound("Tuščias sąrašas.");
+        }
+
+        /** Grąžinamas sąrašas dalyvių vienose varžybose*/
+        [Route("api/competitionsclimFalse/{compid}/{n}")]
+        public HttpResponseMessage Get(int compid, string n)
+        {
+            if (CompetitionDB.TblCompetitorsClim.ToArray().Where(x => x.CompetitionId == compid && !x.Paid).Select(x => new CompetitorsClimModel(x)).ToList().Count != 0)
+            {
+                List<CompetitorsClimModel> compUsers = CompetitionDB.TblCompetitorsClim.ToArray().Where(x => x.CompetitionId == compid && !x.Paid).Select(x => new CompetitorsClimModel(x)).ToList();
+                foreach (CompetitorsClimModel competitor in compUsers)
+                {
+                    competitor.ClimberName = "" + CompetitionDB.TblUsers.Find(competitor.ClimberId).Name.ToString() + " " + CompetitionDB.TblUsers.Find(competitor.ClimberId).LastName.ToString();
+                }
+                return ToJsonOK(compUsers);
+            }
+
+            return ToJsonNotFound("Tuščias sąrašas.");
+        }
+
+        /** Grąžinamas sąrašas dalyvių vienose varžybose, kurie susimokėjo*/
+        [Route("api/competitionsclim/{compid}/{n}")]
+        public HttpResponseMessage Get(int compid, int n)
+        {
+            if (CompetitionDB.TblCompetitorsClim.ToArray().Where(x => x.CompetitionId == compid && x.Paid).Select(x => new CompetitorsClimModel(x)).ToList().Count != 0)
+            {
+                List<CompetitorsClimModel> compUsers = CompetitionDB.TblCompetitorsClim.ToArray().Where(x => x.CompetitionId == compid).Select(x => new CompetitorsClimModel(x)).ToList();
+                foreach (CompetitorsClimModel competitor in compUsers)
+                {
+                    competitor.ClimberName = "" + CompetitionDB.TblUsers.Find(competitor.ClimberId).Name.ToString() + " " + CompetitionDB.TblUsers.Find(competitor.ClimberId).LastName.ToString();
                 }
                 return ToJsonOK(compUsers);
             }
@@ -70,6 +105,17 @@ namespace Competition.Controllers
             }
 
             return ToJsonNotFound("Objektas nerastas.");
+        }
+
+        /** Pažymima, kad dalyvis susimokėjo*/
+        [Route("api/competitionKKTPaid/{id}")]
+        public HttpResponseMessage Put(int id)
+        {
+            TblCompetitorsClimb value = CompetitionDB.TblCompetitorsClim.Find(id);
+            value.Paid = false;
+            CompetitionDB.Entry(value).State = EntityState.Modified;
+
+            return ToJsonOK(CompetitionDB.SaveChanges());
         }
     }
 }

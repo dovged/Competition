@@ -3,7 +3,7 @@
 </h2>
 <br>
 <td>
-    <button type="button" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span>    Naujos varžybas</button>
+    <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>    Naujos varžybas</button>
     <a href="#/penalties" type="button" class="btn btn-info">Baudų sąrašas</a>
     
 </td>
@@ -29,7 +29,7 @@
                     <td> {{ competition.Date }} </td>
                     <td> {{ competition.Club }} </td>
                     <td>
-                        <button type="button" class="btn btn-info"><span class="glyphicon glyphicon-list"></span> Informacija</button>
+                        <button type="button" class="btn btn-info" ng-click="getCompInfo(competition)"><span class="glyphicon glyphicon-list"></span> Informacija</button>
                     </td>
                 </tr>
             </tbody>

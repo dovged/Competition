@@ -68,6 +68,11 @@ app.config(function ($routeProvider) {
         templateUrl: "app/modal/modalTest.html"
     });
 
+    $routeProvider.when("/compInfo", {
+        controller: "competitionController",
+        templateUrl: "app/competition/competiionInfo.html"
+    });
+
     $routeProvider.otherwise({ redirectTo: "/home" });
 
 });

@@ -38,14 +38,18 @@ namespace Competition.Controllers
             return ToJsonCreated(CompetitionDB.SaveChanges());
         }
 
-       
-        /** Fiktyvus Delete metodas;
-          * Teisėjo lapo tipą padarome neaktyviu;
-          * CompType.Acrive == false;
-          * Tai galima padaryti tik teisėjo lapo tipui, kuris yra duomenų bazėje ir yra PaperType.Active == true*/
-      /*  public HttpResponseMessage Delete(int id)*/
-       // {
-            
-       // }
+
+        /** Ištrinama vartotojui rolė*/
+        [Route("api/userRole/{id}")]
+        public HttpResponseMessage Delete(int id)
+        {
+            if (CompetitionDB.TblUserRoles.FirstOrDefault(x => x.Id == id) != null)
+            {
+                CompetitionDB.TblUserRoles.Remove(CompetitionDB.TblUserRoles.FirstOrDefault(x => x.Id == id));
+                return ToJsonOK(CompetitionDB.SaveChanges());
+            }
+
+            return ToJsonNotFound("Objektas nerastas.");
+        }
     }
 }
