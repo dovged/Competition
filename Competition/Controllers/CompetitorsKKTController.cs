@@ -29,8 +29,8 @@ namespace Competition.Controllers
             return ToJsonNotFound("Tuščias sąrašas.");
         }
 
-        /** Grąžinamas sąrašas dalyvių vienose varžybose*/
-        [Route("api/competitionsKKTFalse/{compId}/{n}")]
+        /** Grąžinamas sąrašas nesusimokėjusių dalyvių vienose varžybose*/
+        [Route("api/competitionsKKTNonPaid/{compId}/{n}")]
         public HttpResponseMessage Get(int compId, string n)
         {
             if (CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => !x.Paid && x.CompetitionId == compId).Select(x => new CompetitorsKKTModel(x)).ToList().Count != 0)

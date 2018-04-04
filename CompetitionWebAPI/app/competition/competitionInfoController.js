@@ -1,17 +1,43 @@
 ﻿'use strict';
-app.controller('competitionInfoController', ['$scope', 'competitionService', function ($scope, competitionService) {
+app.controller('competitionInfoController', ['$scope', 'competitionService', 'localStorageService', function ($scope, competitionService, localStorageService) {
 
-    $scope.competitionId;
+    $scope.competition = {
+        Id: "",
+        Name: "",
+        Date: "",
+        MainRouteCreatorId: "",
+        MainRouteCreatorName: "",
+        MainJudgeId: "",
+        MainJudgeName: "",
+        Type: "",
+        Open: ""
 
+    };
+
+    $scope.CompId;
+    loadCompInfo();
 
     // užkraunamas varžybų sąrašas;
+    function loadCompInfo() {
+        $scope.Id = localStorageService.get("CompDetails");
+        competitionService.getCompetitionDetails($scope.Id).then(function (results) {
+            var c = results.data;
+            $scope.competition.Id = c.Id;
+            $scope.competition.Name = c.Name;
+            $scope.competition.Date = c.Date;
+            $scope.competition.MainRouteCreatorId = c.MainRouteCreatorId;
+            $scope.competition.MainRouteCreatorName = c.MainRouteCreatorName;
+            $scope.competition.MainJudgeId = c.MainJudgeId;
+            $scope.competition.MainJudgeName = c.MainJudgeName;
+            $scope.competition.Type = c.Type;
+            $scope.competition.Open = c.Open;
 
+        }, function (error) {
+            // alert(error.data.message);
+        });
+    }
 
-    competitionService.getCompetitionList().then(function (results) {
-        $scope.competitionList = results.data;
-    }, function (error) {
-        // alert(error.data.message);
-    });
+    
 
 
 

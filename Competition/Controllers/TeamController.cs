@@ -15,7 +15,7 @@ namespace Competition.Controllers
     {
         /**Grąžinamas sąrašas komandų, pagal ID vadovo;
          naduojama treneriams, nes paprasti dalyviai turi tik po vieną komandą*/
-        [Route("api/team/{userName}")]
+        [Route("api/teams/{userName}")]
         public HttpResponseMessage Get(string userName)
         {
             string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
@@ -37,37 +37,38 @@ namespace Competition.Controllers
         }
 
         /** Grąžinama vienos komandos inforamcija*/
-        [Route("api/team/{TeamId}")]
-        public HttpResponseMessage Get(int TeamId)
+        [Route("api/team/{userName}/{n}")]
+        public HttpResponseMessage Get(string userName, int n)
         {
-
+            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
+            int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
+            int TeamId = CompetitionDB.TblUsers.Find(id).TeamId;
             /*if (CompetitionDB.TblTeams.FirstOrDefault(x => x.Id == TeamId) != null)
             {*/
-                TeamModel team = CompetitionDB.TblTeams.Where(x => x.Id == TeamId).Select(x => new TeamModel(x)).FirstOrDefault();
-                team.Captain = CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == team.CaptainId);
+            TeamModel team = new TeamModel(CompetitionDB.TblTeams.Find(TeamId));
+            team.Captain = CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == team.CaptainId);
+            if(CompetitionDB.TblUsers.ToArray().Where(x => x.TeamId == team.Id).Select(x => new UserModel(x)).ToList().Count != 0)
+            {
                 team.Teammates = CompetitionDB.TblUsers.ToArray().Where(x => x.TeamId == team.Id).Select(x => new UserModel(x)).ToList();
+            }
+                
 
-                return ToJson(team);
+                return ToJsonOK(team);
           /*  }
 
             return ToJsonNotFound("Objektas nerastas.");*/
         }
 
         /** Sukurti komandą*/
-        public HttpResponseMessage Post([FromBody]TblTeam value, int CaptainId)
+        [Route("api/team/{userName}")]
+        public HttpResponseMessage Post([FromBody]TblTeam value, string userName)
         {
-            /**paimti komandos Id išprisijungusio vartotojo*/
-            // TO DO
-           /* ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
-            string username = identity.Claims.First().Value;
-            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == username).Id.ToString();
-
-            value.UserId = Convert.ToInt32(CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id.ToString());*/
-
+            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
+            int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
+            value.TeamCaptainId = id;
             CompetitionDB.TblTeams.Add(value);
-            CompetitionDB.SaveChanges();
 
-            return ToJsonCreated(value);
+            return ToJsonCreated(CompetitionDB.SaveChanges());
         }
 
         /** Redaguoti komandos duomenis*/

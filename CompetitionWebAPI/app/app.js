@@ -63,14 +63,19 @@ app.config(function ($routeProvider) {
         templateUrl: "app/calendar/results.html"
     });
 
-    $routeProvider.when("/modalTest", {
-        controller: "modalTestController",
-        templateUrl: "app/modal/modalTest.html"
+    $routeProvider.when("/compInfo", {
+        controller: "competitionInfoController",
+        templateUrl: "app/competition/competitionInfo.html"
     });
 
-    $routeProvider.when("/compInfo", {
-        controller: "competitionController",
-        templateUrl: "app/competition/competiionInfo.html"
+    $routeProvider.when("/nonPaidKKT", {
+        controller: "nonPaidKKTController",
+        templateUrl: "app/competition/nonPaidKKT.html"
+    });
+
+    $routeProvider.when("/nonPaidClim", {
+        controller: "nonPaidClimController",
+        templateUrl: "app/competition/nonPaidClim.html"
     });
 
     $routeProvider.otherwise({ redirectTo: "/home" });

@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('competitionController', ['$scope','$location', 'competitionService', function ($scope, $location, competitionService) {
+app.controller('competitionController', ['$scope', '$location', 'competitionService', 'localStorageService', function ($scope, $location, competitionService, localStorageService) {
 
     $scope.competitionList = [];
     loadCompetitionList();
@@ -8,20 +8,16 @@ app.controller('competitionController', ['$scope','$location', 'competitionServi
     function loadCompetitionList() {
         competitionService.getCompetitionList().then(function (results) {
             $scope.competitionList = results.data;
+            localStorageService.remove("CompDetails");
         }, function (error) {
            // alert(error.data.message);
         });
     }
 
-    $scope.CompInfo;
-
-    $scope.getCompInfo = function (competition) {
-        CompInfo = competition;
+    $scope.getCompInfo = function (Id) {
+        localStorageService.set("CompDetails", Id);
         $location.path("/compInfo")
     }
  
-       
-  
-   
 
 }]);

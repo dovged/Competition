@@ -30,8 +30,8 @@ namespace Competition.Controllers
             return ToJsonNotFound("Tuščias sąrašas.");
         }
 
-        /** Grąžinamas sąrašas dalyvių vienose varžybose*/
-        [Route("api/competitionsclimFalse/{compid}/{n}")]
+        /** Grąžinamas sąrašas nesusimokėjusių dalyvių vienose varžybose*/
+        [Route("api/competitionsclimNonPaid/{compid}/{n}")]
         public HttpResponseMessage Get(int compid, string n)
         {
             if (CompetitionDB.TblCompetitorsClim.ToArray().Where(x => x.CompetitionId == compid && !x.Paid).Select(x => new CompetitorsClimModel(x)).ToList().Count != 0)

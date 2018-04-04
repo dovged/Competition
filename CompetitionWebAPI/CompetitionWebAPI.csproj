@@ -161,6 +161,10 @@
     <Content Include="app\competition\competitionList.html" />
     <Content Include="app\competition\competitionService.js" />
     <Content Include="app\calendar\calendarController.js" />
+    <Content Include="app\competition\nonPaidClim.html" />
+    <Content Include="app\competition\nonPaidClimController.js" />
+    <Content Include="app\competition\nonPaidKKT.html" />
+    <Content Include="app\competition\nonPaidKKTController.js" />
     <Content Include="app\controllers\homeController.js" />
     <Content Include="app\controllers\indexController.js" />
     <Content Include="app\controllers\loginController.js" />

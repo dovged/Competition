@@ -1,10 +1,12 @@
 ﻿<h2>
-    VAR=YB7 INFO
+    VARŽYBŲ INFO
+    {{competition.Name}}
 </h2>
 <br>
 <td>
     <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>    Naujos varžybas</button>
-    <a href="#/penalties" type="button" class="btn btn-info">Baudų sąrašas</a>
+    <a href="#/nonPaidClim" ng-hide="!competition.Type" type="button" class="btn btn-info">Mokėjimas dalyviams</a>
+    <a href="#/nonPaidKKT" ng-hide="competition.Type" type="button" class="btn btn-info">Mokėjimas komandoms</a>
 
 </td>
 
@@ -14,7 +16,13 @@
         &nbsp;
     </div>
     <div class="col-md-8">
-        
+        <div>
+            <p>Pavadinimas: {{competition.Name}}</p>
+            <p>Data: {{competition.Date}}</p>
+            <p>Vyr. Teiėjas: {{competition.MainJudgeName}}</p>
+            <p>Vyr. Trasų statytojas: {{competition.MainRouteCreatorName}}</p>
+            <button title="Redaguoti" class="btn btn-info" style="padding: 10px 12px"> <span class="glyphicon glyphicon-edit"></span>   Redaguoti informaciją</button>
+        </div>
     </div>
     <div class="col-md-2">
         &nbsp;

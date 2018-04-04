@@ -36,7 +36,11 @@ namespace Competition.Controllers
         {
             if (CompetitionDB.TblCompetitions.FirstOrDefault(x => x.Id == id) != null)
             {
-                return ToJsonOK(CompetitionDB.TblCompetitions.FirstOrDefault(x => x.Id == id));
+                CompetitionModel comp = new CompetitionModel(CompetitionDB.TblCompetitions.FirstOrDefault(x => x.Id == id));
+                comp.MainJudgeName = CompetitionDB.TblUsers.Find(comp.MainJudgeId).Name + " " + CompetitionDB.TblUsers.Find(comp.MainJudgeId).LastName;
+                comp.MainRouteCreatorName = CompetitionDB.TblUsers.Find(comp.MainRouteCreatorId).Name + " " + CompetitionDB.TblUsers.Find(comp.MainRouteCreatorId).LastName;
+
+                return ToJsonOK(comp);
             }
 
             return ToJsonNotFound("Objektas nerastas.");
