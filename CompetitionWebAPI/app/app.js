@@ -18,11 +18,6 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/signup.html"
     });
 
-    $routeProvider.when("/orders", {
-        controller: "ordersController",
-        templateUrl: "/app/views/orders.html"
-    });
-
     $routeProvider.when("/calendar", {
         controller: "calendarController",
         templateUrl: "/app/calendar/calendar.html"
@@ -30,7 +25,7 @@ app.config(function ($routeProvider) {
 
     $routeProvider.when("/user", {
         controller: "userController",
-        templateUrl: "app/views/user.html"
+        templateUrl: "app/user/user.html"
     });
 
     $routeProvider.when("/penalties", {

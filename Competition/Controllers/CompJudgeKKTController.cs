@@ -10,10 +10,10 @@ using System.Web.Http;
 
 namespace Competition.Controllers
 {
-    [RoutePrefix("/api/competition/id/judgesKKT")]
     public class CompJudgeKKTController : BaseAPIController
     {
         /** Grąžina sąrašą teisėjų pagal varžybų id*/
+        [Route("api/judgesKKT/{compId}")]
         public HttpResponseMessage Get(int compId)
         {
             if (CompetitionDB.TblCompJudgesKKT.ToArray().Where(x => x.CompId == compId).Select(x => new CompJudgeKKTModel(x)).ToList().Count != 0)
@@ -22,7 +22,6 @@ namespace Competition.Controllers
                 foreach(CompJudgeKKTModel j in judges)
                 {
                     j.JudgeName = "" + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == j.UserId).Name.ToString() + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == j.UserId).LastName.ToString();
-                    j.RouteName = CompetitionDB.TblRoutesKKT.FirstOrDefault(x => x.Id == j.RouteId).Name.ToString();
                 }
 
                 return ToJsonOK(judges);
@@ -38,7 +37,6 @@ namespace Competition.Controllers
             {
                 CompJudgeKKTModel judge = CompetitionDB.TblCompJudgesKKT.Where(x => x.Id == JudgeId).Select(x => new CompJudgeKKTModel(x)).FirstOrDefault();
                 judge.JudgeName = "" + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == judge.UserId).Name.ToString() + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == judge.UserId).LastName.ToString();
-                judge.RouteName = CompetitionDB.TblRoutesKKT.FirstOrDefault(x => x.Id == judge.RouteId).Name.ToString();
                 
                 return ToJsonOK(judge);
             }
@@ -55,19 +53,6 @@ namespace Competition.Controllers
             return ToJsonCreated(value);
         }
 
-        /** Redaguojama teisėjo informacija*/
-        public HttpResponseMessage Put(int id, [FromBody]TblCompJudgeKKT value)
-        {
-            if (CompetitionDB.TblCompJudgesKKT.FirstOrDefault(x => x.Id == id) != null)
-            {
-                CompetitionDB.Entry(value).State = EntityState.Modified;
-                CompetitionDB.SaveChanges();
-
-                return ToJsonOK(value);
-            }
-
-            return ToJsonNotFound("Objektas nerastas.");
-        }
 
         /**Naikinamas teisėjas varžyboms*/
         public HttpResponseMessage Delete(int id)

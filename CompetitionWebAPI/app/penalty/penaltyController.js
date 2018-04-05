@@ -62,13 +62,8 @@ app.controller('penaltyController', ['$scope', 'penaltyService', function ($scop
     }
 
     // Ištrinti objektą
-    $scope.delete = function (UpdateId) {
-        penaltyService.delete($scope.UpdateId).then(function (results) {
-            var Penalty = {
-                Id: '',
-                Name: '',
-                Points: ''
-            };
+    $scope.delete = function (Id) {
+        penaltyService.delete(Id).then(function (results) {
             loadPenalties();
         });
     }

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Competition.Context
 {
-    [Table("TblRoute")]
+    [Table("TblRouteKKT")]
     public class TblRouteKKT
     {
         public int Id { get; set; }

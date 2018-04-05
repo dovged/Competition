@@ -8,8 +8,6 @@ namespace Competition.Context
         public int Id { get; set; }
         public int UserId { get; set; }
         public int CompId { get; set; }
-        public string Group { get; set; }
-        public int RouteId { get; set; }
 
     }
 }

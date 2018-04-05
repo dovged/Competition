@@ -3,7 +3,6 @@ app.controller('adminController', ['$scope', 'adminService', function ($scope, a
 
     $scope.userList = [];
     loadUserList();
-    $scope.openModalAdd = false;
 
     // Užkraunami duomenys į lentelę
     function loadUserList() {
@@ -16,12 +15,14 @@ app.controller('adminController', ['$scope', 'adminService', function ($scope, a
         });
     }
 
-    $scope.AddRole = function () {
-        $scope.openModalAdd = true;
-    }
-
     $scope.removeRole = function (Id) {
         adminService.removeRole(Id).then(function (results) {
+            loadUserList();
+        });
+    }
+
+    $scope.removeUser = function (Id) {
+        adminService.removeUser(Id).then(function (results) {
             loadUserList();
         });
     }

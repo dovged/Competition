@@ -18,6 +18,5 @@ app.controller('competitionController', ['$scope', '$location', 'competitionServ
         localStorageService.set("CompDetails", Id);
         $location.path("/compInfo")
     }
- 
 
 }]);

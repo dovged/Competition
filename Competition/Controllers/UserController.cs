@@ -100,7 +100,7 @@ namespace Competition.Controllers
             return ToJsonCreated(CompetitionDB.SaveChanges());
         }
 
-        /** Atnujinama vartotojo informacija*/
+        /** Atnaujinama vartotojo informacija*/
         [Route("api/user/{user}")]
         public HttpResponseMessage Put(string user, [FromBody]TblUser value)
         {
@@ -111,12 +111,9 @@ namespace Competition.Controllers
 
         /** Fiktyvus Delete metodas;
           * Tai galima padaryti tik vartotojui, kuris yra duomenų bazėje ir yra User.Active == true*/
-          [Route("api/user/{userName}")]
-        public HttpResponseMessage Delete(string userName)
+        [Route("api/user/{id}")]
+        public HttpResponseMessage Delete(int id)
         {
-            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
-            int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
-
             if (CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == id && x.Active == true) != null)
             {                
                 TblUser user = CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == id);

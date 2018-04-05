@@ -10,11 +10,13 @@ app.controller('competitionInfoController', ['$scope', 'competitionService', 'lo
         MainJudgeId: "",
         MainJudgeName: "",
         Type: "",
-        Open: ""
-
+        Open: "",
+        Update: "",
+        ClimbType: ""
     };
 
-    $scope.CompId;
+    $scope.routeList = {};
+
     loadCompInfo();
 
     // užkraunamas varžybų sąrašas;
@@ -31,10 +33,18 @@ app.controller('competitionInfoController', ['$scope', 'competitionService', 'lo
             $scope.competition.MainJudgeName = c.MainJudgeName;
             $scope.competition.Type = c.Type;
             $scope.competition.Open = c.Open;
+            $scope.competition.Update = c.Update;
+            $scope.competition.ClimbType = c.ClimbType;
 
         }, function (error) {
             // alert(error.data.message);
+            });
+
+        competitionService.getKKTRoutes($scope.Id).then(function (results) {
+            $scope.routeList = results.data;
         });
+
+        
     }
 
     

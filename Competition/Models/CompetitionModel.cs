@@ -19,6 +19,8 @@ namespace Competition.Models
         //Nustatyti ar laipiojimo varžybos (true), ar KKT varžybos (false);
         public Boolean Type { get; set; }
         public Boolean Open { get; set; }
+        public Boolean Update { get; set; }
+        public int ClimbType { get; set; }
 
         public CompetitionModel(TblCompetition row)
         {
@@ -30,6 +32,8 @@ namespace Competition.Models
             MainRouteCreatorId = row.MainRouteCreatorId;
             Type = row.Type;
             Open = row.Open;
+            Update = row.Update;
+            ClimbType = row.ClimbType;
         }
 
     }

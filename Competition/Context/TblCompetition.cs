@@ -18,5 +18,7 @@ namespace Competition.Context
         public Boolean Type { get; set; }
         // Nustatoma ar jau gali rezistruotis į varžybas
         public Boolean Open { get; set; }
+        public Boolean Update { get; set; }
+        public int ClimbType { get; set; }
     }
 }

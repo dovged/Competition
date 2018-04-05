@@ -43,11 +43,19 @@ app.factory('competitionService', ['$http', 'authService', 'localStorageService'
         });
     };
 
+    // Gauti KKT varžybų trasų info
+    var _getKKTRoutes = function (Id) {
+        return $http.get(serviceBase + 'api/routeKKT/' + Id).then(function (results) {
+            return results;
+        });
+    };
+
     competitionServiceFactory.getCompetitionList = _getCompetitionList;
     competitionServiceFactory.getCompetitionListAll = _getCompetitionListAll;
     competitionServiceFactory.getCompetitionDetails = _getCompetitionDetails;
     competitionServiceFactory.getNonPaidClim = _getNonPaidClim;
     competitionServiceFactory.getNonPaidKKT = _getNonPaidKKT;
+    competitionServiceFactory.getKKTRoutes = _getKKTRoutes;
 
     return competitionServiceFactory;
 

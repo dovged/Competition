@@ -13,14 +13,15 @@ namespace Competition.Controllers
     public class RouteKKTController : BaseAPIController
     {
         /** Grąžina visas vienų varžybų KKT trasas*/
-        [Route("api/competition/{compId}/routeKKT")]
+        [Route("api/routeKKT/{compId}")]
         public HttpResponseMessage Get(int compId)
         {
             if (CompetitionDB.TblCompetitions.FirstOrDefault(x => x.Id == compId) != null)
             {
-             /*   if (CompetitionDB.TblRoutesKKT.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteKKTModel(x)).ToList() != null)
-                {*/
-                    return ToJsonOK(CompetitionDB.TblRoutesKKT.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteKKTModel(x)).ToList());
+                /*   if (CompetitionDB.TblRoutesKKT.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteKKTModel(x)).ToList() != null)
+                   {*/
+                List<RouteKKTModel> routes = CompetitionDB.TblRoutesKKT.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteKKTModel(x)).ToList();
+                    return ToJsonOK(routes);
               /*  }
 
                 return ToJsonNotFound("Tuščias sąrašas.");*/

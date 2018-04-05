@@ -21,9 +21,19 @@ app.factory('adminService', function ($http) {
         return deleteRequest;
     }
 
+    var _removeUser = function (Id) {
+        var deleteRequest = $http({
+            method: 'delete',
+            url: serviceBase + "api/user/" + Id
+        });
+
+        return deleteRequest;
+    }
+
 
     adminServiceFactory.getUserList = _getUserList;
     adminServiceFactory.removeRole = _removeRole;
+    adminServiceFactory.removeUser = _removeUser;
 
     return adminServiceFactory;
 

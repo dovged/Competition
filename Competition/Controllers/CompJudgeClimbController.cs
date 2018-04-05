@@ -22,11 +22,6 @@ namespace Competition.Controllers
                 foreach(CompJudgeClimModel j in judges)
                 {
                     j.JudgeName = "" + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == j.UserId).Name.ToString() + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == j.UserId).LastName.ToString();
-                    j.Routes = CompetitionDB.TblJudgeRoutes.ToArray().Where(x => x.JudgeId == j.Id).Select(x => new JudgeRouteModel(x)).ToList();
-                    foreach(JudgeRouteModel r in j.Routes)
-                    {
-                        r.RouteNumber = CompetitionDB.TblRoutesClim.FirstOrDefault(x => x.Id == r.RouteId).Number;
-                    }
                 }
 
                 return ToJsonOK(judges);
@@ -42,11 +37,6 @@ namespace Competition.Controllers
             {
                 CompJudgeClimModel judge = CompetitionDB.TblCompJudgesClim.Where(x => x.Id == JudgeId).Select(x => new CompJudgeClimModel(x)).FirstOrDefault();
                 judge.JudgeName = "" + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == judge.UserId).Name.ToString() + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == judge.UserId).LastName.ToString();
-                judge.Routes = CompetitionDB.TblJudgeRoutes.ToArray().Where(x => x.JudgeId == judge.Id).Select(x => new JudgeRouteModel(x)).ToList();
-                foreach (JudgeRouteModel r in judge.Routes)
-                {
-                    r.RouteNumber = CompetitionDB.TblRoutesClim.FirstOrDefault(x => x.Id == r.RouteId).Number;
-                }
 
                 return ToJsonOK(judge);
             }
