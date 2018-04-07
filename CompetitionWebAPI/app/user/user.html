@@ -109,12 +109,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr data-ng-repeat="">
-                    <td> {{  }} </td>
-                    <td> {{  }} </td>
-                    <td> {{  }}</td>
+                <tr data-ng-repeat="c in compClim">
+                    <td> {{ c.CompetitionName }} </td>
+                    <td> {{ c.Date }} </td>
+                    <td> {{ c.Club }}</td>
                     <td>
-                        <button title="Atšaukti" class="btn btn-danger" style="padding: 10px 12px" ng-click="delete()"><span class="glyphicon glyphicon-remove"></span></button>
+                        <button title="Atšaukti" class="btn btn-danger" style="padding: 10px 12px" ng-click="deleteCompClim(c.Id)"><span class="glyphicon glyphicon-remove"></span></button>
                     </td>
                 </tr>
             </tbody>
@@ -130,12 +130,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr data-ng-repeat="">
-                    <td> {{  }} </td>
-                    <td> {{  }} </td>
-                    <td> {{  }}</td>
+                <tr data-ng-repeat="com in compKKT">
+                    <td> {{ com.CompetitionName }} </td>
+                    <td> {{ com.Date }} </td>
+                    <td> {{ com.Club }}</td>
                     <td>
-                        <button title="Atšaukti" class="btn btn-danger" style="padding: 10px 12px" ng-click="delete()"><span class="glyphicon glyphicon-remove"></span></button>
+                        <button title="Atšaukti" class="btn btn-danger" style="padding: 10px 12px" ng-click="deleteCompKKT(com.Id)"><span class="glyphicon glyphicon-remove"></span></button>
                     </td>
                 </tr>
             </tbody>

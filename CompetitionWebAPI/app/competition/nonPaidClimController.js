@@ -3,14 +3,22 @@ app.controller('nonPaidClimController', ['$scope', '$location', 'competitionServ
 
     $scope.competitorsList = [];
     $scope.CompId;
-    loadCompetitionList();
+    loadCompetitorsList();
 
     // užkraunamas varžybų sąrašas;
     function loadCompetitorsList() {
         $scope.CompId = localStorageService.get("CompDetails")
         competitionService.getNonPaidClim($scope.CompId).then(function (results) {
             $scope.competitorsList = results.data;
-            localStorageService.remove("CompDetails");
+        }, function (error) {
+            // alert(error.data.message);
+        });
+    }
+
+
+    $scope.paidClim = function (Id) {
+        competitionService.paidClim(Id).then(function (results) {
+            loadCompetitorsList();
         }, function (error) {
             // alert(error.data.message);
         });

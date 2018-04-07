@@ -50,12 +50,35 @@ app.factory('competitionService', ['$http', 'authService', 'localStorageService'
         });
     };
 
+    /* Pažymimas dalyvis, kuris susimokėjo KKT*/
+    var _paidKKT = function (Id) {
+        var updaterequest = $http({
+            method: 'put',
+            url: serviceBase + "api/competitionKKTPaid/" + Id,
+        });
+
+        return updaterequest;
+    };
+
+    /* Pažymimas dalyvis, kuris susimokėjo LAIPIOJIMAS*/
+    var _paidClim = function (Id) {
+        var updaterequest = $http({
+            method: 'put',
+            url: serviceBase + "api/competitionClimPaid/" + Id,
+        });
+
+        return updaterequest;
+    };
+
     competitionServiceFactory.getCompetitionList = _getCompetitionList;
     competitionServiceFactory.getCompetitionListAll = _getCompetitionListAll;
     competitionServiceFactory.getCompetitionDetails = _getCompetitionDetails;
     competitionServiceFactory.getNonPaidClim = _getNonPaidClim;
     competitionServiceFactory.getNonPaidKKT = _getNonPaidKKT;
     competitionServiceFactory.getKKTRoutes = _getKKTRoutes;
+    competitionServiceFactory.paidKKT = _paidKKT;
+    competitionServiceFactory.paidClim = _paidClim;
+
 
     return competitionServiceFactory;
 

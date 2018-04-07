@@ -1,4 +1,5 @@
 ﻿using Competition.Context;
+using System;
 
 namespace Competition.Models
 {
@@ -12,6 +13,9 @@ namespace Competition.Models
         // Laipiotojo Vardas ir Pavardė string formatu
         public string ClimberName { get; set; }
         public string CompetitionName { get; set; }
+        public string Club { get; set; }
+        public DateTime Date { get; set; }
+        public Boolean Update { get; set; }
 
         public CompetitorsClimModel(TblCompetitorsClimb row)
         {

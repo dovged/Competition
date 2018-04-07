@@ -25,7 +25,7 @@ app.controller('penaltyController', ['$scope', 'penaltyService', function ($scop
 
         penaltyService.add(Penalty).then(function (results) {
             $scope.Id = results.data.Id;
-            loadPenalties();
+            loadPenaltyList();
         },
             function () {
                 //
@@ -53,7 +53,7 @@ app.controller('penaltyController', ['$scope', 'penaltyService', function ($scop
             Points: $scope.UpdatePoints
         };
         penaltyService.update($scope.UpdateId, Penalty).then(function (results) {
-            loadPenalties();
+            loadPenaltyList();
         },
             function () {
                 //
@@ -64,7 +64,7 @@ app.controller('penaltyController', ['$scope', 'penaltyService', function ($scop
     // Ištrinti objektą
     $scope.delete = function (Id) {
         penaltyService.delete(Id).then(function (results) {
-            loadPenalties();
+            loadPenaltyList();
         });
     }
 

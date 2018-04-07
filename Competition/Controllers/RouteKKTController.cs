@@ -68,6 +68,7 @@ namespace Competition.Controllers
         }
 
         /** Ištrinti vienos KKT trasos duomenis*/
+        [Route("api/routeKKT/{id}")]
         public HttpResponseMessage Delete(int id)
         {
             if (CompetitionDB.TblRoutesKKT.FirstOrDefault(x => x.Id == id) != null)

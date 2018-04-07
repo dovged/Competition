@@ -74,6 +74,10 @@ namespace Competition.Controllers
             foreach (CompetitorsKKTModel c in climKKT)
             {
                 c.CompetitionName = CompetitionDB.TblCompetitions.Find(c.CompId).Name;
+                int ClubId = CompetitionDB.TblUsers.Find(CompetitionDB.TblCompetitions.Find(c.CompId).OrgId).ClubId;
+                c.Club = CompetitionDB.TblClubs.Find(ClubId).Name;
+                c.Date = CompetitionDB.TblCompetitions.Find(c.CompId).Date;
+                c.Update = CompetitionDB.TblCompetitions.Find(c.CompId).Update;
             }
 
             return ToJsonOK(climKKT);
@@ -98,7 +102,7 @@ namespace Competition.Controllers
         public HttpResponseMessage Put(int id)
         {
             TblCompetitorsKKT value = CompetitionDB.TblCompetitorsKKT.Find(id);
-            value.Paid = false;
+            value.Paid = true;
             CompetitionDB.Entry(value).State = EntityState.Modified;
 
             return ToJsonOK(CompetitionDB.SaveChanges());

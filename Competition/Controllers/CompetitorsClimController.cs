@@ -70,14 +70,21 @@ namespace Competition.Controllers
         {
             string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
             int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
-
-            List<CompetitorsClimModel> clim = CompetitionDB.TblCompetitorsClim.ToArray().Where(x => x.UserId == id).Select(x => new CompetitorsClimModel(x)).ToList();
-            foreach(CompetitorsClimModel c in clim)
+            if(CompetitionDB.TblCompetitorsClim.ToArray().Where(x => x.UserId == id).Select(x => new CompetitorsClimModel(x)).ToList().Count != 0)
             {
-                c.CompetitionName = CompetitionDB.TblCompetitions.Find(c.CompId).Name;
-            }
+                List<CompetitorsClimModel> clim = CompetitionDB.TblCompetitorsClim.ToArray().Where(x => x.UserId == id).Select(x => new CompetitorsClimModel(x)).ToList();
+                foreach(CompetitorsClimModel c in clim)
+                {
+                    c.CompetitionName = CompetitionDB.TblCompetitions.Find(c.CompId).Name;
+                    int ClubId = CompetitionDB.TblUsers.Find(CompetitionDB.TblCompetitions.Find(c.CompId).OrgId).ClubId;
+                    c.Date = CompetitionDB.TblCompetitions.Find(c.CompId).Date;
+                    c.Club = CompetitionDB.TblClubs.Find(ClubId).Name;
+                    c.Update = CompetitionDB.TblCompetitions.Find(c.CompId).Update;
+                }
 
-            return ToJsonOK(clim);
+                return ToJsonOK(clim);
+            }
+            return ToJsonNotFound("Objektas nerastas");
         }
 
 
@@ -108,11 +115,11 @@ namespace Competition.Controllers
         }
 
         /** Pažymima, kad dalyvis susimokėjo*/
-        [Route("api/competitionKKTPaid/{id}")]
+        [Route("api/competitionClimPaid/{id}")]
         public HttpResponseMessage Put(int id)
         {
             TblCompetitorsClimb value = CompetitionDB.TblCompetitorsClim.Find(id);
-            value.Paid = false;
+            value.Paid = true;
             CompetitionDB.Entry(value).State = EntityState.Modified;
 
             return ToJsonOK(CompetitionDB.SaveChanges());

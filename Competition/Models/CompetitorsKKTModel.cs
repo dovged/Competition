@@ -1,4 +1,5 @@
 ﻿using Competition.Context;
+using System;
 
 namespace Competition.Models
 {
@@ -11,6 +12,9 @@ namespace Competition.Models
         public bool Paid { get; set; }
         public string TeamName { get; set; }
         public string CompetitionName { get; set; }
+        public string Club { get; set; }
+        public DateTime Date { get; set; }
+        public Boolean Update { get; set; }
 
         public CompetitorsKKTModel(TblCompetitorsKKT row)
         {

@@ -3,14 +3,21 @@ app.controller('nonPaidKKTController', ['$scope', '$location', 'competitionServi
 
     $scope.competitorsList = [];
     $scope.CompId;
-    loadCompetitionList();
+    loadCompetitorsList();
 
     // užkraunamas varžybų sąrašas;
     function loadCompetitorsList() {
         $scope.CompId = localStorageService.get("CompDetails")
         competitionService.getNonPaidKKT($scope.CompId).then(function (results) {
             $scope.competitorsList = results.data;
-            localStorageService.remove("CompDetails");
+        }, function (error) {
+            // alert(error.data.message);
+        });
+    }
+
+    $scope.paidKKT = function (Id) {
+        competitionService.paidKKT(Id).then(function (results) {
+            loadCompetitorsList();
         }, function (error) {
             // alert(error.data.message);
         });
