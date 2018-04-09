@@ -45,12 +45,60 @@ app.factory('userService',['$http', 'authService', function ($http, authService)
         return deleterequest;
     }
 
+    //Gaunas klubų sąrašas
+    var _getClubs = function () {
+        return $http.get(serviceBase + "api/club").then(function (results) {
+            return results;
+        });
+    };
 
+    // Gauna vartotojo inforamcija
+    var _getUser = function () {
+        return $http.get(serviceBase + "api/user/" + _user).then(function (results) {
+            return results;
+        });
+    };
+
+    //Atnaujinama vartotojo informacija
+    var _updateUser = function (u) {
+        var updaterequest = $http({
+            method: 'put',
+            url: serviceBase + "api/user/" + _user,
+            data: u
+        });
+    };
+
+    // Ištrinamas narys iš komandos
+    var _removeMember = function (id) {
+        var deleterequest = $http({
+            method: 'put',
+            url: serviceBase + "api/removeMember/" + id
+        });
+
+        return deleterequest;
+    }
+
+    // Pirdėti dalyvį į komandą
+    var _addMember = function (id, teamid) {
+        var addrequest = $http({
+            method: 'put',
+            url: serviceBase + "api/addMember/" + id + "/" + teamid
+        });
+
+        return addrequest;
+    }
+
+    // PRISIKIRIMAI
     userServiceFactory.getUserTeam = _getUserTeam;
     userServiceFactory.getCompListClim = _getCompListClim;
     userServiceFactory.getCompListKKT = _getCompListKKT;
     userServiceFactory.deleteCompClim = _deleteCompClim;
     userServiceFactory.deleteCompKKT = _deleteCompKKT;
+    userServiceFactory.getClubs = _getClubs;
+    userServiceFactory.getUser = _getUser;
+    userServiceFactory.updateUser = _updateUser;
+    userServiceFactory.removeMember = _removeMember;
+    userServiceFactory.addMember = _addMember;
 
     return userServiceFactory;
 

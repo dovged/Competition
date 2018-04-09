@@ -20,5 +20,6 @@ namespace Competition.Context
         public Boolean Active { get; set; }
         public int TrainerId { get; set; }
         public DateTime BirthYear { get; set; }
+        public string Lytis { get; set; }
     }
 }

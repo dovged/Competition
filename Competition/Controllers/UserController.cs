@@ -81,6 +81,20 @@ namespace Competition.Controllers
             return ToJsonOK(users);
         }
 
+        /** Grąžinamas sąrašas vartotojų be komandos*/
+        [Route("api/userNoTeam/{n}")]
+        public HttpResponseMessage Get(int n)
+        {
+            if (CompetitionDB.TblUsers.AsEnumerable() != null)
+            {
+                List<UserModel> users = CompetitionDB.TblUsers.ToArray().Where(x => x.Active == true && x.TeamId == 0 && x.UserId != "0").Select(x => new UserModel(x)).ToList();
+                
+                return ToJsonOK(users);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.NotFound, "Empty list.");
+        }
+
         /** Uzpildoma User papildoma informacija */
         [Route("api/user/{userName}")]
         public HttpResponseMessage Post(string userName)
@@ -97,6 +111,37 @@ namespace Competition.Controllers
             role.RoleId = 1;
             role.UserId = id;
             CompetitionDB.TblUserRoles.Add(role);
+            return ToJsonCreated(CompetitionDB.SaveChanges());
+        }
+
+        /** Treneris užregistruoja naują vartotoją*/
+        [Route("api/userTrainee/{userName}")]
+        public HttpResponseMessage Post(string userName, [FromBody]TblUser value)
+        {
+            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
+            int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.Email == userName).Id;
+
+            TblUser user = new TblUser();
+            user.Name = value.Name;
+            user.LastName = value.LastName;
+            user.BirthYear = value.BirthYear;
+            user.Lytis = value.Lytis;
+            user.Active = true;
+            user.UserId = "0";
+            user.TrainerId = id;
+            user.ClubId = CompetitionDB.TblUsers.Find(id).ClubId;
+            user.Email = "";
+            user.TelNumber = "";
+            user.TeamId = 0;
+            CompetitionDB.TblUsers.Add(user);
+            CompetitionDB.SaveChanges();
+            int idUser = CompetitionDB.TblUsers.FirstOrDefault(x => x.Name == user.Name && x.LastName == user.LastName).Id;
+            TblUserRole role = new TblUserRole();
+            //Pridedama "NEPILNAMEČIO DALYVIO" rolė
+            role.RoleId = 8;
+            role.UserId = idUser;
+            CompetitionDB.TblUserRoles.Add(role);
+
             return ToJsonCreated(CompetitionDB.SaveChanges());
         }
 
@@ -124,5 +169,7 @@ namespace Competition.Controllers
 
             return ToJsonNotFound("Objektas nerastas.");
         }
+
+        
     }
 }

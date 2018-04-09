@@ -73,6 +73,11 @@ app.config(function ($routeProvider) {
         templateUrl: "app/competition/nonPaidClim.html"
     });
 
+    $routeProvider.when("/addTrainee", {
+        controller: "addTraineeController",
+        templateUrl: "app/trainer/addTrainee.html"
+    });
+
     $routeProvider.otherwise({ redirectTo: "/home" });
 
 });

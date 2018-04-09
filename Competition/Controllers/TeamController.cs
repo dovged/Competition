@@ -71,18 +71,26 @@ namespace Competition.Controllers
             return ToJsonCreated(CompetitionDB.SaveChanges());
         }
 
-        /** Redaguoti komandos duomenis*/
-        public HttpResponseMessage Put(int id, [FromBody]TblTeam value)
+        /**Pridedamas dalyvis į komandą*/
+        [Route("api/addMember/{userId}/{teamId}")]
+        public HttpResponseMessage Put(int userId, int teamId)
         {
-            if (CompetitionDB.TblTeams.FirstOrDefault(x => x.Id == id) != null)
-            {
-                CompetitionDB.Entry(value).State = EntityState.Modified;
-                CompetitionDB.SaveChanges();
+            TblUser user = CompetitionDB.TblUsers.Find(userId);
+            user.TeamId = teamId;
+            CompetitionDB.Entry(user).State = EntityState.Modified;
 
-                return ToJsonOK(value);
-            }
+            return ToJsonOK(CompetitionDB.SaveChanges());
+        }
 
-            return ToJsonNotFound("Objektas nerastas.");
+        /**Ištrinamas dalyvis iš komandą*/
+        [Route("api/removeMember/{userId}")]
+        public HttpResponseMessage Put(int userId)
+        {
+            TblUser user = CompetitionDB.TblUsers.Find(userId);
+            user.TeamId = 0;
+            CompetitionDB.Entry(user).State = EntityState.Modified;
+
+            return ToJsonOK(CompetitionDB.SaveChanges());
         }
 
         /** Ištrinti komandą*/

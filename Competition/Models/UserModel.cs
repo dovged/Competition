@@ -17,6 +17,9 @@ namespace Competition.Models
         public Boolean Active { get; set; }
         public int TrainerId { get; set; }
         public DateTime BirthYear { get; set; }
+        public DateTime BirthYear1 { get; set; }
+        public string Lytis { get; set; }
+        public string Name2 { get; set; }
 
         public List<RoleModel> roles { get; set; }
 
@@ -29,7 +32,9 @@ namespace Competition.Models
             ClubId = row.ClubId;
             TrainerId = row.TrainerId;
             BirthYear = row.BirthYear;
-
+            Lytis = row.Lytis;
+            BirthYear1 = BirthYear.Date;
+            Name2 = Name + " " + LastName;
         }
     }
 }
