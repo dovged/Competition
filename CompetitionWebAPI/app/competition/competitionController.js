@@ -14,6 +14,7 @@ app.controller('competitionController', ['$scope', '$location', 'competitionServ
         });
     }
 
+    /** Perėjimas į pasirinktų varžybų inforamcijos langą*/
     $scope.getCompInfo = function (Id) {
         localStorageService.set("CompDetails", Id);
         $location.path("/compInfo")

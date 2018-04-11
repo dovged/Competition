@@ -271,6 +271,8 @@
     <Compile Include="Models\CompJudgeKKTModel.cs" />
     <Compile Include="Models\CompetitionKKTModel.cs" />
     <Compile Include="Models\CompetitorsKKTModel.cs" />
+    <Compile Include="Models\CompKidsKKTModel.cs" />
+    <Compile Include="Models\CompKidsClimbModel.cs" />
     <Compile Include="Models\CompTypeModel.cs" />
     <Compile Include="Models\JudgeRouteModel.cs" />
     <Compile Include="Models\JudgesPaperClimbModel.cs" />

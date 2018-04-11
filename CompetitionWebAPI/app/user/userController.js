@@ -111,6 +111,5 @@ app.controller('userController', ['$scope', 'userService', function ($scope, use
     // Indikacija naujo nario pridėjimui
     $scope.member = function () {
         $scope.newMember = true;
-        userService.
     };
 }]);

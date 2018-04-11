@@ -83,6 +83,42 @@ namespace Competition.Controllers
             return ToJsonOK(climKKT);
         }
 
+        /** Grąžinamas dalyvių sąrašas; Naudojama registracijos langui*/
+        [Route("api/compKidsKKT/{compId}/{userName}/{m}")]
+        public HttpResponseMessage Get(int compId, string userName, int m)
+        {
+            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
+            int Trainerid = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
+            List<CompKidsKKTModel> kids = new List<CompKidsKKTModel>();
+           
+            if(CompetitionDB.TblTeams.ToArray().Where(x => x.TeamCaptainId == Trainerid).Select(x => new TeamModel(x)).ToList().Count != 0)
+            {
+                List<TeamModel> teams = CompetitionDB.TblTeams.ToArray().Where(x => x.TeamCaptainId == Trainerid).Select(x => new TeamModel(x)).ToList();
+                foreach (TeamModel t in teams)
+                {
+                    CompKidsKKTModel k = new CompKidsKKTModel();
+                    k.CompId = compId;
+                    k.CompName = CompetitionDB.TblCompetitions.Find(compId).Name;
+                    k.TeamId = t.Id;
+                    k.TeamName = t.Name;
+
+                    if (CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => x.CompetitionId == compId && x.TeamId == t.Id).Select(x => new CompetitorsKKTModel(x)).ToList().Count != 0)
+                    {
+                        k.Register = true;
+                    }
+                    else
+                    {
+                        k.Register = false;
+                    }
+                    kids.Add(k);
+                }
+
+                return ToJsonOK(kids);
+            }
+
+            return ToJsonNotFound("Objektas nerastas.");
+        }
+
         /** Sukuriamas dalyvaujančios komandos varžybose objektas SUAUGUSIEMS*/
         [Route("api/competitionKKT/{compId}/KKT/{userName}")]
         public HttpResponseMessage Post(int compId, string userName, [FromBody]TblCompetitorsKKT value)
@@ -94,6 +130,30 @@ namespace Competition.Controllers
             value.TeamId = CompetitionDB.TblTeams.FirstOrDefault(x => x.TeamCaptainId == Id).Id;
             CompetitionDB.TblCompetitorsKKT.Add(value);
     
+            return ToJsonCreated(CompetitionDB.SaveChanges());
+        }
+
+        /** Treneris užregistruoja nepilnamečių dalyvių komandą į varžybas*/
+        [Route("api/competition/{compId}/climKidsKKT/{id}")]
+        public HttpResponseMessage Post(int compId, int id)
+        {
+            TblCompetitorsKKT value = new TblCompetitorsKKT();
+            value.Paid = false;
+            value.CompetitionId = compId;
+            value.TeamId = id;
+            int dateYear = Convert.ToInt32(CompetitionDB.TblUsers.First(x => x.TeamId == id).BirthYear.ToString().Substring(5, 4));
+            int dateNow = Convert.ToInt32(DateTime.Now.ToString().Substring(5, 4));
+            if ((dateNow - dateYear) > 16)
+            {
+                value.Group = "JAUNIAI";
+            }
+            else
+            {
+                value.Group = "JAUNUČIAI";
+            }
+
+            CompetitionDB.TblCompetitorsKKT.Add(value);
+
             return ToJsonCreated(CompetitionDB.SaveChanges());
         }
 
@@ -115,6 +175,19 @@ namespace Competition.Controllers
             if (CompetitionDB.TblCompetitorsKKT.FirstOrDefault(x => x.Id == id) != null)
             {
                 CompetitionDB.TblCompetitorsKKT.Remove(CompetitionDB.TblCompetitorsKKT.FirstOrDefault(x => x.Id == id));
+                return ToJsonOK(CompetitionDB.SaveChanges());
+            }
+
+            return ToJsonNotFound("Objektas nerastas.");
+        }
+
+        /** Trenerio panaikinama registracija nepilnamečio dalyvio į varžybas*/
+        [Route("api/clim/{compid}/{id}")]
+        public HttpResponseMessage Delete(int compid, int id)
+        {
+            if (CompetitionDB.TblCompetitorsKKT.FirstOrDefault(x => x.TeamId == id && x.CompetitionId == compid) != null)
+            {
+                CompetitionDB.TblCompetitorsKKT.Remove(CompetitionDB.TblCompetitorsKKT.FirstOrDefault(x => x.TeamId == id && x.CompetitionId == compid));
                 return ToJsonOK(CompetitionDB.SaveChanges());
             }
 

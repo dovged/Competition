@@ -70,6 +70,8 @@ app.factory('competitionService', ['$http', 'authService', 'localStorageService'
         return updaterequest;
     };
 
+
+    /** PRISKIRIMAI */
     competitionServiceFactory.getCompetitionList = _getCompetitionList;
     competitionServiceFactory.getCompetitionListAll = _getCompetitionListAll;
     competitionServiceFactory.getCompetitionDetails = _getCompetitionDetails;

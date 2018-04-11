@@ -7,7 +7,7 @@ app.config(function ($routeProvider) {
         controller: "homeController",
         templateUrl: "/app/views/home.html"
     });
-
+     /** USER PASIEKIAMI LANGAI*/
     $routeProvider.when("/login", {
         controller: "loginController",
         templateUrl: "/app/views/login.html"
@@ -18,6 +18,7 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/signup.html"
     });
 
+    /** DALYVIO PASIEKIAMI LANGAI*/
     $routeProvider.when("/calendar", {
         controller: "calendarController",
         templateUrl: "/app/calendar/calendar.html"
@@ -28,34 +29,20 @@ app.config(function ($routeProvider) {
         templateUrl: "app/user/user.html"
     });
 
+    $routeProvider.when("/results", {
+        controller: "resultsController",
+        templateUrl: "app/calendar/results.html"
+    });
+
+    /** VARŽYBŲ ORGANIZATORIAUS PASIEKIAMI LAGAI*/
     $routeProvider.when("/penalties", {
         controller: "penaltyController",
         templateUrl: "app/penalty/penalties.html"
     });
 
-    $routeProvider.when("/addNew", {
-        controller: "penaltyController",
-        templateUrl: "app/views/penaltyModal.html"
-    });
-
     $routeProvider.when("/competitionOrg", {
         controller: "competitionController",
         templateUrl: "app/competition/competitionList.html"
-    });
-
-    $routeProvider.when("/admin", {
-        controller: "adminController",
-        templateUrl: "app/admin/userList.html"
-    });
-
-    $routeProvider.when("/trainer", {
-        controller: "trainerController",
-        templateUrl: "app/trainer/trainerMain.html"
-    });
-
-    $routeProvider.when("/results", {
-        controller: "resultsController",
-        templateUrl: "app/calendar/results.html"
     });
 
     $routeProvider.when("/compInfo", {
@@ -73,10 +60,38 @@ app.config(function ($routeProvider) {
         templateUrl: "app/competition/nonPaidClim.html"
     });
 
+    /** ADMINISTRATORIAUS PASIEKIAMI LANGAI*/
+    $routeProvider.when("/admin", {
+        controller: "adminController",
+        templateUrl: "app/admin/userList.html"
+    });
+
+    /** TRENERIO PASIEKIAMI LANGAI*/
+    $routeProvider.when("/trainer", {
+        controller: "trainerController",
+        templateUrl: "app/trainer/trainerMain.html"
+    });
+
     $routeProvider.when("/addTrainee", {
         controller: "addTraineeController",
         templateUrl: "app/trainer/addTrainee.html"
     });
+
+    $routeProvider.when("/compTrainer", {
+        controller: "compTrainerController",
+        templateUrl: "app/trainer/compTrainer.html"
+    });
+
+    $routeProvider.when("/registerCompKKT", {
+        controller: "trainerRegisterKKTController",
+        templateUrl: "app/trainer/trainerRegisterKKT.html"
+    });
+
+    $routeProvider.when("/registerCompClim", {
+        controller: "trainerRegisterClimController",
+        templateUrl: "app/trainer/trainerRegisterClim.html"
+    });
+
 
     $routeProvider.otherwise({ redirectTo: "/home" });
 

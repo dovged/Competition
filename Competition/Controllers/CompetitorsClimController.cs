@@ -10,7 +10,6 @@ using System.Web.Http;
 
 namespace Competition.Controllers
 {
-    
     public class CompetitorsClimController : BaseAPIController
     {
         /** Grąžinamas sąrašas dalyvių vienose varžybose*/
@@ -87,6 +86,41 @@ namespace Competition.Controllers
             return ToJsonNotFound("Objektas nerastas");
         }
 
+        /** Grąžinamas dalyvių sąrašas; Naudojama registracijos langui*/
+        [Route("api/compKidsClim/{compId}/{userName}/{m}")]
+        public HttpResponseMessage Get(int compId, string userName, int m)
+        {
+            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
+            int Trainerid = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
+            List<CompKidsClimbModel> kids = new List<CompKidsClimbModel>();
+
+            if (CompetitionDB.TblUsers.ToArray().Where(x => x.TrainerId == Trainerid).Select(x => new UserModel(x)).ToList().Count != 0)
+            {
+                List<UserModel> teams = CompetitionDB.TblUsers.ToArray().Where(x => x.TrainerId == Trainerid).Select(x => new UserModel(x)).ToList();
+                foreach (UserModel t in teams)
+                {
+                    CompKidsClimbModel k = new CompKidsClimbModel();
+                    k.CompId = compId;
+                    k.CompName = CompetitionDB.TblCompetitions.Find(compId).Name;
+                    k.ClimberId = t.Id;
+                    k.ClimberName = t.Name + " " + t.LastName;
+
+                    if (CompetitionDB.TblCompetitorsClim.ToArray().Where(x => x.CompetitionId == compId && x.UserId == t.Id).Select(x => new CompetitorsClimModel(x)).ToList().Count != 0)
+                    {
+                        k.Register = true;
+                    }
+                    else
+                    {
+                        k.Register = false;
+                    }
+                    kids.Add(k);
+                }
+
+                return ToJsonOK(kids);
+            }
+
+            return ToJsonNotFound("Objektas nerastas.");
+        }
 
         /** Sukuriamas dalyvaujančios vartotojo varžybose objektas SUAGUSIEMS*/
         [Route("api/competition/{compId}/clim/{userName}")]
@@ -101,6 +135,42 @@ namespace Competition.Controllers
             return ToJsonCreated(CompetitionDB.SaveChanges());
         }
 
+        /** Treneris užregistruoja nepilnametį dalyvį į varžybas*/
+        [Route("api/competition/{compId}/climKids/{id}")]
+        public HttpResponseMessage Post(int compId, int id)
+        {
+            TblCompetitorsClimb value = new TblCompetitorsClimb();
+            value.Paid = false;
+            value.CompetitionId = compId;
+            value.UserId = id;
+            int dateYear = Convert.ToInt32(CompetitionDB.TblUsers.Find(id).BirthYear.ToString().Substring(5,4));
+            int dateNow = Convert.ToInt32(DateTime.Now.ToString().Substring(5,4));
+            if((dateNow - dateYear) > 17)
+            {
+                value.Group = "JAUNIMAS";
+            }
+            else if((dateNow - dateYear) > 15)
+            {
+                value.Group = "JAUNIAI";
+            }
+            else if((dateNow - dateYear) > 13)
+            {
+                value.Group = "JAUNUOLIAI";
+            }
+            else if((dateNow - dateYear) > 11)
+            {
+                value.Group = "JAUNUČIAI";
+            }
+            else
+            {
+                value.Group = "VAIKAI";
+            }
+            
+            CompetitionDB.TblCompetitorsClim.Add(value);
+
+            return ToJsonCreated(CompetitionDB.SaveChanges());
+        }
+
         /** Ištrinamas objektas - panaikinama registraciją į varžybas*/
         [Route("api/clim/{id}")]
         public HttpResponseMessage Delete(int id)
@@ -108,6 +178,19 @@ namespace Competition.Controllers
             if (CompetitionDB.TblCompetitorsClim.FirstOrDefault(x => x.Id == id) != null)
             {
                 CompetitionDB.TblCompetitorsClim.Remove(CompetitionDB.TblCompetitorsClim.FirstOrDefault(x => x.Id == id));
+                return ToJsonOK(CompetitionDB.SaveChanges());
+            }
+
+            return ToJsonNotFound("Objektas nerastas.");
+        }
+
+        /** Trenerio panaikinama registracija nepilnamečio dalyvio į varžybas*/
+        [Route("api/clim/{compid}/{id}")]
+        public HttpResponseMessage Delete(int compid, int id)
+        {
+            if (CompetitionDB.TblCompetitorsClim.FirstOrDefault(x => x.UserId == id && x.CompetitionId == compid) != null)
+            {
+                CompetitionDB.TblCompetitorsClim.Remove(CompetitionDB.TblCompetitorsClim.FirstOrDefault(x => x.UserId == id && x.CompetitionId == compid));
                 return ToJsonOK(CompetitionDB.SaveChanges());
             }
 
