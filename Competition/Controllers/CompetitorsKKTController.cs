@@ -141,8 +141,33 @@ namespace Competition.Controllers
             value.Paid = false;
             value.CompetitionId = compId;
             value.TeamId = id;
-            int dateYear = Convert.ToInt32(CompetitionDB.TblUsers.First(x => x.TeamId == id).BirthYear.ToString().Substring(5, 4));
-            int dateNow = Convert.ToInt32(DateTime.Now.ToString().Substring(5, 4));
+            int dateYear = 0;
+            int dateNow = 0;
+            if (CompetitionDB.TblUsers.Find(id).BirthYear.ToString().Length == 22)
+            {
+                dateYear = Convert.ToInt32(CompetitionDB.TblUsers.Find(id).BirthYear.ToString().Substring(6, 4));
+            }
+            else if (CompetitionDB.TblUsers.Find(id).BirthYear.ToString().Length == 20)
+            {
+                dateYear = Convert.ToInt32(CompetitionDB.TblUsers.Find(id).BirthYear.ToString().Substring(4, 4));
+            }
+            else
+            {
+                dateYear = Convert.ToInt32(CompetitionDB.TblUsers.Find(id).BirthYear.ToString().Substring(5, 4));
+            }
+
+            if (DateTime.Now.ToString().Length == 22)
+            {
+                dateNow = Convert.ToInt32(DateTime.Now.ToString().Substring(6, 4));
+            }
+            else if (DateTime.Now.ToString().Length == 20)
+            {
+                dateNow = Convert.ToInt32(DateTime.Now.ToString().Substring(5, 4));
+            }
+            else
+            {
+                dateNow = Convert.ToInt32(DateTime.Now.ToString().Substring(4, 4));
+            }
             if ((dateNow - dateYear) > 16)
             {
                 value.Group = "JAUNIAI";
@@ -182,7 +207,7 @@ namespace Competition.Controllers
         }
 
         /** Trenerio panaikinama registracija nepilnamečio dalyvio į varžybas*/
-        [Route("api/clim/{compid}/{id}")]
+        [Route("api/climKKT/{compid}/{id}")]
         public HttpResponseMessage Delete(int compid, int id)
         {
             if (CompetitionDB.TblCompetitorsKKT.FirstOrDefault(x => x.TeamId == id && x.CompetitionId == compid) != null)

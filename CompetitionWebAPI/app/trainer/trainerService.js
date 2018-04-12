@@ -66,7 +66,7 @@ app.factory('trainerService', ['$http', 'authService', function ($http, authServ
     var _addRegisterKKT = function (compId, teamId) {
         var addrequest = $http({
             method: 'post',
-            url: serviceBase + "api/competition/" + compId + "/climKidsKKT/" + climberId
+            url: serviceBase + "api/competition/" + compId + "/climKidsKKT/" + teamId
         });
 
         return addrequest;
@@ -76,7 +76,7 @@ app.factory('trainerService', ['$http', 'authService', function ($http, authServ
     var _removeRegisterKKT = function (compId, teamId) {
         var removerequest = $http({
             method: 'delete',
-            url: serviceBase + "api/climKKT/" + compId + "/" + climberId
+            url: serviceBase + "api/climKKT/" + compId + "/" + teamId
         });
 
         return removerequest;

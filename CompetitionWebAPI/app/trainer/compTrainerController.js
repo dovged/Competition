@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('compTrainerController', ['$scope', 'trainerService', '$location', function ($scope, trainerService, $location) {
+app.controller('compTrainerController', ['$scope', 'trainerService', '$location', 'localStorageService', function ($scope, trainerService, $location, localStorageService) {
 
     $scope.competitionList = [];
     $scope.NoComp = false;

@@ -21,8 +21,8 @@
                 <tr data-ng-repeat="climber in climberList">
                     <td> {{ climber.ClimberName }} </td>
                     <td>
-                        <button ng-hide="!climber.Register" ng-click="register(climber.ClimberId)" class="btn btn-success" style="padding: 10px 12px"> <span class="glyphicon glyphicon-check"></span></button>
-                        <button ng-hide="climber.Register" ng-click="remove(climber.ClimberId)" class="btn btn-danger" style="padding: 10px 12px"><span class="glyphicon glyphicon-remove"></span></button>
+                        <button ng-hide="climber.Register" ng-click="register(climber.ClimberId)" class="btn btn-success" style="padding: 10px 12px"> <span class="glyphicon glyphicon-check"></span></button>
+                        <button ng-hide="!climber.Register" ng-click="remove(climber.ClimberId)" class="btn btn-danger" style="padding: 10px 12px"><span class="glyphicon glyphicon-remove"></span></button>
                     </td>
                 </tr>
             </tbody>

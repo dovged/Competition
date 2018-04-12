@@ -143,32 +143,58 @@ namespace Competition.Controllers
             value.Paid = false;
             value.CompetitionId = compId;
             value.UserId = id;
-            int dateYear = Convert.ToInt32(CompetitionDB.TblUsers.Find(id).BirthYear.ToString().Substring(5,4));
-            int dateNow = Convert.ToInt32(DateTime.Now.ToString().Substring(5,4));
-            if((dateNow - dateYear) > 17)
+            int dateYear = 0;
+            int dateNow = 0;
+            if(CompetitionDB.TblUsers.Find(id).BirthYear.ToString().Length == 22)
             {
-                value.Group = "JAUNIMAS";
+                dateYear = Convert.ToInt32(CompetitionDB.TblUsers.Find(id).BirthYear.ToString().Substring(6, 4));
             }
-            else if((dateNow - dateYear) > 15)
+            else if (CompetitionDB.TblUsers.Find(id).BirthYear.ToString().Length == 20)
             {
-                value.Group = "JAUNIAI";
-            }
-            else if((dateNow - dateYear) > 13)
-            {
-                value.Group = "JAUNUOLIAI";
-            }
-            else if((dateNow - dateYear) > 11)
-            {
-                value.Group = "JAUNUČIAI";
+                dateYear = Convert.ToInt32(CompetitionDB.TblUsers.Find(id).BirthYear.ToString().Substring(4, 4));
             }
             else
             {
-                value.Group = "VAIKAI";
+                dateYear = Convert.ToInt32(CompetitionDB.TblUsers.Find(id).BirthYear.ToString().Substring(5, 4));
             }
-            
-            CompetitionDB.TblCompetitorsClim.Add(value);
 
-            return ToJsonCreated(CompetitionDB.SaveChanges());
+              if (DateTime.Now.ToString().Length == 22)
+              {
+                  dateNow = Convert.ToInt32(DateTime.Now.ToString().Substring(6, 4));
+              }
+              else if (DateTime.Now.ToString().Length == 20)
+              {
+                  dateNow = Convert.ToInt32(DateTime.Now.ToString().Substring(5, 4));
+              }
+              else
+              {
+                  dateNow = Convert.ToInt32(DateTime.Now.ToString().Substring(4, 4));
+              }
+
+               if((dateNow - dateYear) > 17)
+               {
+                   value.Group = "JAUNIMAS";
+               }
+               else if((dateNow - dateYear) > 15)
+               {
+                   value.Group = "JAUNIAI";
+               }
+               else if((dateNow - dateYear) > 13)
+               {
+                   value.Group = "JAUNUOLIAI";
+               }
+               else if((dateNow - dateYear) > 11)
+               {
+                   value.Group = "JAUNUČIAI";
+               }
+               else
+               {
+                   value.Group = "VAIKAI";
+               }
+
+              CompetitionDB.TblCompetitorsClim.Add(value);
+
+              return ToJsonCreated(CompetitionDB.SaveChanges());
         }
 
         /** Ištrinamas objektas - panaikinama registraciją į varžybas*/

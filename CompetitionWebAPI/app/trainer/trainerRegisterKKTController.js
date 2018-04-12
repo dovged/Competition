@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('trainerRegisterKKTController', ['$scope', 'trainerService', function ($scope, trainerService) {
+app.controller('trainerRegisterKKTController', ['$scope', 'trainerService', 'localStorageService', function ($scope, trainerService, localStorageService) {
 
     $scope.climberList = {};
     $scope.competitionId = '';
