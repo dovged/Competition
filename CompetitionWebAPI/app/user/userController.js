@@ -27,6 +27,7 @@ app.controller('userController', ['$scope', 'userService', function ($scope, use
 
     // Užkraunami vartotojo duomenys
     function loadUserInfo() {
+        /** Pagrindinė vartotojo informacija*/
         userService.getUser().then(function (results) {
             var u = results.data;
             $scope.user.Id = u.Id;
@@ -43,18 +44,22 @@ app.controller('userController', ['$scope', 'userService', function ($scope, use
             $scope.user.Lytis = u.Lytis;
         });
 
+        /** Gaunami komandos duomenys*/
         userService.getUserTeam().then(function (results) {
             $scope.team = results.data;
         });
 
+        /** LAIPIOJIMO varžybų sąrašas, kuriose vartootjas dalyvauja*/
         userService.getCompListClim().then(function (results) {
             $scope.compClim = results.data;
         });
 
+        /** KKT varžybų sąrašas, kuriose vartotojas dalyvauja*/
         userService.getCompListKKT().then(function (results) {
             $scope.compKKT = results.data;
         });
 
+        /** Klubų sąrašas, atnaujinui skirta*/
         userService.getClubs().then(function (results) {
             $scope.clubs = results.data;
         });
@@ -112,4 +117,5 @@ app.controller('userController', ['$scope', 'userService', function ($scope, use
     $scope.member = function () {
         $scope.newMember = true;
     };
+
 }]);

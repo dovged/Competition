@@ -30,7 +30,6 @@ namespace Competition.Context
         public DbSet<TblJudgeRoute> TblJudgeRoutes { get; set; }
         public DbSet<TblCompJudgeKKT> TblCompJudgesKKT { get; set; }
         public DbSet<TblPaperType> TblPaperTypes { get; set; }
-        public DbSet<TblCompType> TblCompTypes { get; set; }
         public DbSet<TblClub> TblClubs { get; set; }
         public DbSet<TblRole> TblRoles { get; set; }
         public DbSet<TblUserRole> TblUserRoles { get; set; }

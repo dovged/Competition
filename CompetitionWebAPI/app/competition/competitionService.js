@@ -7,22 +7,12 @@ app.factory('competitionService', ['$http', 'authService', 'localStorageService'
 
     /** Grąžinamas sąrašas varžybų, pagal ORG  */
     var _getCompetitionList = function () {
-
        return $http.get(serviceBase + 'api/competition/' + _user + '/1').then(function (results) {
             return results;
         });
     };
 
-    /** Visų varžybų sąrašas*/
-    var _getCompetitionListAll = function () {
-
-        return $http.get(serviceBase + 'api/competition/').then(function (results) {
-            return results;
-        });
-    };
-
     /** Vienų varžybų info pagal ID*/
-
     var _getCompetitionDetails = function (Id) {
         return $http.get(serviceBase + 'api/competition/' + Id).then(function (results) {
             return results;
@@ -70,17 +60,23 @@ app.factory('competitionService', ['$http', 'authService', 'localStorageService'
         return updaterequest;
     };
 
+    /** Patikrinama ar organizatorius yra KKT organizatorius*/
+    var _KKTOrg = function () {
+        return $http.get(serviceBase + 'api/role/' + _user + '/6').then(function (results) {
+            return results;
+        });
+    };
+
 
     /** PRISKIRIMAI */
     competitionServiceFactory.getCompetitionList = _getCompetitionList;
-    competitionServiceFactory.getCompetitionListAll = _getCompetitionListAll;
     competitionServiceFactory.getCompetitionDetails = _getCompetitionDetails;
     competitionServiceFactory.getNonPaidClim = _getNonPaidClim;
     competitionServiceFactory.getNonPaidKKT = _getNonPaidKKT;
     competitionServiceFactory.getKKTRoutes = _getKKTRoutes;
     competitionServiceFactory.paidKKT = _paidKKT;
     competitionServiceFactory.paidClim = _paidClim;
-
+    competitionServiceFactory.KKTOrg = _KKTOrg;
 
     return competitionServiceFactory;
 

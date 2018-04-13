@@ -14,14 +14,20 @@ app.controller('competitionInfoController', ['$scope', 'competitionService', 'lo
         Update: "",
         ClimbType: ""
     };
-
     $scope.routeList = {};
-
+    $scope.KKTorg = false;
+    $scope.KKTRoutes = false;
     loadCompInfo();
 
     // užkraunamas varžybų sąrašas;
     function loadCompInfo() {
         $scope.Id = localStorageService.get("CompDetails");
+
+        competitionService.KKTOrg().then(function (results) {
+            $scope.KKTorg = true;
+        });      
+        
+        // Varžybų pagrindinė informacija
         competitionService.getCompetitionDetails($scope.Id).then(function (results) {
             var c = results.data;
             $scope.competition.Id = c.Id;
@@ -36,19 +42,16 @@ app.controller('competitionInfoController', ['$scope', 'competitionService', 'lo
             $scope.competition.Update = c.Update;
             $scope.competition.ClimbType = c.ClimbType;
 
-        }, function (error) {
-            // alert(error.data.message);
-            });
-
-        competitionService.getKKTRoutes($scope.Id).then(function (results) {
-            $scope.routeList = results.data;
         });
 
-        
-    }
-
-    
-
-
+        if ($scope.KKTorg) {
+            // KKT trasų informacija
+            competitionService.getKKTRoutes($scope.Id).then(function (results) {
+                $scope.routeList = results.data;
+                $scope.KKTRoutes = true;
+            });  
+        }
+              
+    };
 
 }]);

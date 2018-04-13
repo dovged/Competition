@@ -1,18 +1,16 @@
 ﻿'use strict';
-app.controller('compTrainerController', ['$scope', 'trainerService', '$location', 'localStorageService', function ($scope, trainerService, $location, localStorageService) {
+app.controller('compTrainerController', ['$scope', 'trainerService', '$location', 'localStorageService',
+    function ($scope, trainerService, $location, localStorageService) {
 
     $scope.competitionList = [];
     $scope.NoComp = false;
 
-    // užkraunamas varžybų sąrašas;
-
+    // užkraunamas varžybų sąrašas, pagal trenerio tipą
     trainerService.getCompetitionListTrainer().then(function (results) {
         $scope.competitionList = results.data;
         $scope.NoComp = true;
         localStorageService.remove("CompTrainerId");
-    }, function (error) {
-        // alert(error.data.message);
-        });
+    });
 
     /** Perėjimas į registracijos langą pasirinktoms varžyboms*/
     $scope.register = function (Id, type) {
@@ -23,11 +21,8 @@ app.controller('compTrainerController', ['$scope', 'trainerService', '$location'
         }
         // KKT VARŽYBŲ ATVEJU
         else {
-            $location.path("registerCompKKT");
+            $location.path("/registerCompKKT");
         }
     };
-
-
-
 
 }]);

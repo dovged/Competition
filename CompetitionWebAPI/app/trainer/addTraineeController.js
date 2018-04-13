@@ -21,8 +21,6 @@ app.controller('addTraineeController', ['$scope', 'trainerService', '$location',
 
         trainerService.addTrainee(u).then(function (results) {
             $location.path("/trainer");
-        }, function (error) {
-            // alert(error.data.message);
         });
     };
 

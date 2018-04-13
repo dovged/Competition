@@ -21,7 +21,7 @@ app.controller('updatePenaltyController', ['$scope', 'penaltyService', '$locatio
         });
     };
 
-    //Išsaugojama baudos informacija
+    // Išsaugojama baudos informacija
     $scope.update = function () {
         var p = {
             Id: $scope.penalty.Id,
@@ -31,8 +31,6 @@ app.controller('updatePenaltyController', ['$scope', 'penaltyService', '$locatio
 
         penaltyService.update($scope.penalty.Id, p).then(function (results) {
             $location.path("/penalties");
-        }, function (error) {
-            // alert(error.data.message);
         });
     };
 

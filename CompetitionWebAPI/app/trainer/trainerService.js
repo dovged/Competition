@@ -26,6 +26,7 @@ app.factory('trainerService', ['$http', 'authService', function ($http, authServ
             url: serviceBase + "api/userTrainee/" + _user,
             data: t
         });
+        return addrequest;
     };
 
     // Gaunamas varžybų sąrašas į kurias gali registruotis jaunieji sportininkai
@@ -42,6 +43,27 @@ app.factory('trainerService', ['$http', 'authService', function ($http, authServ
         });
     };
 
+    // Gaunama varžybų informacija
+    var _getCompInfo = function (compId) {
+        return $http.get(serviceBase + "api/competition/" + compId).then(function (results) {
+            return results;
+        });
+    };
+
+    // Grąžinamas komandų sąrašas
+    var _getTeams = function () {
+        return $http.get(serviceBase + "api/teams/" + _user).then(function (results) {
+            return results;
+        });
+    };
+
+    // Gaunamas dalyvių sąrašas KKT
+    var _getRegisterKKT = function (compId) {
+        return $http.get(serviceBase + "api/compKidsKKT/" + compId + "/" + _user + "/1").then(function (results) {
+            return results;
+        });
+    };
+
     // Užregistruojamas dalyvis į varžybas LAIPIOJIMAS
     var _addRegisterClim = function (compId, climberId) {
         var addrequest = $http({
@@ -52,23 +74,6 @@ app.factory('trainerService', ['$http', 'authService', function ($http, authServ
         return addrequest;
     };
 
-    // Išregistruojamas dalyvis iš varžybų LAIPIOJIMAS
-    var _removeRegisterClim = function (compId, climberId) {
-        var removerequest = $http({
-            method: 'delete',
-            url: serviceBase + "api/clim/" + compId + "/" + climberId
-        });
-
-        return removerequest;
-    };
-
-    // Gaunamas dalyvių sąrašas KKT
-    var _getRegisterKKT = function (compId) {
-        return $http.get(serviceBase + "api/compKidsKKT/" + compId + "/" + _user + "/1").then(function (results) {
-            return results;
-        });
-    };
-
     // Užregistruojamas dalyvis į varžybas KKT
     var _addRegisterKKT = function (compId, teamId) {
         var addrequest = $http({
@@ -77,23 +82,6 @@ app.factory('trainerService', ['$http', 'authService', function ($http, authServ
         });
 
         return addrequest;
-    };
-
-    // Išregistruojamas dalyvis iš varžybų KKT
-    var _removeRegisterKKT = function (compId, teamId) {
-        var removerequest = $http({
-            method: 'delete',
-            url: serviceBase + "api/climKKT/" + compId + "/" + teamId
-        });
-
-        return removerequest;
-    };
-
-    // Gaunama varžybų informacija
-    var _getCompInfo = function (compId) {
-        return $http.get(serviceBase + "api/competition/" + compId).then(function (results) {
-            return results;
-        });
     };
 
     // Treneris atnaujina dalyvio informaciją
@@ -107,14 +95,27 @@ app.factory('trainerService', ['$http', 'authService', function ($http, authServ
         return updaterequest;
     };
 
-    // Grąžinamas komandų sąrašas
-    var _getTeams = function () {
-        return $http.get(serviceBase + "api/teams/" + _user).then(function (results) {
-            return results;
+    // Išregistruojamas dalyvis iš varžybų LAIPIOJIMAS
+    var _removeRegisterClim = function (compId, climberId) {
+        var removerequest = $http({
+            method: 'delete',
+            url: serviceBase + "api/clim/" + compId + "/" + climberId
         });
+
+        return removerequest;
     };
 
-    //Išmetamas dalyvis iš komandos
+    // Išregistruojamas dalyvis iš varžybų KKT
+    var _removeRegisterKKT = function (compId, teamId) {
+        var removerequest = $http({
+            method: 'delete',
+            url: serviceBase + "api/climKKT/" + compId + "/" + teamId
+        });
+
+        return removerequest;
+    };
+
+    // Išmetamas dalyvis iš komandos
     var _removeMember = function (id) {
         var deleterequest = $http({
             method: 'put',
@@ -123,6 +124,12 @@ app.factory('trainerService', ['$http', 'authService', function ($http, authServ
         return deleterequest;
     }
    
+    // Ar tai yra KKT treneris
+    var _KKTTrainer = function () {
+        return $http.get(serviceBase + 'api/role/' + _user + '/4').then(function (results) {
+            return results;
+        });
+    };
 
     /** PRISKIRIMAI */
     trainerServiceFactory.getUserList = _getUserList;
@@ -139,6 +146,7 @@ app.factory('trainerService', ['$http', 'authService', function ($http, authServ
     trainerServiceFactory.updateTrainee = _updateTrainee;
     trainerServiceFactory.getTeams = _getTeams;
     trainerServiceFactory.removeMember = _removeMember;
+    trainerServiceFactory.KKTTrainer = _KKTTrainer;
 
 
     return trainerServiceFactory;

@@ -4,6 +4,7 @@ app.controller('trainerRegisterClimController', ['$scope', 'trainerService', 'lo
     $scope.climberList = {};
     $scope.competitionId = '';
     $scope.compInfo = {};
+    $scope.noCompetitors = false;
 
     loadUserList();
 
@@ -12,6 +13,7 @@ app.controller('trainerRegisterClimController', ['$scope', 'trainerService', 'lo
         $scope.competitionId = localStorageService.get("CompTrainerId");
         trainerService.getRegisterClim($scope.competitionId).then(function (results) {
             $scope.climberList = results.data;
+            $scope.noCompetitors = true;
         });
 
         trainerService.getCompInfo($scope.competitionId).then(function (results) {
@@ -19,7 +21,7 @@ app.controller('trainerRegisterClimController', ['$scope', 'trainerService', 'lo
         });
     };
 
-    // Regsitruojamas dalyvis į varžybas
+    // Registruojamas dalyvis į varžybas
     $scope.register = function (Id) {
         trainerService.addRegisterClim($scope.competitionId, Id).then(function (results) {
             loadUserList();

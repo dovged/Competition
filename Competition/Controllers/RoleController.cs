@@ -27,20 +27,15 @@ namespace Competition.Controllers
         public HttpResponseMessage Get(string user, int roleId)
         {
             string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == user).Id;
-            if(CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id.ToString() != null)
+            int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
+            if (CompetitionDB.TblUserRoles.FirstOrDefault(x => x.UserId == id && x.RoleId == roleId) != null)
             {
-                int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
-                if (CompetitionDB.TblUserRoles.FirstOrDefault(x => x.UserId == id && x.RoleId == roleId) != null)
-                {
-                    return ToJsonOK("Rolė yra.");
-                }
-                else
-                {
-                    return ToJsonNotFound("Objektas nerastas");
-                }
+                return ToJsonOK("Rolė yra.");
             }
-            
-            return ToJsonNotFound("Objektas nerastas");
+            else
+            {
+                return ToJsonNotFound("Objektas nerastas");
+            }
         }
 
         /** Pridedama nauja rolė vartotojui;*/

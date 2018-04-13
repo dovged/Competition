@@ -87,6 +87,7 @@ app.factory('userService',['$http', 'authService', function ($http, authService)
         return addrequest;
     }
 
+
     // PRISIKIRIMAI
     userServiceFactory.getUserTeam = _getUserTeam;
     userServiceFactory.getCompListClim = _getCompListClim;

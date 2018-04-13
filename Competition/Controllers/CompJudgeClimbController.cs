@@ -30,41 +30,12 @@ namespace Competition.Controllers
             return ToJsonNotFound("Tuščias sąrašas.");
         }
 
-        /** Grąžina vieno teisėjo informaciją*/
-        public HttpResponseMessage Get(int JudgeId, int CompId)
-        {
-            if (CompetitionDB.TblCompJudgesKKT.FirstOrDefault(x => x.Id == JudgeId) != null)
-            {
-                CompJudgeClimModel judge = CompetitionDB.TblCompJudgesClim.Where(x => x.Id == JudgeId).Select(x => new CompJudgeClimModel(x)).FirstOrDefault();
-                judge.JudgeName = "" + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == judge.UserId).Name.ToString() + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == judge.UserId).LastName.ToString();
-
-                return ToJsonOK(judge);
-            }
-
-            return ToJsonNotFound("Objektas nerastas.");
-        }
-
         /** Sukuriama naujas teisėjas*/
         public HttpResponseMessage Post([FromBody]TblCompJudgeClim value)
         {
             CompetitionDB.TblCompJudgesClim.Add(value);
-            CompetitionDB.SaveChanges();
 
-            return ToJsonCreated(value);
-        }
-
-        /** Redaguojama teisėjo informacija*/
-        public HttpResponseMessage Put(int id, [FromBody]TblCompJudgeClim value)
-        {
-            if (CompetitionDB.TblCompJudgesClim.FirstOrDefault(x => x.Id == id) != null)
-            {
-                CompetitionDB.Entry(value).State = EntityState.Modified;
-                CompetitionDB.SaveChanges();
-
-                return ToJsonOK(value);
-            }
-
-            return ToJsonNotFound("Objektas nerastas.");
+            return ToJsonCreated(CompetitionDB.SaveChanges());
         }
 
         /**Naikinamas teisėjas varžyboms*/
@@ -73,9 +44,8 @@ namespace Competition.Controllers
             if (CompetitionDB.TblCompJudgesClim.FirstOrDefault(x => x.Id == id) != null)
             {
                 CompetitionDB.TblCompJudgesClim.Remove(CompetitionDB.TblCompJudgesClim.FirstOrDefault(x => x.Id == id));
-                CompetitionDB.SaveChanges();
 
-                return ToJsonOK("Objetkas ištrintas");
+                return ToJsonOK(CompetitionDB.SaveChanges());
             }
 
             return ToJsonNotFound("Objektas nerastas.");

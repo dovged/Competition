@@ -7,7 +7,7 @@ app.controller('loginController', ['$scope', '$location', 'authService', functio
     };
 
     $scope.message = "";
-
+     /** Prisijungti prie sistemos*/
     $scope.login = function () {
 
         authService.login($scope.loginData).then(function (response) {

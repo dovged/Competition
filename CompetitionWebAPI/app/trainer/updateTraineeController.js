@@ -35,11 +35,7 @@ app.controller('updateTraineeController', ['$scope', 'trainerService', '$locatio
 
         trainerService.updateTrainee(u, $scope.user.Id).then(function (results) {
             $location.path("/trainer");
-        }, function (error) {
-            // alert(error.data.message);
         });
     };
-
-
 
 }]);

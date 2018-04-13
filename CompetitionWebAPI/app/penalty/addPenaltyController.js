@@ -16,8 +16,6 @@ app.controller('addPenaltyController', ['$scope', 'penaltyService', '$location',
 
         penaltyService.add(p).then(function (results) {
             $location.path("/penalties");
-        }, function (error) {
-            // alert(error.data.message);
         });
     };
 

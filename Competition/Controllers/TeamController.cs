@@ -92,17 +92,5 @@ namespace Competition.Controllers
             return ToJsonOK(CompetitionDB.SaveChanges());
         }
 
-        /** Ištrinti komandą*/
-        /** NUSPRĘSTI AR REIKIA TRINTI*/
-        public HttpResponseMessage Delete(int id)
-        {
-            if (CompetitionDB.TblTeams.FirstOrDefault(x => x.Id == id) != null)
-            {
-                CompetitionDB.TblTeams.Remove(CompetitionDB.TblTeams.FirstOrDefault(x => x.Id == id));
-                return ToJson(CompetitionDB.SaveChanges());
-            }
-
-            return Request.CreateResponse(HttpStatusCode.NotFound, "Item not found");
-        }
     }
 }

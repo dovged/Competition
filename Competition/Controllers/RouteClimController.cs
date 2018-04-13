@@ -13,17 +13,13 @@ namespace Competition.Controllers
     [RoutePrefix("/api/competition/id/routeClim")]
     public class RouteClimController : BaseAPIController
     {
-        /** Grąžina visas vienų varžybų laipiojimo trasas*/
-        public HttpResponseMessage Get(int compId)
+        /** Grąžina visas vienų varžybų laipiojimo trasas, pagal tipą*/
+        public HttpResponseMessage Get(int compId, string type)
         {
-            if (CompetitionDB.TblCompetitions.FirstOrDefault(x => x.Id == compId) != null)
+           
+            if (CompetitionDB.TblRoutesClim.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteClimbModel(x)).ToList() != null)
             {
-                if (CompetitionDB.TblRoutesClim.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteClimbModel(x)).ToList() != null)
-                {
-                    return ToJsonOK(CompetitionDB.TblRoutesClim.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteClimbModel(x)).ToList());
-                }
-
-                return ToJsonNotFound("Tuščias sąrašas.");
+                return ToJsonOK(CompetitionDB.TblRoutesClim.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteClimbModel(x)).ToList());
             }
 
             return ToJsonNotFound("Tuščias sąrašas.");
@@ -49,34 +45,9 @@ namespace Competition.Controllers
         public HttpResponseMessage Post([FromBody]TblRouteClimb value)
         {
             CompetitionDB.TblRoutesClim.Add(value);
-            CompetitionDB.SaveChanges();
-            return ToJsonCreated(value);
+
+            return ToJsonCreated(CompetitionDB.SaveChanges());
         }
 
-        /** Redaguojama viena laipiojimo trasa*/
-        public HttpResponseMessage Put(int routeId, [FromBody]TblRouteClimb value)
-        {
-            if (CompetitionDB.TblRoutesClim.FirstOrDefault(x => x.Id == routeId) != null)
-            {
-                CompetitionDB.Entry(value).State = EntityState.Modified;
-                CompetitionDB.SaveChanges();
-                return ToJsonOK(value);
-            }
-
-            return ToJsonNotFound("Objektas nerastas.");
-        }
-
-        /** Ištrinti vienos laipiojimo trasos duomenis*/
-        public HttpResponseMessage Delete(int id)
-        {
-            if (CompetitionDB.TblRoutesClim.FirstOrDefault(x => x.Id == id) != null)
-            {
-                CompetitionDB.TblRoutesClim.Remove(CompetitionDB.TblRoutesClim.FirstOrDefault(x => x.Id == id));
-                CompetitionDB.SaveChanges();
-                return ToJsonOK("Objektas ištrintas.");
-            }
-
-            return ToJsonNotFound("Objektas nerastas.");
-        }
     }
 }

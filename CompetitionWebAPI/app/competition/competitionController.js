@@ -2,6 +2,7 @@
 app.controller('competitionController', ['$scope', '$location', 'competitionService', 'localStorageService', function ($scope, $location, competitionService, localStorageService) {
 
     $scope.competitionList = [];
+    $scope.noCompetition = false;
     loadCompetitionList();
 
     // užkraunamas varžybų sąrašas;
@@ -9,8 +10,7 @@ app.controller('competitionController', ['$scope', '$location', 'competitionServ
         competitionService.getCompetitionList().then(function (results) {
             $scope.competitionList = results.data;
             localStorageService.remove("CompDetails");
-        }, function (error) {
-           // alert(error.data.message);
+            $scope.noCompetition = true;
         });
     }
 

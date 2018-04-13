@@ -16,52 +16,46 @@ namespace Competition.Controllers
         [Route("api/routeKKT/{compId}")]
         public HttpResponseMessage Get(int compId)
         {
-            if (CompetitionDB.TblCompetitions.FirstOrDefault(x => x.Id == compId) != null)
+            if (CompetitionDB.TblRoutesKKT.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteKKTModel(x)).ToList() != null)
             {
-                /*   if (CompetitionDB.TblRoutesKKT.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteKKTModel(x)).ToList() != null)
-                   {*/
                 List<RouteKKTModel> routes = CompetitionDB.TblRoutesKKT.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteKKTModel(x)).ToList();
-                    return ToJsonOK(routes);
-              /*  }
 
-                return ToJsonNotFound("Tuščias sąrašas.");*/
+                return ToJsonOK(routes);
             }
 
             return ToJsonNotFound("Tuščias sąrašas.");
         }
 
         /** Grąžina vienų varžybų vieną KKT trasą*/
+        [Route("api/competition/{compId}/routeKKT/{routeId}")]
         public HttpResponseMessage Get(int compId, int routeId)
         {
-            if (CompetitionDB.TblCompetitions.FirstOrDefault(x => x.Id == compId) != null)
+            if (CompetitionDB.TblRoutesKKT.FirstOrDefault(x => x.Id == routeId) != null)
             {
-                if (CompetitionDB.TblRoutesKKT.FirstOrDefault(x => x.Id == routeId) != null)
-                {
-                    return ToJsonOK(CompetitionDB.TblRoutesKKT.FirstOrDefault(x => x.Id == routeId));
-                }
-
-                return ToJsonNotFound("Objektas nerastas.");
+                return ToJsonOK(CompetitionDB.TblRoutesKKT.FirstOrDefault(x => x.Id == routeId));
             }
 
             return ToJsonNotFound("Objektas nerastas.");
         }
 
         /** Sukuria naują KKT trasos objektą*/
+        [Route("api/routeKKT")]
         public HttpResponseMessage Post([FromBody]TblRouteKKT value)
         {
             CompetitionDB.TblRoutesKKT.Add(value);
-            CompetitionDB.SaveChanges();
-            return ToJsonCreated(value);
+
+            return ToJsonCreated(CompetitionDB.SaveChanges());
         }
 
         /** Redaguojama viena KKT trasa*/
+        [Route("api/routeKKT/{routeId}")]
         public HttpResponseMessage Put(int routeId, [FromBody]TblRouteKKT value)
         {
             if (CompetitionDB.TblRoutesKKT.FirstOrDefault(x => x.Id == routeId) != null)
             {
                 CompetitionDB.Entry(value).State = EntityState.Modified;
-                CompetitionDB.SaveChanges();
-                return ToJsonOK(value);
+
+                return ToJsonOK(CompetitionDB.SaveChanges());
             }
 
             return ToJsonNotFound("Objektas nerastas.");
@@ -74,8 +68,8 @@ namespace Competition.Controllers
             if (CompetitionDB.TblRoutesKKT.FirstOrDefault(x => x.Id == id) != null)
             {
                 CompetitionDB.TblRoutesKKT.Remove(CompetitionDB.TblRoutesKKT.FirstOrDefault(x => x.Id == id));
-                CompetitionDB.SaveChanges();
-                return ToJsonOK("Objektas ištrintas.");
+             
+                return ToJsonOK(CompetitionDB.SaveChanges());
             }
 
             return ToJsonNotFound("Objektas nerastas.");

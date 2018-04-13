@@ -4,14 +4,16 @@ app.controller('trainerRegisterKKTController', ['$scope', 'trainerService', 'loc
     $scope.climberList = {};
     $scope.competitionId = '';
     $scope.compInfo = {};
+    $scope.noTeams = false;
 
     loadUserList();
 
-    /** Grąžinamas sąrašas dalyvių */
+    /** Grąžinamas sąrašas dalyvių komandų */
     function loadUserList() {
         $scope.competitionId = localStorageService.get("CompTrainerId");
         trainerService.getRegisterKKT($scope.competitionId).then(function (results) {
             $scope.climberList = results.data;
+            $scope.noTeams = true;
         });
 
         trainerService.getCompInfo($scope.competitionId).then(function (results) {
