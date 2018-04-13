@@ -14,5 +14,6 @@ namespace Competition.Context
         public string Time { get; set; }
         public int Points { get; set; }
         public int CompetitionId { get; set; }
+        public string Type { get; set; }
     }
 }

@@ -12,6 +12,13 @@ app.factory('trainerService', ['$http', 'authService', function ($http, authServ
         });
     };
 
+    // Gaunama dalyvio inforamcija
+    var _getTraineeInfo = function (id) {
+        return $http.get(serviceBase + 'api/userKids/' + id + '/1').then(function (results) {
+            return results;
+        });
+    };
+
     // Treneris užregistruoja naują dalyvį
     var _addTrainee = function (t) {
         var addrequest = $http({
@@ -89,6 +96,34 @@ app.factory('trainerService', ['$http', 'authService', function ($http, authServ
         });
     };
 
+    // Treneris atnaujina dalyvio informaciją
+    var _updateTrainee = function (t, id) {
+        var updaterequest = $http({
+            method: 'put',
+            url: serviceBase + "api/userKid/" + id + _user,
+            data: t
+        });
+
+        return updaterequest;
+    };
+
+    // Grąžinamas komandų sąrašas
+    var _getTeams = function () {
+        return $http.get(serviceBase + "api/teams/" + _user).then(function (results) {
+            return results;
+        });
+    };
+
+    //Išmetamas dalyvis iš komandos
+    var _removeMember = function (id) {
+        var deleterequest = $http({
+            method: 'put',
+            url: serviceBase + "api/removeMember/" + id
+        });
+        return deleterequest;
+    }
+   
+
     /** PRISKIRIMAI */
     trainerServiceFactory.getUserList = _getUserList;
     trainerServiceFactory.addTrainee = _addTrainee;
@@ -100,6 +135,11 @@ app.factory('trainerService', ['$http', 'authService', function ($http, authServ
     trainerServiceFactory.addRegisterKKT = _addRegisterKKT;
     trainerServiceFactory.removeRegisterKKT = _removeRegisterKKT;
     trainerServiceFactory.getCompInfo = _getCompInfo;
+    trainerServiceFactory.getTraineeInfo = _getTraineeInfo;
+    trainerServiceFactory.updateTrainee = _updateTrainee;
+    trainerServiceFactory.getTeams = _getTeams;
+    trainerServiceFactory.removeMember = _removeMember;
+
 
     return trainerServiceFactory;
 

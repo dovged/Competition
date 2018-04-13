@@ -40,6 +40,16 @@ app.config(function ($routeProvider) {
         templateUrl: "app/penalty/penalties.html"
     });
 
+    $routeProvider.when("/addPenalty", {
+        controller: "addPenaltyController",
+        templateUrl: "app/penalty/addPenalty.html"
+    });
+
+    $routeProvider.when("/updatePenalty", {
+        controller: "updatePenaltyController",
+        templateUrl: "app/penalty/updatePenalty.html"
+    });
+
     $routeProvider.when("/competitionOrg", {
         controller: "competitionController",
         templateUrl: "app/competition/competitionList.html"
@@ -91,6 +101,11 @@ app.config(function ($routeProvider) {
         controller: "trainerRegisterClimController",
         templateUrl: "app/trainer/trainerRegisterClim.html"
     });
+
+    $routeProvider.when("/updateTrainee", {
+        controller: "updateTraineeController",
+        templateUrl: "app/trainer/updateTrainee.html"
+    })
 
 
     $routeProvider.otherwise({ redirectTo: "/home" });

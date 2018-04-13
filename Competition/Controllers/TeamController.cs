@@ -36,27 +36,26 @@ namespace Competition.Controllers
             return ToJsonNotFound("Tuščias sąrašas.");
         }
 
-        /** Grąžinama vienos komandos inforamcija*/
+        /** Grąžinama vienos komandos informacija*/
         [Route("api/team/{userName}/{n}")]
         public HttpResponseMessage Get(string userName, int n)
         {
             string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
             int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
             int TeamId = CompetitionDB.TblUsers.Find(id).TeamId;
-            /*if (CompetitionDB.TblTeams.FirstOrDefault(x => x.Id == TeamId) != null)
-            {*/
-            TeamModel team = new TeamModel(CompetitionDB.TblTeams.Find(TeamId));
-            team.Captain = CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == team.CaptainId);
-            if(CompetitionDB.TblUsers.ToArray().Where(x => x.TeamId == team.Id).Select(x => new UserModel(x)).ToList().Count != 0)
+            if (TeamId != 0)
             {
-                team.Teammates = CompetitionDB.TblUsers.ToArray().Where(x => x.TeamId == team.Id).Select(x => new UserModel(x)).ToList();
-            }
+                TeamModel team = new TeamModel(CompetitionDB.TblTeams.Find(TeamId));
+                team.Captain = CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == team.CaptainId);
+                if(CompetitionDB.TblUsers.ToArray().Where(x => x.TeamId == team.Id).Select(x => new UserModel(x)).ToList().Count != 0)
+                {
+                    team.Teammates = CompetitionDB.TblUsers.ToArray().Where(x => x.TeamId == team.Id).Select(x => new UserModel(x)).ToList();
+                }
                 
-
                 return ToJsonOK(team);
-          /*  }
+           }
 
-            return ToJsonNotFound("Objektas nerastas.");*/
+            return ToJsonNotFound("Objektas nerastas.");
         }
 
         /** Sukurti komandą*/

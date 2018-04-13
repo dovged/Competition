@@ -7,7 +7,8 @@
         &nbsp;
     </div>
     <div class="col-md-8">
-        <table class="table table-striped table-bordered table-hover">
+        <h3 ng-hide="!noCompetition"> Šiuo metu nėra užregistruotų varžybų. Laukite naujienų!</h3>
+        <table ng-hide="noCompetition" class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
                     <th>Pavadinimas</th>
@@ -22,7 +23,7 @@
                     <td> {{ competition.Date }} </td>
                     <td> {{ competition.Club }} </td>
                     <td>
-                        <button type="button" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span>  Registruotis</button>
+                        <a href="" type="button" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span>  Registruotis</a>
                         <a href="#/results" type="button" class="btn btn-info"><span class="glyphicon glyphicon-list"></span>Rezultatai</a>
                     </td>
                 </tr>

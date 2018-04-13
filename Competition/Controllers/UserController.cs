@@ -34,8 +34,7 @@ namespace Competition.Controllers
                 return ToJsonOK(users);
             }
 
-            return Request.CreateResponse(HttpStatusCode.NotFound, "Empty list.");
-
+            return ToJsonNotFound("Sąrašas tuščias.");
         }
 
         /** Grazinama vieno User papildoma informacija*/
@@ -70,7 +69,20 @@ namespace Competition.Controllers
             return ToJsonNotFound("Objektas nerastas.");
         }
 
-        /** Grąžinami visi nepilnamečiai dalyviai, pagal vieną trenerį (LAIPIOJIMAS)*/
+        /** Grąžinama nepilnamečio dalyvio informacija*/
+        [Route("api/userKids/{id}/{n}")]
+        public HttpResponseMessage Get(int id, int n)
+        {
+            
+            if (CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == id).Id.ToString() != null)
+            {
+                return ToJsonOK(CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == id));
+            }
+
+            return ToJsonNotFound("Objektas nerastas.");
+        }
+
+        /** Grąžinami visi nepilnamečiai dalyviai, pagal vieną trenerį*/
         [Route("api/user/{user}/{n}")]
         public HttpResponseMessage Get(string user, int n)
         {
@@ -92,7 +104,23 @@ namespace Competition.Controllers
                 return ToJsonOK(users);
             }
 
-            return Request.CreateResponse(HttpStatusCode.NotFound, "Empty list.");
+            return ToJsonNotFound("Sąrašas tuščias.");
+        }
+
+        /** Grąžinamas sąrašas nepilnamečių dalyvių be komandos, pagal jų trenerį*/
+        [Route("api/userNoTeam/{userName}/{n}/{m}")]
+        public HttpResponseMessage Get(string userName, int n, int m)
+        {
+            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
+            int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.Email == userName).Id;
+            if (CompetitionDB.TblUsers.ToArray().Where(x => x.Active == true && x.TeamId == 0 && x.TrainerId == id).Select(x => new UserModel(x)).ToList().Count != 0)
+            {
+                List<UserModel> users = CompetitionDB.TblUsers.ToArray().Where(x => x.Active == true && x.TeamId == 0 && x.TrainerId == id).Select(x => new UserModel(x)).ToList();
+
+                return ToJsonOK(users);
+            }
+
+            return ToJsonNotFound("Sąrašas tuščias.");
         }
 
         /** Uzpildoma User papildoma informacija */
@@ -111,6 +139,7 @@ namespace Competition.Controllers
             role.RoleId = 1;
             role.UserId = id;
             CompetitionDB.TblUserRoles.Add(role);
+
             return ToJsonCreated(CompetitionDB.SaveChanges());
         }
 
@@ -150,8 +179,27 @@ namespace Competition.Controllers
         public HttpResponseMessage Put(string user, [FromBody]TblUser value)
         {
             CompetitionDB.Entry(value).State = EntityState.Modified;
-            return ToJsonOK(CompetitionDB.SaveChanges());
 
+            return ToJsonOK(CompetitionDB.SaveChanges());
+        }
+
+        /** Atnaujinama nepilnamečio dalyvio informacija*/
+        [Route("api/userKid/{id}/{trainerName}")]
+        public HttpResponseMessage Put(int id, string trainerName, [FromBody]TblUser value)
+        {
+            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == trainerName).Id;
+            int trainerId = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
+
+            value.TrainerId = trainerId;
+            value.TelNumber = "";
+            value.Email = "";
+            value.UserId = "0";
+            value.Active = true;
+            value.ClubId = CompetitionDB.TblUsers.Find(trainerId).ClubId;
+            value.TeamId = CompetitionDB.TblUsers.Find(id).TeamId;
+            CompetitionDB.Entry(value).State = EntityState.Modified;
+
+            return ToJsonOK(CompetitionDB.SaveChanges());
         }
 
         /** Fiktyvus Delete metodas;
@@ -160,7 +208,7 @@ namespace Competition.Controllers
         public HttpResponseMessage Delete(int id)
         {
             if (CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == id && x.Active == true) != null)
-            {                
+            {
                 TblUser user = CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == id);
                 user.Active = false;
                 CompetitionDB.Entry(user).State = EntityState.Modified;
@@ -169,7 +217,5 @@ namespace Competition.Controllers
 
             return ToJsonNotFound("Objektas nerastas.");
         }
-
-        
     }
 }

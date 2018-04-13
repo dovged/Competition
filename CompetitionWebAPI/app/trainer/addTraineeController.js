@@ -26,6 +26,4 @@ app.controller('addTraineeController', ['$scope', 'trainerService', '$location',
         });
     };
 
-
-
 }]);

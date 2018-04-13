@@ -13,6 +13,7 @@ namespace Competition.Models
         public int Points { get; set; }
         public string Time { get; set; }
         public int CompId { get; set; }
+        public string Type { get; set; }
 
         public RouteKKTModel(TblRouteKKT row)
         {
@@ -21,6 +22,7 @@ namespace Competition.Models
             Points = row.Points;
             Time = row.Time;
             CompId = row.CompetitionId;
+            Type = row.Type;
         }
     }
 }

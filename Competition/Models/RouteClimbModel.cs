@@ -14,6 +14,7 @@ namespace Competition.Models
         public int PointsTop { get; set; }
         public int PointsFlash { get; set; }
         public int CompId { get; set; }
+        public string Type { get; set; }
 
         public RouteClimbModel(TblRouteClimb row)
         {
@@ -22,6 +23,7 @@ namespace Competition.Models
             PointsTop = row.PointsTop;
             PointsFlash = row.PointsFlash;
             CompId = row.CompetitionId;
+            Type = row.Type;
         }
     }
 }

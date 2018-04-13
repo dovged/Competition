@@ -4,7 +4,7 @@
 <br>
 <td>
     <a href="#/competitionOrg" class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span>  Grįžti atgal</a>
-    <button type="button" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span>    Nauja bauda</button>
+    <a href="#/addPenalty" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>    Nauja bauda</a>
 </td>
 
 <br> <br>
@@ -26,7 +26,7 @@
                     <td> {{ penalty.Name }} </td>
                     <td> {{ penalty.Points }} </td>
                     <td>
-                        <button title="Redaguoti" class="btn btn-info" style="padding: 10px 12px"> <span class="glyphicon glyphicon-edit"></span></button>
+                        <button title="Redaguoti" class="btn btn-info" style="padding: 10px 12px" ng-click="update(penalty.Id)"> <span class="glyphicon glyphicon-edit"></span></button>
                         <button title="Naikinti" class="btn btn-danger" style="padding: 10px 12px" ng-click="delete(penalty.Id)"><span class="glyphicon glyphicon-remove"></span></button>
                     </td>
                 </tr>

@@ -169,8 +169,14 @@
     <Content Include="app\controllers\indexController.js" />
     <Content Include="app\controllers\loginController.js" />
     <Content Include="app\controllers\ordersController.js" />
+    <Content Include="app\penalty\addPenalty.html" />
+    <Content Include="app\penalty\addPenaltyController.js" />
     <Content Include="app\penalty\penaltyController.js" />
     <Content Include="app\controllers\signupController.js" />
+    <Content Include="app\penalty\updatePenalty.html" />
+    <Content Include="app\penalty\updatePenaltyController.js" />
+    <Content Include="app\trainer\addTeam.html" />
+    <Content Include="app\trainer\addTeamController.js" />
     <Content Include="app\trainer\addTrainee.html" />
     <Content Include="app\trainer\addTraineeController.js" />
     <Content Include="app\trainer\trainerComp.html" />
@@ -179,6 +185,8 @@
     <Content Include="app\trainer\trainerRegisterClimController.js" />
     <Content Include="app\trainer\trainerRegisterKKT.html" />
     <Content Include="app\trainer\trainerRegisterKKTController.js" />
+    <Content Include="app\trainer\updateTrainee.html" />
+    <Content Include="app\trainer\updateTraineeController.js" />
     <Content Include="app\user\userController.js" />
     <Content Include="app\services\authInterceptorService.js" />
     <Content Include="app\services\authService.js" />

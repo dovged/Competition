@@ -1,0 +1,29 @@
+﻿<h3>Užregistruoti naują baudą</h3>
+<div class="row">
+    <div class="col-md-2">
+        &nbsp;
+    </div>
+    <div class="col-md-8">
+        <form role="form" style="max-width: 500px;">
+            <strong class="error">{{ error }}</strong>
+            <div class="form-group">
+                <label for="name">
+                    Pavadinimas
+                </label>
+                <input type="text" class="form-control" id="name" ng-model="pen.Name" />
+            </div>
+            <div class="form-group">
+                <label for="points">
+                    Taškai
+                </label>
+                <input type="text" class="form-control" id="points" ng-model="pen.Points" />
+            </div>
+            
+            <a href="#/penalties" class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span>  Grįžti atgal</a>
+            <button class="btn btn-success" ng-click="add()"><span class="glyphicons glyphicons-ok-sign"></span>  Išsaugoti</button>
+        </form>
+    </div>
+    <div class="col-md-2">
+        &nbsp;
+    </div>
+</div>

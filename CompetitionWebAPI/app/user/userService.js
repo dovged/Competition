@@ -7,7 +7,6 @@ app.factory('userService',['$http', 'authService', function ($http, authService)
 
     // Grąžinti sąrašą
     var _getUserTeam = function () {
-
         return $http.get(serviceBase + "api/team/" + _user + "/1").then(function (results) {
             return results;
         });
@@ -76,7 +75,7 @@ app.factory('userService',['$http', 'authService', function ($http, authService)
         });
 
         return deleterequest;
-    }
+    };
 
     // Pirdėti dalyvį į komandą
     var _addMember = function (id, teamid) {

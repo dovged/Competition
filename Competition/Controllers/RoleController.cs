@@ -10,6 +10,18 @@ namespace Competition.Controllers
 {
     public class RoleController : BaseAPIController
     {
+        /** Gaunamas rolių sąrašas*/
+        [Route("api/role")]
+        public HttpResponseMessage Get()
+        {
+            if (CompetitionDB.TblUsers.AsEnumerable() != null)
+            {
+                return ToJsonNotFound(CompetitionDB.TblRoles.AsEnumerable());
+            }
+
+            return ToJsonNotFound("Objektas nerastas");
+        }
+
         /** Ar vartotojas turi tokią rolę;*/
         [Route("api/role/{user}/{roleId}")]
         public HttpResponseMessage Get(string user, int roleId)
@@ -31,13 +43,17 @@ namespace Competition.Controllers
             return ToJsonNotFound("Objektas nerastas");
         }
 
-        /** Pridedamas naujas teisėjo lapo tipą;*/
-        public HttpResponseMessage Post([FromBody]TblRole value)
+        /** Pridedama nauja rolė vartotojui;*/
+        [Route("api/role/{RoleId}/{UserId}")]
+        public HttpResponseMessage Post(int RoleId, int UserId)
         {
-            CompetitionDB.TblRoles.Add(value);
+            TblUserRole value = new TblUserRole();
+            value.RoleId = RoleId;
+            value.UserId = UserId;
+            CompetitionDB.TblUserRoles.Add(value);
+
             return ToJsonCreated(CompetitionDB.SaveChanges());
         }
-
 
         /** Ištrinama vartotojui rolė*/
         [Route("api/userRole/{id}")]

@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('penaltyController', ['$scope', 'penaltyService', function ($scope, penaltyService) {
+app.controller('penaltyController', ['$scope', 'penaltyService', 'localStorageService', '$location', function ($scope, penaltyService, localStorageService, $location) {
 
     $scope.penaltyList = [];
     loadPenaltyList();
@@ -7,59 +7,19 @@ app.controller('penaltyController', ['$scope', 'penaltyService', function ($scop
     // Užkraunami duomenys į lentelę
     function loadPenaltyList() {
          penaltyService.getPenaltyList().then(function (results) {
-
                 $scope.penaltyList = results.data;
-
           }, function (error) {
                 //alert(error.data.message);
-         });
-    }
-
-    // Išsaugoti naują objektą
-    $scope.add = function () {
-        var Penalty = {
-            Id: $scope.Id,
-            Name: $scope.Name,
-            Points: $scope.Points
-        };
-
-        penaltyService.add(Penalty).then(function (results) {
-            $scope.Id = results.data.Id;
-            loadPenaltyList();
-        },
-            function () {
-                //
             });
+
+         localStorageService.remove("penaltyId");
     }
 
-    //Grąžinti vieną objektą
-    $scope.get = function (Id) {
-        penaltyService.get(Id).then(function (results) {
-            var p = results.data;
-            $scope.UpdateId = p.Id;
-            $scope.UpdateName = p.Name;
-            $scope.UpdatePoints = p.Points;
-        },
-            function () {
-                //
-            });
-    }
-
-    // Atnaujinti objektą
-    $scope.update = function () {
-        var Penalty = {
-            Id: $scope.UpdateId,
-            Name: $scope.UpdateName,
-            Points: $scope.UpdatePoints
-        };
-        penaltyService.update($scope.UpdateId, Penalty).then(function (results) {
-            loadPenaltyList();
-        },
-            function () {
-                //
-
-            });
-    }
+    // Nukreipiama į baudos informacijos redagavimo langą
+    $scope.update = function (Id) {
+        localStorageService.set("penaltyId", Id);
+        $location.path("/updatePenalty");
+    };
 
     // Ištrinti objektą
     $scope.delete = function (Id) {
