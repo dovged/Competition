@@ -10,10 +10,10 @@ using System.Web.Http;
 
 namespace Competition.Controllers
 {
-    [RoutePrefix("/api/competition/id/judgesClimb")]
     public class CompJudgeClimbController : BaseAPIController
     {
         /** Grąžina sąrašą teisėjų pagal varžybų id*/
+        [Route("api/compJudge/{compId}")]
         public HttpResponseMessage Get(int compId)
         {
             if (CompetitionDB.TblCompJudgesClim.ToArray().Where(x => x.CompId == compId).Select(x => new CompJudgeClimModel(x)).ToList().Count != 0)
@@ -21,7 +21,7 @@ namespace Competition.Controllers
                 List<CompJudgeClimModel> judges = CompetitionDB.TblCompJudgesClim.ToArray().Where(x => x.CompId == compId).Select(x => new CompJudgeClimModel(x)).ToList();
                 foreach(CompJudgeClimModel j in judges)
                 {
-                    j.JudgeName = "" + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == j.UserId).Name.ToString() + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == j.UserId).LastName.ToString();
+                    j.JudgeName = CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == j.UserId).Name.ToString() +" " + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == j.UserId).LastName.ToString();
                 }
 
                 return ToJsonOK(judges);
@@ -31,14 +31,19 @@ namespace Competition.Controllers
         }
 
         /** Sukuriama naujas teisėjas*/
-        public HttpResponseMessage Post([FromBody]TblCompJudgeClim value)
+        [Route("api/compJudge/{compId}/{id}")]
+        public HttpResponseMessage Post(int compId, int id)
         {
+            TblCompJudgeClim value = new TblCompJudgeClim();
+            value.CompId = compId;
+            value.UserId = id;
             CompetitionDB.TblCompJudgesClim.Add(value);
 
             return ToJsonCreated(CompetitionDB.SaveChanges());
         }
 
         /**Naikinamas teisėjas varžyboms*/
+        [Route("api/compJudge/{id}")]
         public HttpResponseMessage Delete(int id)
         {
             if (CompetitionDB.TblCompJudgesClim.FirstOrDefault(x => x.Id == id) != null)

@@ -31,7 +31,7 @@ app.factory('penaltyService', function ($http) {
    var _update = function (Id, Penalty) {
         var updaterequest = $http({
             method: 'put',
-            url: serviceBase + "api/penalty" + Id,
+            url: serviceBase + "api/penalty/" + Id,
             data: Penalty
         });
 

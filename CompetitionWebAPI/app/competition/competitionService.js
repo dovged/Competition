@@ -40,6 +40,30 @@ app.factory('competitionService', ['$http', 'authService', 'localStorageService'
         });
     };
 
+    // Gauti teisėjų sąrašą
+    var _getJudges = function (Id) {
+        return $http.get(serviceBase + 'api/compJudge/' + Id).then(function (results) {
+            return results;
+        });
+    };
+
+    // Gauti visų vartotojų sąrašą, naudojamas pridedant naują teisėją
+    var _getUsers = function () {
+        return $http.get(serviceBase + 'api/user').then(function (results) {
+            return results;
+        });
+    };
+
+    /** Pridedamas vartotojas į teisėjų sąrašą*/
+    var _addJudge = function (compId, id) {
+        var addrequest = $http({
+            method: 'post',
+            url: serviceBase + "api/compJudge/" + compId + "/" + id,
+        });
+
+        return addrequest;
+    };
+
     /* Pažymimas dalyvis, kuris susimokėjo KKT*/
     var _paidKKT = function (Id) {
         var updaterequest = $http({
@@ -60,11 +84,14 @@ app.factory('competitionService', ['$http', 'authService', 'localStorageService'
         return updaterequest;
     };
 
-    /** Patikrinama ar organizatorius yra KKT organizatorius*/
-    var _KKTOrg = function () {
-        return $http.get(serviceBase + 'api/role/' + _user + '/6').then(function (results) {
-            return results;
+    /** Panaikinamas teisėjas iš sąrašo*/
+    var _deleteJudge = function (Id) {
+        var deleterequest = $http({
+            method: 'delte',
+            url: serviceBase + "api/compJudge/" + Id,
         });
+
+        return deleterequest;
     };
 
 
@@ -76,7 +103,11 @@ app.factory('competitionService', ['$http', 'authService', 'localStorageService'
     competitionServiceFactory.getKKTRoutes = _getKKTRoutes;
     competitionServiceFactory.paidKKT = _paidKKT;
     competitionServiceFactory.paidClim = _paidClim;
-    competitionServiceFactory.KKTOrg = _KKTOrg;
+    competitionServiceFactory.getJudges = _getJudges;
+    competitionServiceFactory.getUsers = _getUsers;
+    competitionServiceFactory.delelteJudge = _deleteJudge;
+    competitionServiceFactory.addJudge = _addJudge;
+    
 
     return competitionServiceFactory;
 

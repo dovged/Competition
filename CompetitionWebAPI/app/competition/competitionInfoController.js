@@ -15,20 +15,19 @@ app.controller('competitionInfoController', ['$scope', 'competitionService', 'lo
         ClimbType: ""
     };
     $scope.routeList = {};
-    $scope.KKTorg = false;
+    $scope.judgesList = {};
+    $scope.noJudges = false;
     $scope.KKTRoutes = false;
+    $scope.userList = {};
+    $scope.newJudge = '';
     loadCompInfo();
 
     // užkraunamas varžybų sąrašas;
     function loadCompInfo() {
-        $scope.Id = localStorageService.get("CompDetails");
-
-        competitionService.KKTOrg().then(function (results) {
-            $scope.KKTorg = true;
-        });      
+        $scope.competition.Id = localStorageService.get("CompDetails");     
         
         // Varžybų pagrindinė informacija
-        competitionService.getCompetitionDetails($scope.Id).then(function (results) {
+        competitionService.getCompetitionDetails($scope.competition.Id).then(function (results) {
             var c = results.data;
             $scope.competition.Id = c.Id;
             $scope.competition.Name = c.Name;
@@ -44,14 +43,35 @@ app.controller('competitionInfoController', ['$scope', 'competitionService', 'lo
 
         });
 
-        if ($scope.KKTorg) {
+        competitionService.getJudges($scope.competition.Id).then(function (results) {
+            $scope.judgesList = results.data;
+            $scope.noJudges = true;
+        });
+
+        competitionService.getUsers().then(function (results) {
+            $scope.userList = results.data;
+        });
+        if (!$scope.competition.Type) {
             // KKT trasų informacija
-            competitionService.getKKTRoutes($scope.Id).then(function (results) {
+            competitionService.getKKTRoutes($scope.competition.Id).then(function (results) {
                 $scope.routeList = results.data;
                 $scope.KKTRoutes = true;
             });  
-        }
-              
+        }              
+    };
+
+    // Panaikinamas tesiėjas
+    $scope.deleteJudge = function (id) {
+        competitionService.deleteJudge(id).then(function (results) {
+            loadCompInfo();
+        });
+    };
+
+    // Pridedamas teisėjas
+    $scope.addJudge = function () {
+        competitionService.addJudge($scope.competition.Id, $scope.newJudge).then(function (results) {
+            loadCompInfo();
+        });
     };
 
 }]);

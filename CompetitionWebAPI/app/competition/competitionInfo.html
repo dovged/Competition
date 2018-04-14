@@ -19,11 +19,11 @@
         <div>
             <p>Pavadinimas: {{competition.Name}}</p>
             <p>Data: {{competition.Date}}</p>
-            <p>Vyr. Teiėjas: {{competition.MainJudgeName}}</p>
+            <p>Vyr. Teisėjas: {{competition.MainJudgeName}}</p>
             <p>Vyr. Trasų statytojas: {{competition.MainRouteCreatorName}}</p>
             <button ng-hide="!competition.Update" title="Redaguoti" class="btn btn-info" style="padding: 10px 12px"> <span class="glyphicon glyphicon-edit"></span>   Redaguoti informaciją</button>
         </div>
-        <p>____________________________________________________________________________________________________</p>
+        <p ng-hide="competition.Type">____________________________________________________________________________________________________</p>
         <button ng-hide="competition.Type" type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>  Nauja trasa</button>
         <table ng-hide="competition.Type" class="table table-striped table-bordered table-hover">
             <thead>
@@ -42,6 +42,32 @@
                     <td>
                         <button title="Naikinti" class="btn btn-danger" style="padding: 10px 12px" ng-click="delete(route.Id)"><span class="glyphicon glyphicon-remove"></span></button>
                         <button title="Redaguoti" class="btn btn-info" style="padding: 10px 12px"> <span class="glyphicon glyphicon-edit"></span></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>____________________________________________________________________________________________________</p>
+        <br />
+        <h3 ng-hide="!noJudges">Nėra užregistruotų teisėjų!!!</h3>
+        <br />
+        <label for="club">
+            Teisėjas:
+        </label>
+        <select ng-options="user.Id as user.Name2 for user in userList" ng-model="newJudge"></select>
+        <button type="button" class="btn btn-success" ng-click="addJudge()"><span class="glyphicon glyphicon-plus"></span></button>
+        <br />
+        <table ng-hide="!noJudges" class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Teisėjas</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="judge in judgesList">
+                    <td> {{ judge.JudgeName }} </td>
+                    <td>
+                        <button class="btn btn-danger" style="padding: 10px 12px" ng-click="deleteJudge(judge.Id)"><span class="glyphicon glyphicon-remove"></span></button>
                     </td>
                 </tr>
             </tbody>

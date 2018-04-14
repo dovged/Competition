@@ -16,7 +16,7 @@ namespace Competition.Controllers
         {
             if (CompetitionDB.TblUsers.AsEnumerable() != null)
             {
-                return ToJsonNotFound(CompetitionDB.TblRoles.AsEnumerable());
+                return ToJsonOK(CompetitionDB.TblRoles.AsEnumerable());
             }
 
             return ToJsonNotFound("Objektas nerastas");

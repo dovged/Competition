@@ -247,6 +247,7 @@
     <Compile Include="Controllers\CompJudgeClimbController.cs" />
     <Compile Include="Controllers\CompJudgeKKTController.cs" />
     <Compile Include="Controllers\CompetitorsKKTController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JudgesPaperClimController.cs" />
     <Compile Include="Controllers\JudgesPaperKKTController.cs" />
     <Compile Include="Controllers\PaperTypeController.cs" />
