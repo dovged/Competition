@@ -70,6 +70,16 @@ app.config(function ($routeProvider) {
         templateUrl: "app/competition/nonPaidClim.html"
     });
 
+    $routeProvider.when("/addKKTRoute", {
+        controller: "addKKTRoute",
+        templateUrl: "app/competition/addKKTRoute.html"
+    });
+
+    $routeProvider.when("/updateKKTRoute", {
+        controller: "updateKKTRoute",
+        templateUrl: "app/competition/updateKKTRoute.html"
+    });
+
     /** ADMINISTRATORIAUS PASIEKIAMI LANGAI*/
     $routeProvider.when("/admin", {
         controller: "adminController",

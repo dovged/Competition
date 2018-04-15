@@ -155,6 +155,8 @@
     <Content Include="app\calendar\calendarService.js" />
     <Content Include="app\calendar\results.html" />
     <Content Include="app\calendar\resultsController.js" />
+    <Content Include="app\competition\addKKTRoute.html" />
+    <Content Include="app\competition\addKKTRouteController.js" />
     <Content Include="app\competition\competitionController.js" />
     <Content Include="app\competition\competitionInfo.html" />
     <Content Include="app\competition\competitionInfoController.js" />
@@ -165,6 +167,10 @@
     <Content Include="app\competition\nonPaidClimController.js" />
     <Content Include="app\competition\nonPaidKKT.html" />
     <Content Include="app\competition\nonPaidKKTController.js" />
+    <Content Include="app\competition\updateCompInfo.html" />
+    <Content Include="app\competition\updateCompInfoController.js" />
+    <Content Include="app\competition\updateKKTRoute.html" />
+    <Content Include="app\competition\updateKKTRouteController.js" />
     <Content Include="app\controllers\homeController.js" />
     <Content Include="app\controllers\indexController.js" />
     <Content Include="app\controllers\loginController.js" />

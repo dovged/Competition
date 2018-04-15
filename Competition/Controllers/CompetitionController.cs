@@ -291,6 +291,7 @@ namespace Competition.Controllers
         }
 
         /** Atnaujina varžybų duomenis*/
+        [Route("api/competition/{id}")]
         public HttpResponseMessage Put(int id, [FromBody]TblCompetition value)
         {
             CompetitionDB.Entry(value).State = EntityState.Modified;

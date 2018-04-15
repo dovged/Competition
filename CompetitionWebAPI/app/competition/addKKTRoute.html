@@ -1,0 +1,48 @@
+﻿<h3>Užregistruoti naują trasą</h3>
+<div class="row">
+    <div class="col-md-2">
+        &nbsp;
+    </div>
+    <div class="col-md-8">
+        <form role="form" style="max-width: 500px;">
+            <strong class="error">{{ error }}</strong>
+            <div class="form-group">
+                <label for="name">
+                    Pavadinimas
+                </label>
+                <input type="text" class="form-control" id="name" ng-model="route.Name" />
+            </div>
+            <div class="form-group">
+                <label for="points">
+                    Taškai
+                </label>
+                <input type="text" class="form-control" id="points" ng-model="route.Points" />
+            </div>
+            <div class="form-group">
+                <label for="time">
+                    Laikas
+                </label>
+                <input type="text" class="form-control" id="time" ng-model="route.Time" />
+            </div>
+            <div class="form-group radio">
+                <label>
+                    <input type="radio" ng-model="route.Type" value="PRO" />PRO
+                </label><br />
+                <label>
+                    <input type="radio" ng-model="route.Type" value="MEGĖJAI" />MEGĖJAI
+                </label><br />
+                <label>
+                    <input type="radio" ng-model="route.Type" value="JAUNIAI" />JAUNIAI
+                </label><br />
+                <label>
+                    <input type="radio" ng-model="route.Type" value="JAUNUČIAI" />JAUNUČIAI
+                </label><br />
+            </div>
+            <a href="#/compInfo" class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span>  Grįžti atgal</a>
+            <button class="btn btn-success" ng-click="add()"><span class="glyphicons glyphicons-ok-sign"></span>  Išsaugoti</button>
+        </form>
+    </div>
+    <div class="col-md-2">
+        &nbsp;
+    </div>
+</div>

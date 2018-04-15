@@ -129,7 +129,22 @@ namespace Competition.Controllers
             int Id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
             value.TeamId = CompetitionDB.TblTeams.FirstOrDefault(x => x.TeamCaptainId == Id).Id;
             CompetitionDB.TblCompetitorsKKT.Add(value);
-    
+
+            List<RouteKKTModel> routes = CompetitionDB.TblRoutesKKT.ToArray().Where(x => x.CompetitionId == compId && x.Type == value.Group).Select(x => new RouteKKTModel(x)).ToList();
+            TblJudgesPaperKKT paper = new TblJudgesPaperKKT();
+            foreach (RouteKKTModel r in routes)
+            {
+                paper.JudgeId = 0;
+                paper.RouteId = r.Id;
+                paper.Time = "00:00:00";
+                paper.Comment = "";
+                paper.Date = DateTime.Now;
+                paper.TypeId = 0;
+                paper.UserId = value.TeamId;
+                CompetitionDB.TblJudgesPapersKKT.Add(paper);
+                CompetitionDB.SaveChanges();
+            }
+
             return ToJsonCreated(CompetitionDB.SaveChanges());
         }
 
@@ -178,6 +193,21 @@ namespace Competition.Controllers
             }
 
             CompetitionDB.TblCompetitorsKKT.Add(value);
+
+            List<RouteKKTModel> routes = CompetitionDB.TblRoutesKKT.ToArray().Where(x => x.CompetitionId == compId && x.Type == value.Group).Select(x => new RouteKKTModel(x)).ToList();
+            TblJudgesPaperKKT paper = new TblJudgesPaperKKT();
+            foreach (RouteKKTModel r in routes)
+            {
+                paper.JudgeId = 0;
+                paper.RouteId = r.Id;
+                paper.Time = "00:00:00";
+                paper.Comment = "";
+                paper.Date = DateTime.Now;
+                paper.TypeId = 0;
+                paper.UserId = value.TeamId;
+                CompetitionDB.TblJudgesPapersKKT.Add(paper);
+                CompetitionDB.SaveChanges();
+            }
 
             return ToJsonCreated(CompetitionDB.SaveChanges());
         }

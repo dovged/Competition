@@ -2,12 +2,11 @@
 
 namespace Competition.Context
 {
-    [Table("TblCompJudgeKKT")]
-    public class TblCompJudgeKKT
+    [Table("TblCompJudgeClimb")]
+    public class TblCompJudge
     {
         public int Id { get; set; }
         public int UserId { get; set; }
         public int CompId { get; set; }
-
     }
 }

@@ -1,8 +1,9 @@
 ﻿using Competition.Context;
+using System.Collections.Generic;
 
 namespace Competition.Models
 {
-    public class CompJudgeKKTModel
+    public class CompJudgeModel
     {
         public int Id { get; set; }
         public int UserId { get; set; }
@@ -10,7 +11,7 @@ namespace Competition.Models
         //Teisėjo vardas ir pavardė string formatu
         public string JudgeName { get; set; }
 
-        public CompJudgeKKTModel(TblCompJudgeKKT row)
+        public CompJudgeModel(TblCompJudge row)
         {
             Id = row.Id;
             UserId = row.UserId;

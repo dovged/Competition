@@ -14,5 +14,6 @@ namespace Competition.Context
         public int TeamId { get; set; }
         public int TypeId { get; set; }
         public DateTime Date { get; set; }
+        public int JudgeId { get; set; }
     }
 }

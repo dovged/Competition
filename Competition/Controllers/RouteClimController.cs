@@ -10,7 +10,6 @@ using System.Web.Http;
 
 namespace Competition.Controllers
 {
-    [RoutePrefix("/api/competition/id/routeClim")]
     public class RouteClimController : BaseAPIController
     {
         /** Grąžina visas vienų varžybų laipiojimo trasas, pagal tipą*/
@@ -42,9 +41,23 @@ namespace Competition.Controllers
         }
 
         /** Sukuria naują laipiojimo trasos objektą*/
-        public HttpResponseMessage Post([FromBody]TblRouteClimb value)
+        [Route("api/routeClim/{compId}")]
+        public HttpResponseMessage Post(int compId)
         {
-            CompetitionDB.TblRoutesClim.Add(value);
+            TblRouteClimb route = new TblRouteClimb();
+
+            for (int i = 0; i < 4; i++)
+            {
+                route.Number = i + 1;
+                route.PointsFlash = 1;
+                route.PointsTop = 1;
+                route.PointsBonus = 1;
+                route.Type = "ATRANKA JAUNIMAS";
+                route.CompetitionId = compId;
+                CompetitionDB.TblRoutesClim.Add(route);
+               // CompetitionDB.SaveChanges();
+            }
+           // CompetitionDB.TblRoutesClim.Add(value);
 
             return ToJsonCreated(CompetitionDB.SaveChanges());
         }

@@ -33,6 +33,13 @@ app.factory('competitionService', ['$http', 'authService', 'localStorageService'
         });
     };
 
+    // Gauti KKT varžybų trasos info
+    var _getKKTRouteInfo = function (Id) {
+        return $http.get(serviceBase + 'api/competition/1/routeKKT/' + Id).then(function (results) {
+            return results;
+        });
+    };
+
     // Gauti KKT varžybų trasų info
     var _getKKTRoutes = function (Id) {
         return $http.get(serviceBase + 'api/routeKKT/' + Id).then(function (results) {
@@ -64,6 +71,16 @@ app.factory('competitionService', ['$http', 'authService', 'localStorageService'
         return addrequest;
     };
 
+    /** Pridedama nauja KKT trasa*/
+    var _addKKTRoute = function (r) {
+        var request = $http({
+            method: 'post',
+            url: serviceBase + "api/routeKKT",
+            data: r
+        });
+        return request;
+    };
+
     /* Pažymimas dalyvis, kuris susimokėjo KKT*/
     var _paidKKT = function (Id) {
         var updaterequest = $http({
@@ -84,6 +101,16 @@ app.factory('competitionService', ['$http', 'authService', 'localStorageService'
         return updaterequest;
     };
 
+    /** Atnaujinama KKT trasos informacija*/
+    var _updateKKTRoute = function (Id, r) {
+        var request = $http({
+            method: 'put',
+            url: serviceBase + "api/routeKKT/" + Id,
+            data: r
+        });
+        return request;
+    };
+
     /** Panaikinamas teisėjas iš sąrašo*/
     var _deleteJudge = function (Id) {
         var deleterequest = $http({
@@ -92,6 +119,23 @@ app.factory('competitionService', ['$http', 'authService', 'localStorageService'
         });
 
         return deleterequest;
+    };
+
+    // Gaunamas sąrašas vartotojų pagal Org klubą, reikalinga, varžybų duomenims atnaujinti
+    var _getUsersClub = function () {
+        return $http.get(serviceBase + 'api/userClub/1/' + _user).then(function (results) {
+            return results;
+        });
+    };
+
+    var _updateCompInfo = function (Id, c) {
+        var updaterequest = $http({
+            method: 'put',
+            url: serviceBase + "api/competition/" + Id,
+            data: c
+        });
+
+        return updaterequest;
     };
 
 
@@ -105,8 +149,14 @@ app.factory('competitionService', ['$http', 'authService', 'localStorageService'
     competitionServiceFactory.paidClim = _paidClim;
     competitionServiceFactory.getJudges = _getJudges;
     competitionServiceFactory.getUsers = _getUsers;
-    competitionServiceFactory.delelteJudge = _deleteJudge;
+    competitionServiceFactory.deleteJudge = _deleteJudge;
     competitionServiceFactory.addJudge = _addJudge;
+    competitionServiceFactory.getKKTRouteInfo = _getKKTRouteInfo;
+    competitionServiceFactory.updateKKTRoute = _updateKKTRoute;
+    competitionServiceFactory.addKKTRoute = _addKKTRoute;
+    competitionServiceFactory.getUsersClub = _getUsersClub;
+    competitionServiceFactory.updateCompInfo = _updateCompInfo;
+
     
 
     return competitionServiceFactory;

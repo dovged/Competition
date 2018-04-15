@@ -10,7 +10,7 @@ namespace Competition.Models
     {
         List<UserModel> Climbers { get; set; }
         List<RouteClimbModel> Routes { get; set; }
-        List<CompJudgeClimModel> Judges { get; set; }
+        List<CompJudgeModel> Judges { get; set; }
 
         public CompetitionClimbModel(TblCompetition row)
             : base(row)

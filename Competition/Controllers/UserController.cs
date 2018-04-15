@@ -123,6 +123,23 @@ namespace Competition.Controllers
             return ToJsonNotFound("Sąrašas tuščias.");
         }
 
+        /** Grąžina vartotojų sąrašą pagal klubą*/
+        [Route("api/userClub/{n}/{userName}")]
+        public HttpResponseMessage Get(int n, string userName)
+        {
+            if (CompetitionDB.TblUsers.AsEnumerable() != null)
+            {
+                string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
+                int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.Email == userName).Id;
+                int clubId = CompetitionDB.TblUsers.Find(id).ClubId;
+                List<UserModel> users = CompetitionDB.TblUsers.ToArray().Where(x => x.Active == true && x.ClubId == clubId).Select(x => new UserModel(x)).ToList();
+
+                return ToJsonOK(users);
+            }
+
+            return ToJsonNotFound("Sąrašas tuščias.");
+        }
+
         /** Uzpildoma User papildoma informacija */
         [Route("api/user/{userName}")]
         public HttpResponseMessage Post(string userName)

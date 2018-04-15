@@ -10,7 +10,6 @@ namespace Competition.Models
     {
         List<TeamModel> Teams { get; set; }
         List<RouteKKTModel> Routes { get; set; }
-        List<CompJudgeKKTModel> Judges { get; set; }
 
         public CompetitionKKTModel(TblCompetition row)
             : base(row)

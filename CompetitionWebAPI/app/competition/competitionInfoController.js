@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('competitionInfoController', ['$scope', 'competitionService', 'localStorageService', function ($scope, competitionService, localStorageService) {
+app.controller('competitionInfoController', ['$scope', 'competitionService', 'localStorageService', '$location', function ($scope, competitionService, localStorageService, $location) {
 
     $scope.competition = {
         Id: "",
@@ -20,6 +20,7 @@ app.controller('competitionInfoController', ['$scope', 'competitionService', 'lo
     $scope.KKTRoutes = false;
     $scope.userList = {};
     $scope.newJudge = '';
+    $scope.usersClubList = {};
     loadCompInfo();
 
     // užkraunamas varžybų sąrašas;
@@ -51,13 +52,20 @@ app.controller('competitionInfoController', ['$scope', 'competitionService', 'lo
         competitionService.getUsers().then(function (results) {
             $scope.userList = results.data;
         });
+
+        competitionService.getUsersClub().then(function (results) {
+            $scope.usersClubList = results.data;
+        });
+
         if (!$scope.competition.Type) {
             // KKT trasų informacija
             competitionService.getKKTRoutes($scope.competition.Id).then(function (results) {
                 $scope.routeList = results.data;
                 $scope.KKTRoutes = true;
-            });  
-        }              
+            });
+            localStorageService.remove("routeId");
+        }
+        
     };
 
     // Panaikinamas tesiėjas
@@ -73,5 +81,32 @@ app.controller('competitionInfoController', ['$scope', 'competitionService', 'lo
             loadCompInfo();
         });
     };
+
+    // Nukreipiamas vartotojas į atnaujimą KKT trasos informacijos
+    $scope.updateKKTRoute = function (Id) {
+        localStorageService.set("routeId", Id);
+        $location.path("/updateKKTRoute");
+    };
+
+    // Atnaujinama varžybų pagrindinė informacija
+    $scope.updateCompInfo = function () {
+        var c = {
+            Id: $scope.competition.Id,
+            Name: $scope.competition.Name,
+            Date: $scope.competition.Date,
+            OrgId: $scope.competition.OrgId,
+            MainJudgeId: $scope.MainJudgeId,
+            MainRouteCreatorId: $scope.MainRouteCreatorId,
+            Type: $scope.competition.Type,
+            Open: $scope.competition.Open,
+            Update: $scope.competition.Update,
+            ClimbType: $scope.competition.ClimbType
+        };
+
+        competitionService.updateCompInfo($scope.competition.Id, c).then(function (results) {
+            loadCompInfo();
+        });
+
+    }
 
 }]);

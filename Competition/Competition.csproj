@@ -223,11 +223,9 @@
     <Compile Include="Context\TblClub.cs" />
     <Compile Include="Context\TblCompetition.cs" />
     <Compile Include="Context\DbContext.cs" />
-    <Compile Include="Context\TblCompJudgeClim.cs" />
+    <Compile Include="Context\TblCompJudge.cs" />
     <Compile Include="Context\TblCompetitorsClimb.cs" />
     <Compile Include="Context\TblCompetitorsKKT.cs" />
-    <Compile Include="Context\TblCompJudgeKKT.cs" />
-    <Compile Include="Context\TblJudgeRoute.cs" />
     <Compile Include="Context\TblJudgesPaperClim.cs" />
     <Compile Include="Context\TblJudgesPaperKKT.cs" />
     <Compile Include="Context\TblPaperType.cs" />
@@ -244,8 +242,7 @@
     <Compile Include="Controllers\ClubController.cs" />
     <Compile Include="Controllers\CompetitionController.cs" />
     <Compile Include="Controllers\CompetitorsClimController.cs" />
-    <Compile Include="Controllers\CompJudgeClimbController.cs" />
-    <Compile Include="Controllers\CompJudgeKKTController.cs" />
+    <Compile Include="Controllers\CompJudgeController.cs" />
     <Compile Include="Controllers\CompetitorsKKTController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JudgesPaperClimController.cs" />
@@ -264,13 +261,11 @@
     <Compile Include="Models\CompetitionClimbModel.cs" />
     <Compile Include="Models\CompetitionModel.cs" />
     <Compile Include="Models\CompetitorsClimModel.cs" />
-    <Compile Include="Models\CompJudgeClimModel.cs" />
-    <Compile Include="Models\CompJudgeKKTModel.cs" />
+    <Compile Include="Models\CompJudgeModel.cs" />
     <Compile Include="Models\CompetitionKKTModel.cs" />
     <Compile Include="Models\CompetitorsKKTModel.cs" />
     <Compile Include="Models\CompKidsKKTModel.cs" />
     <Compile Include="Models\CompKidsClimbModel.cs" />
-    <Compile Include="Models\JudgeRouteModel.cs" />
     <Compile Include="Models\JudgesPaperClimbModel.cs" />
     <Compile Include="Models\JudgesPaperKKTModel.cs" />
     <Compile Include="Models\PaperTypeModel.cs" />
