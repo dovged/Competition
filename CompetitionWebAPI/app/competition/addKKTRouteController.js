@@ -2,7 +2,6 @@
 app.controller('addKKTRouteController', ['$scope', 'competitionService', '$location', 'localStorageService', function ($scope, competitionService, $location, localStorageService) {
 
     $scope.route = {
-        Id: '',
         Name: '',
         Time: '',
         Points: '',

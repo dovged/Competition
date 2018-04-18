@@ -81,12 +81,12 @@ app.config(function ($routeProvider) {
     });
 
     $routeProvider.when("/addKKTRoute", {
-        controller: "addKKTRoute",
+        controller: "addKKTRouteController",
         templateUrl: "app/competition/addKKTRoute.html"
     });
 
     $routeProvider.when("/updateKKTRoute", {
-        controller: "updateKKTRoute",
+        controller: "updateKKTRouteController",
         templateUrl: "app/competition/updateKKTRoute.html"
     });
 

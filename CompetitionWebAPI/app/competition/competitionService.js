@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.factory('competitionService', ['$http', 'authService', 'localStorageService', function ($http, authService, localStorageService) {
+app.factory('competitionService', ['$http', 'authService', function ($http, authService) {
 
     var serviceBase = 'http://localhost:52336/';
     var competitionServiceFactory = {};

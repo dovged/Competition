@@ -23,11 +23,14 @@ app.controller('userController', ['$scope', 'userService', function ($scope, use
         BirthYear: '',
         Lytis: ''
     };
-    $scope.newMember = false;
+    $scope.userNoteam = {};
     $scope.members = {};
     $scope.noTeam = false;
-
-    $scope.addMemberId;
+    $scope.noClimb = false;
+    $scope.noKKT = false;
+    $scope.newMember = {
+        UserId: ''
+    };
     loadUserInfo();
 
     // Užkraunami vartotojo duomenys
@@ -55,14 +58,22 @@ app.controller('userController', ['$scope', 'userService', function ($scope, use
             $scope.noTeam = true;
         });
 
+        if (!$scope.noTeam) {
+            userService.getUserNoTeam().then(function (results) {
+                $scope.userNoteam = results.data;
+            });
+        }
+
         /** LAIPIOJIMO varžybų sąrašas, kuriose vartootjas dalyvauja*/
         userService.getCompListClim().then(function (results) {
             $scope.compClim = results.data;
+            $scope.noClimb = true;
         });
 
         /** KKT varžybų sąrašas, kuriose vartotojas dalyvauja*/
         userService.getCompListKKT().then(function (results) {
             $scope.compKKT = results.data;
+            $scope.noKKT = true;
         });
 
         /** Klubų sąrašas, atnaujinui skirta*/
@@ -107,7 +118,7 @@ app.controller('userController', ['$scope', 'userService', function ($scope, use
 
     //Pridėti narį į komandą
     $scope.addMember = function () {
-        userService.addMember($scope.addMemberId, $scope.team.Id).then(function (results) {
+        userService.addMember($scope.addMemberId.UserId, $scope.team.Id).then(function (results) {
             loadUserInfo();
         });
     };
@@ -117,11 +128,6 @@ app.controller('userController', ['$scope', 'userService', function ($scope, use
         userService.removeMember(id).then(function (results) {
             loadUserInfo();
         });
-    };
-
-    // Indikacija naujo nario pridėjimui
-    $scope.member = function () {
-        $scope.newMember = true;
     };
 
     // Pridėti komandą

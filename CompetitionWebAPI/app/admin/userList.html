@@ -26,9 +26,8 @@
                         <button title="Pašalinti" class="btn btn-danger" style="padding: 3px 4px; float:right" ng-click="removeRole(role.Id)"><span class="glyphicon glyphicon-remove"></span></button>
                     </td>
                     <td>
-                        <button  class="btn btn-success" style="padding: 3px 4px; float:right" ng-click="getRoleList()"><span class="glyphicon glyphicon-plus"></span></button>
                         <select  ng-options="roleUser.Id as roleUser.Name for roleUser in roleList" ng-model="newRoleId"></select>
-                        <button class="btn btn-success" style="padding: 3px 4px; float:right" ng-click="addRole(user.Id)"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                        <button class="btn btn-success" style="padding: 3px 4px; float:right" ng-click="addRole(user.Id)"><span class="glyphicon glyphicon-plus"></span></button>
                     </td>
                     <td><button title="Pašalinti vartotoją" class="btn btn-danger" style="padding: 3px 4px; float:right" ng-click="removeUser(user.Id)"><span class="glyphicon glyphicon-remove"></span>Neaktyvus vartotojas</button> </td>
                 </tr>

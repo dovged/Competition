@@ -30,10 +30,11 @@ app.factory('adminService', function ($http) {
     }
 
     // Pridedama vartotojui rolė
-    var _addRole = function (RoleId, UserId) {
+    var _addRole = function (Role) {
         var addRequest = $http({
             method: 'post',
-            url: serviceBase + "api/role/" + RoleId + "/" + UserId
+            url: serviceBase + "api/role",
+            data: Role
         });
 
         return addRequest;

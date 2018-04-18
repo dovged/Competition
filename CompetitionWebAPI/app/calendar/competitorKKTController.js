@@ -3,7 +3,10 @@ app.controller('competitorKKTController', ['$scope', 'calendarService', '$locati
 
     $scope.competitor = {
         CompetitionId: '',
-        Group: ''
+        TeamId: '',
+        Group: '',
+        Paid: ''
+
     };
     $scope.competition = {
         Name: '',
@@ -22,8 +25,9 @@ app.controller('competitorKKTController', ['$scope', 'calendarService', '$locati
     $scope.add = function () {
         var c = {
             CompetitionId: localStorageService.get("calendarId"),
+            TeamId: 0,
             Group: $scope.competitor.Group,
-            Paid: "false"
+            Paid: "False"
         };
 
         calendarService.addCompetitorKKT(c, $scope.competitor.CompetitionId).then(function (results) {

@@ -5,7 +5,7 @@ app.factory('userService',['$http', 'authService', function ($http, authService)
     var userServiceFactory = {};
     var _user = authService.authentication.userName;
 
-    // Grąžinti sąrašą
+    // Grąžinti vartotojo komandos informaciją
     var _getUserTeam = function () {
         return $http.get(serviceBase + "api/team/" + _user + "/1").then(function (results) {
             return results;
@@ -91,10 +91,18 @@ app.factory('userService',['$http', 'authService', function ($http, authService)
     var _addTeam = function (team) {
         var addrequest = $http({
             method: 'put',
-            url: serviceBase + "api/team/"
+            url: serviceBase + "api/team",
+            data: team
         });
 
         return addrequest;
+    };
+
+    // Gaunamas vartotojų be KKT komandos sąrašas
+    var _getUserNoTeam = function () {
+        return $http.get(serviceBase + "api/userNoTeam/1").then(function (results) {
+            return results;
+        });
     };
 
 
@@ -110,6 +118,7 @@ app.factory('userService',['$http', 'authService', function ($http, authService)
     userServiceFactory.removeMember = _removeMember;
     userServiceFactory.addMember = _addMember;
     userServiceFactory.addTeam = _addTeam;
+    userServiceFactory.getUserNoTeam = _getUserNoTeam;
 
     return userServiceFactory;
 

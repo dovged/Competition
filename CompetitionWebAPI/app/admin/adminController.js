@@ -3,16 +3,21 @@ app.controller('adminController', ['$scope', 'adminService', function ($scope, a
 
     $scope.userList = {};
     $scope.roleList = {};
-    $scope.newRole = false;
-    $scope.newRoleId = 0;
+    $scope.newRole = {
+        RoleId: '',
+        UserId: ''
+    };
 
     loadUserList();
 
     // Užkraunami duomenys į lentelę
     function loadUserList() {
+
+        // Gaunamas aktyvių varotojų sąrašas
         adminService.getUserList().then(function (results) {
             $scope.userList = results.data;
         });
+        // Gaunamas rolių sąrašas
         adminService.getRoleList().then(function (results) {
             $scope.roleList = results.data;
         });
@@ -37,15 +42,17 @@ app.controller('adminController', ['$scope', 'adminService', function ($scope, a
         adminService.getRoleList().then(function (results) {
             $scope.roleList = results.data;
         });
-        $scope.newRole = true;
     };
 
     // Pridedama nauja rolė vartotojui
     $scope.addRole = function (userId) {
-        adminService.addRole($scope.newRoleId, userId).then(function (results) {
+        var userRole = {
+            RoleId: $scope.newRole.RoleId,
+            UserId: userId
+        };
+        adminService.addRole(userRole).then(function (results) {
             loadUserList();
         });
-        $scope.newRole = false;
     };
 
 }]);

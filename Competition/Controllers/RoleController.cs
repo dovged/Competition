@@ -39,12 +39,9 @@ namespace Competition.Controllers
         }
 
         /** Pridedama nauja rolė vartotojui;*/
-        [Route("api/role/{RoleId}/{UserId}")]
-        public HttpResponseMessage Post(int RoleId, int UserId)
+        [Route("api/role")]
+        public HttpResponseMessage Post([FromBody]TblUserRole value)
         {
-            TblUserRole value = new TblUserRole();
-            value.RoleId = RoleId;
-            value.UserId = UserId;
             CompetitionDB.TblUserRoles.Add(value);
 
             return ToJsonCreated(CompetitionDB.SaveChanges());
