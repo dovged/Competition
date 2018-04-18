@@ -21,6 +21,7 @@ namespace Competition.Models
         public Boolean Open { get; set; }
         public Boolean Update { get; set; }
         public int ClimbType { get; set; }
+        public string Date2 { get; set; }
 
         public CompetitionModel(TblCompetition row)
         {
@@ -28,12 +29,44 @@ namespace Competition.Models
             Name = row.Name;
             Date = row.Date;
             OrgId = row.OrgId;
-            MainJudgeId = row.MainJugdeId;
+            MainJudgeId = row.MainJudgeId;
             MainRouteCreatorId = row.MainRouteCreatorId;
             Type = row.Type;
             Open = row.Open;
             Update = row.Update;
             ClimbType = row.ClimbType;
+            if (Date.ToString().Length == 22)
+            {
+                Date2 = Date.ToString().Substring(0, 10);
+            }
+            else if (Date.ToString().Length == 20)
+            {
+                Date2 = Date.ToString().Substring(0, 8);
+            }
+            else
+            {
+                Date2 = Date.ToString().Substring(0, 9);
+            }
+
+            String[] datearray = Date2.Split('/');
+            Date2 = datearray[2] + "-";
+            if(datearray[0].Length == 1)
+            {
+                Date2 += "0" + datearray[0] + "-";
+            }
+            else
+            {
+                Date2 += datearray[0] + "-";
+            }
+
+            if (datearray[1].Length == 1)
+            {
+                Date2 += "0" + datearray[1];
+            }
+            else
+            {
+                Date2 += datearray[1];
+            }
         }
 
     }

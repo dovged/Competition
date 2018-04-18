@@ -87,6 +87,16 @@ app.factory('userService',['$http', 'authService', function ($http, authService)
         return addrequest;
     }
 
+    // Pridėti komandą
+    var _addTeam = function (team) {
+        var addrequest = $http({
+            method: 'put',
+            url: serviceBase + "api/team/"
+        });
+
+        return addrequest;
+    };
+
 
     // PRISIKIRIMAI
     userServiceFactory.getUserTeam = _getUserTeam;
@@ -99,6 +109,7 @@ app.factory('userService',['$http', 'authService', function ($http, authService)
     userServiceFactory.updateUser = _updateUser;
     userServiceFactory.removeMember = _removeMember;
     userServiceFactory.addMember = _addMember;
+    userServiceFactory.addTeam = _addTeam;
 
     return userServiceFactory;
 

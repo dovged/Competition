@@ -104,9 +104,14 @@ namespace Competition.Controllers
         }
 
         /** Sukuria naują varžybų objektą*/
-        [Route("api/competition")]
-        public HttpResponseMessage Post([FromBody]TblCompetition value)
-        { 
+        [Route("api/competition/{userName}")]
+        public HttpResponseMessage Post(string userName, [FromBody]TblCompetition value)
+        {
+            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
+            int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
+            value.OrgId = id;
+            value.Open = true;
+            value.Update = true;
             CompetitionDB.TblCompetitions.Add(value);
             
             /** Sukuriamos trasos LAIPIOJIMO VARŽYBOMS*/

@@ -4,7 +4,7 @@ app.controller('adminController', ['$scope', 'adminService', function ($scope, a
     $scope.userList = {};
     $scope.roleList = {};
     $scope.newRole = false;
-    $scope.newRoleId = '';
+    $scope.newRoleId = 0;
 
     loadUserList();
 
@@ -12,6 +12,9 @@ app.controller('adminController', ['$scope', 'adminService', function ($scope, a
     function loadUserList() {
         adminService.getUserList().then(function (results) {
             $scope.userList = results.data;
+        });
+        adminService.getRoleList().then(function (results) {
+            $scope.roleList = results.data;
         });
     };
 

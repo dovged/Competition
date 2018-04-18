@@ -59,13 +59,14 @@ namespace Competition.Controllers
         }
 
         /** Sukurti komandą*/
-        [Route("api/team/{userName}")]
-        public HttpResponseMessage Post([FromBody]TblTeam value, string userName)
+        [Route("api/team")]
+        public HttpResponseMessage Post([FromBody]TblTeam value)
         {
-            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
-            int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
-            value.TeamCaptainId = id;
             CompetitionDB.TblTeams.Add(value);
+            CompetitionDB.SaveChanges();
+            TblUser user = CompetitionDB.TblUsers.Find(value.TeamCaptainId);
+            user.TeamId = value.Id;
+            CompetitionDB.Entry(user).State = EntityState.Modified;
 
             return ToJsonCreated(CompetitionDB.SaveChanges());
         }

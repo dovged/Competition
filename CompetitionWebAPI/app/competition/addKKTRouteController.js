@@ -11,7 +11,7 @@ app.controller('addKKTRouteController', ['$scope', 'competitionService', '$locat
     };
 
     // Išsaugojama baudos informacija
-    $scope.add = function () {
+    $scope.addRoute = function () {
         var r = {
             Name: $scope.route.Name,
             Time: $scope.route.Time,

@@ -32,7 +32,8 @@ app.controller('competitionInfoController', ['$scope', 'competitionService', 'lo
             var c = results.data;
             $scope.competition.Id = c.Id;
             $scope.competition.Name = c.Name;
-            $scope.competition.Date = c.Date;
+            $scope.competition.Date = c.Date2;
+            $scope.competition.OrgId = c.OrgId;
             $scope.competition.MainRouteCreatorId = c.MainRouteCreatorId;
             $scope.competition.MainRouteCreatorName = c.MainRouteCreatorName;
             $scope.competition.MainJudgeId = c.MainJudgeId;
@@ -95,8 +96,8 @@ app.controller('competitionInfoController', ['$scope', 'competitionService', 'lo
             Name: $scope.competition.Name,
             Date: $scope.competition.Date,
             OrgId: $scope.competition.OrgId,
-            MainJudgeId: $scope.MainJudgeId,
-            MainRouteCreatorId: $scope.MainRouteCreatorId,
+            MainJudgeId: $scope.competition.MainJudgeId,
+            MainRouteCreatorId: $scope.competition.MainRouteCreatorId,
             Type: $scope.competition.Type,
             Open: $scope.competition.Open,
             Update: $scope.competition.Update,

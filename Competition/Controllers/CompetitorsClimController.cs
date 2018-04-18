@@ -130,6 +130,8 @@ namespace Competition.Controllers
             value.CompetitionId = compId;
             string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
             value.UserId = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
+            value.Paid = false;
+            value.Tag = false;
             CompetitionDB.TblCompetitorsClim.Add(value);
             CompetitionDB.SaveChanges();
             List<RouteClimbModel> routes = CompetitionDB.TblRoutesClim.ToArray().Where(x => x.CompetitionId == compId && x.Type == "ATRANKA").Select(x => new RouteClimbModel(x)).ToList();

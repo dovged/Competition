@@ -34,6 +34,16 @@ app.config(function ($routeProvider) {
         templateUrl: "app/calendar/results.html"
     });
 
+    $routeProvider.when("/competitorClim", {
+        controller: "competitorClimController",
+        templateUrl: "app/calendar/competitorClim.html"
+    });
+
+    $routeProvider.when("/competitorKKT", {
+        controller: "competitorKKTController",
+        templateUrl: "app/calendar/competitorKKT.html"
+    });
+
     /** VARŽYBŲ ORGANIZATORIAUS PASIEKIAMI LAGAI*/
     $routeProvider.when("/penalties", {
         controller: "penaltyController",
@@ -78,6 +88,11 @@ app.config(function ($routeProvider) {
     $routeProvider.when("/updateKKTRoute", {
         controller: "updateKKTRoute",
         templateUrl: "app/competition/updateKKTRoute.html"
+    });
+
+    $routeProvider.when("/addCompetition", {
+        controller: "addCompetitionController",
+        templateUrl: "app/competition/addCompetition.html"
     });
 
     /** ADMINISTRATORIAUS PASIEKIAMI LANGAI*/

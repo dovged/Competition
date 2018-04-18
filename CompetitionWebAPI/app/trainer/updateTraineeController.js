@@ -18,7 +18,7 @@ app.controller('updateTraineeController', ['$scope', 'trainerService', '$locatio
             var u = results.data;
             $scope.user.Name = u.Name;
             $scope.user.LastName = u.LastName;
-            $scope.user.BirthYear = u.BirthYear;
+            $scope.user.BirthYear = u.BirthYear2;
             $scope.user.Lytis = u.Lytis;
         });
     };

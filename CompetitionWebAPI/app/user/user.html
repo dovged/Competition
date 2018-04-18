@@ -58,16 +58,23 @@
             <button class="btn btn-success" ng-click="update()">
                 Išsaugoti pakeitmus
             </button>
-        </form> 
-        <h1>{{team.Name}}</h1>
-        <button title="Pridėti naują narį" class="btn btn-success" ng-click="member()"><span class="glyphicon glyphicon-plus-sign"></span> Pridėti naują komandos narį</button>
+        </form>
+        <div ng-hide="noTeam" class="form-group">
+            <label for="teamname">
+                Komanda:
+            </label>
+            <input type="text" class="form-control" id="teamname" ng-model="team.Name" />
+            <button class="btn btn-success" style="padding: 3px 4px; float:right" ng-click="addTeam()"><span class="glyphicon glyphicon-plus"></span></button>
+        </div>
+        <h1 ng-hide="!noTeam">{{team.Name}}</h1>
+        <button ng-hide="!noTeam" title="Pridėti naują narį" class="btn btn-success" ng-click="member()"><span class="glyphicon glyphicon-plus-sign"></span> Pridėti naują komandos narį</button>
         <div ng-hide="!newMember" class="form-group">
             <label for="club">
                 Dalyvis:
             </label>
             <select ng-options="club.Id as club.Name for club in clubs" ng-model="user.ClubId"></select>
         </div>
-        <table class="table table-striped table-bordered table-hover">
+        <table ng-hide="!noTeam" class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
                     <th>Vardas</th>

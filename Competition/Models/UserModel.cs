@@ -17,9 +17,9 @@ namespace Competition.Models
         public Boolean Active { get; set; }
         public int TrainerId { get; set; }
         public DateTime BirthYear { get; set; }
-        public string BirthYear1 { get; set; }
         public string Lytis { get; set; }
         public string Name2 { get; set; }
+        public string BirthYear2 { get; set; }
 
         public List<RoleModel> roles { get; set; }
 
@@ -33,8 +33,41 @@ namespace Competition.Models
             TrainerId = row.TrainerId;
             BirthYear = row.BirthYear;
             Lytis = row.Lytis;
-            BirthYear1 = BirthYear.ToString().Substring(0,10);
             Name2 = Name + " " + LastName;
+
+            if (BirthYear.ToString().Length == 22)
+            {
+                BirthYear2 = BirthYear.ToString().Substring(0, 10);
+            }
+            else if (BirthYear.ToString().Length == 20)
+            {
+                BirthYear2 = BirthYear.ToString().Substring(0, 8);
+            }
+            else
+            {
+                BirthYear2 = BirthYear.ToString().Substring(0, 9);
+            }
+
+            String[] datearray = BirthYear2.Split('/');
+            BirthYear2 = datearray[2] + "-";
+            if (datearray[0].Length == 1)
+            {
+                BirthYear2 += "0" + datearray[0] + "-";
+            }
+            else
+            {
+                BirthYear2 += datearray[0] + "-";
+            }
+
+            if (datearray[1].Length == 1)
+            {
+                BirthYear2 += "0" + datearray[1];
+            }
+            else
+            {
+                BirthYear2 += datearray[1];
+            }
+
         }
     }
 }

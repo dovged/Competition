@@ -1,7 +1,11 @@
 ﻿'use strict';
 app.controller('userController', ['$scope', 'userService', function ($scope, userService) {
 
-    $scope.team = {};
+    $scope.team = {
+        Id: '',
+        Name: '',
+        TeamCaptainId: ''
+    };
     $scope.compClim = {};
     $scope.compKKT = {};
     $scope.clubs = {};
@@ -21,6 +25,7 @@ app.controller('userController', ['$scope', 'userService', function ($scope, use
     };
     $scope.newMember = false;
     $scope.members = {};
+    $scope.noTeam = false;
 
     $scope.addMemberId;
     loadUserInfo();
@@ -40,13 +45,14 @@ app.controller('userController', ['$scope', 'userService', function ($scope, use
             $scope.user.UserId = u.UserId;
             $scope.user.Active = u.Active;
             $scope.user.TrainerId = u.TrainerId;
-            $scope.user.BirthYear = u.BirthYear;
+            $scope.user.BirthYear = u.BirthYear2;
             $scope.user.Lytis = u.Lytis;
         });
 
         /** Gaunami komandos duomenys*/
         userService.getUserTeam().then(function (results) {
             $scope.team = results.data;
+            $scope.noTeam = true;
         });
 
         /** LAIPIOJIMO varžybų sąrašas, kuriose vartootjas dalyvauja*/
@@ -116,6 +122,17 @@ app.controller('userController', ['$scope', 'userService', function ($scope, use
     // Indikacija naujo nario pridėjimui
     $scope.member = function () {
         $scope.newMember = true;
+    };
+
+    // Pridėti komandą
+    $scope.addTeam = function () {
+        var t = {
+            Name: $scope.team.Name,
+            TeamCaptainId: $scope.user.Id
+        }
+        userService.addTeam(t).then(function (results) {
+            loadUserInfo();
+        });
     };
 
 }]);

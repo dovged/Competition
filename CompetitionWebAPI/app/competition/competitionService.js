@@ -128,6 +128,7 @@ app.factory('competitionService', ['$http', 'authService', 'localStorageService'
         });
     };
 
+    /** Atnaujinti varžybų informaciją*/
     var _updateCompInfo = function (Id, c) {
         var updaterequest = $http({
             method: 'put',
@@ -138,6 +139,15 @@ app.factory('competitionService', ['$http', 'authService', 'localStorageService'
         return updaterequest;
     };
 
+    // Pridėti naują baudą
+    var _addCompetition = function (Comp) {
+        var request = $http({
+            method: 'post',
+            url: serviceBase + "api/competition/" + _user,
+            data: comp
+        });
+        return request;
+    }
 
     /** PRISKIRIMAI */
     competitionServiceFactory.getCompetitionList = _getCompetitionList;
@@ -156,6 +166,7 @@ app.factory('competitionService', ['$http', 'authService', 'localStorageService'
     competitionServiceFactory.addKKTRoute = _addKKTRoute;
     competitionServiceFactory.getUsersClub = _getUsersClub;
     competitionServiceFactory.updateCompInfo = _updateCompInfo;
+    competitionServiceFactory.addCompetition = _addCompetition;
 
     
 

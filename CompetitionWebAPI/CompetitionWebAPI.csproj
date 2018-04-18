@@ -153,8 +153,14 @@
     <Content Include="app\admin\userList.html" />
     <Content Include="app\app.js" />
     <Content Include="app\calendar\calendarService.js" />
+    <Content Include="app\calendar\competitorClim.html" />
+    <Content Include="app\calendar\competitorClimController.js" />
+    <Content Include="app\calendar\competitorKKT.html" />
+    <Content Include="app\calendar\competitorKKTController.js" />
     <Content Include="app\calendar\results.html" />
     <Content Include="app\calendar\resultsController.js" />
+    <Content Include="app\competition\addCompetition.html" />
+    <Content Include="app\competition\addCompetitionController.js" />
     <Content Include="app\competition\addKKTRoute.html" />
     <Content Include="app\competition\addKKTRouteController.js" />
     <Content Include="app\competition\competitionController.js" />
