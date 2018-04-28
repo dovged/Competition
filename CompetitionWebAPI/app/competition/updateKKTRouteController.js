@@ -32,7 +32,7 @@ app.controller('updateKKTRouteController', ['$scope', 'competitionService', '$lo
             Name: $scope.route.Name,
             Time: $scope.route.Time,
             Points: $scope.route.Points,
-            CompetitionId: $route.CompId,
+            CompetitionId: $scope.route.CompId,
             Type: $scope.route.Type
         };
 

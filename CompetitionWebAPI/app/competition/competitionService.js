@@ -140,7 +140,7 @@ app.factory('competitionService', ['$http', 'authService', function ($http, auth
     };
 
     // Pridėti naują baudą
-    var _addCompetition = function (Comp) {
+    var _addCompetition = function (comp) {
         var request = $http({
             method: 'post',
             url: serviceBase + "api/competition/" + _user,

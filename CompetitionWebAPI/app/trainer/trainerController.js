@@ -19,7 +19,7 @@ app.controller('trainerController', ['$scope', 'trainerService', 'localStorageSe
         });
 
         localStorageService.remove("TraineeId");
-        if (KKTTrainer) {
+        if ($scope.KKTTrainer) {
             trainerService.getTeams().then(function (results) {
                 $scope.teamList = results.data;
             });

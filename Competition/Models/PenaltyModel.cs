@@ -1,5 +1,6 @@
 ﻿using Competition.Context;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Competition.Models
 {
@@ -15,7 +16,14 @@ namespace Competition.Models
             Id = row.Id;
             Name = row.Name;
             Points = row.Points;
-            Active = row.Yra;
+            if(row.Yra == 1)
+            {
+                Active = true;
+            }
+            else
+            {
+                Active = false;
+            }
         }
     }
 }

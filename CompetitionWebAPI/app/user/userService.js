@@ -12,14 +12,14 @@ app.factory('userService',['$http', 'authService', function ($http, authService)
         });
     };
 
-    /* Grąžinamas sąrašas varžybų į kurias užsiregistravo dalyvis LAIPIOJIMAS*/
+    // Grąžinamas sąrašas varžybų į kurias užsiregistravo dalyvis LAIPIOJIMAS
     var _getCompListClim = function () {
         return $http.get(serviceBase + "api/clim/" + _user + "/1").then(function (results) {
             return results;
         });
     };
 
-     /* Grąžinamas sąrašas varžybų į kurias užsiregistravo dalyvis KKT*/
+    // Grąžinamas sąrašas varžybų į kurias užsiregistravo dalyvis KKT
     var _getCompListKKT = function () {
         return $http.get(serviceBase + "api/climKKT/" + _user + "/1").then(function (results) {
             return results;
@@ -44,21 +44,21 @@ app.factory('userService',['$http', 'authService', function ($http, authService)
         return deleterequest;
     }
 
-    //Gaunas klubų sąrašas
+    // Gaunamas klubų sąrašas
     var _getClubs = function () {
         return $http.get(serviceBase + "api/club").then(function (results) {
             return results;
         });
     };
 
-    // Gauna vartotojo inforamcija
+    // Gaunama vartotojo inforamcija
     var _getUser = function () {
         return $http.get(serviceBase + "api/user/" + _user).then(function (results) {
             return results;
         });
     };
 
-    //Atnaujinama vartotojo informacija
+    // Atnaujinama vartotojo informacija
     var _updateUser = function (u) {
         var updaterequest = $http({
             method: 'put',
@@ -90,7 +90,7 @@ app.factory('userService',['$http', 'authService', function ($http, authService)
     // Pridėti komandą
     var _addTeam = function (team) {
         var addrequest = $http({
-            method: 'put',
+            method: 'post',
             url: serviceBase + "api/team",
             data: team
         });

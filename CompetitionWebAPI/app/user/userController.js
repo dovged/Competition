@@ -118,7 +118,7 @@ app.controller('userController', ['$scope', 'userService', function ($scope, use
 
     //Pridėti narį į komandą
     $scope.addMember = function () {
-        userService.addMember($scope.addMemberId.UserId, $scope.team.Id).then(function (results) {
+        userService.addMember($scope.newMember.UserId, $scope.team.Id).then(function (results) {
             loadUserInfo();
         });
     };

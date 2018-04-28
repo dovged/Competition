@@ -42,7 +42,6 @@ app.controller('competitionInfoController', ['$scope', 'competitionService', 'lo
             $scope.competition.Open = c.Open;
             $scope.competition.Update = c.Update;
             $scope.competition.ClimbType = c.ClimbType;
-
         });
 
         competitionService.getJudges($scope.competition.Id).then(function (results) {

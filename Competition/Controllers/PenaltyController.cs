@@ -18,7 +18,7 @@ namespace Competition.Controllers
         {
             if (CompetitionDB.TblPenalties.AsEnumerable() != null)
             {
-                 return ToJsonOK(CompetitionDB.TblPenalties.ToArray().Where(x => x.Yra == true).Select(x => new PenaltyModel(x)).ToList());
+                 return ToJsonOK(CompetitionDB.TblPenalties.Where(x => x.Points == 10).ToList());
             }
 
             return ToJsonNotFound("Sąrašas tuščias.");
@@ -28,7 +28,7 @@ namespace Competition.Controllers
          * kuri yra Penalty.Active == true;*/
         public HttpResponseMessage Get(int id)
         {
-            if (CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id && x.Yra == true) != null)
+            if (CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id && x.Yra == 1) != null)
             {
                 return ToJsonOK(CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id));
             }
@@ -39,7 +39,7 @@ namespace Competition.Controllers
         /** Pridedama nauja bauda*/
         public HttpResponseMessage Post([FromBody]TblPenalty value)
         {
-            value.Yra = true;
+            value.Yra = 1;
             CompetitionDB.TblPenalties.Add(value);
 
             return ToJsonCreated(CompetitionDB.SaveChanges());
@@ -60,10 +60,10 @@ namespace Competition.Controllers
           * Tai galima padaryti tik daudai, kuri  yra duomenų bazėje ir yra Penalty.Active == true*/
         public HttpResponseMessage Delete(int id)
         {
-            if (CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id /**&& x.Active == true*/) != null)
+            if (CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id) != null)
             {
                 TblPenalty penalty = CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id);
-                penalty.Yra = false;
+                penalty.Yra = 0;
                 CompetitionDB.Entry(penalty).State = EntityState.Modified;
                 return ToJsonOK(CompetitionDB.SaveChanges());
             }

@@ -15,6 +15,12 @@ app.controller('addCompetitionController', ['$scope', 'competitionService', '$lo
         ClimbType: ""
     };
 
+    $scope.userClubList = {};
+
+    competitionService.getUsersClub().then(function (results) {
+        $scope.userClubList = results.data;
+    });
+
     // Užregitraujamos naujos varžybos
     $scope.add = function () {
         var c = {

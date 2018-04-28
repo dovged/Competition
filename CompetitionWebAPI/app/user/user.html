@@ -71,7 +71,7 @@
             <label for="club">
                 Dalyvis:
             </label>
-            <select ng-options="userTeam.Id.Id as userTeam.Name2 for userTeam in userNoteam" ng-model="newMemeber.UserId"></select>
+            <select ng-options="userNT.Id as userNT.Name2 for userNT in userNoteam" ng-model="newMember.UserId"></select>
             <button ng-hide="!noTeam" title="Pridėti naują narį" class="btn btn-success" ng-click="addMember()"><span class="glyphicon glyphicon-plus"></span></button>
         </div>
         <table ng-hide="!noTeam" class="table table-striped table-bordered table-hover">

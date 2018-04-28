@@ -9,7 +9,7 @@ namespace Competition.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(Competition.Context.DbContext context)
