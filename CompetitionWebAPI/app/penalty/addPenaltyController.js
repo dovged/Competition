@@ -2,7 +2,6 @@
 app.controller('addPenaltyController', ['$scope', 'penaltyService', '$location', function ($scope, penaltyService, $location) {
 
     $scope.pen = {
-        Id: '',
         Name: '',
         Points: ''
     };
@@ -15,6 +14,7 @@ app.controller('addPenaltyController', ['$scope', 'penaltyService', '$location',
         };
 
         penaltyService.add(p).then(function (results) {
+            // Grąžinama į baudų sąrašą
             $location.path("/penalties");
         });
     };

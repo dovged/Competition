@@ -13,22 +13,22 @@ namespace Competition.Controllers
     public class PenaltyController : BaseAPIController
     {
         /** Grąžina visų baudų sąrašą,
-         * tik tuos, kur Penalty.Active == true;*/
+         * tik tuos, kur Penalty.Yra == true;*/
         public HttpResponseMessage Get()
         {
             if (CompetitionDB.TblPenalties.AsEnumerable() != null)
             {
-                 return ToJsonOK(CompetitionDB.TblPenalties.Where(x => x.Points == 10).ToList());
+                 return ToJsonOK(CompetitionDB.TblPenalties.Where(x => x.Yra).ToList());
             }
 
             return ToJsonNotFound("Sąrašas tuščias.");
         }
 
         /** Grąžina vieną baudą,
-         * kuri yra Penalty.Active == true;*/
+         * kuri yra Penalty.Yra == true;*/
         public HttpResponseMessage Get(int id)
         {
-            if (CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id && x.Yra == 1) != null)
+            if (CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id && x.Yra) != null)
             {
                 return ToJsonOK(CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id));
             }
@@ -39,16 +39,17 @@ namespace Competition.Controllers
         /** Pridedama nauja bauda*/
         public HttpResponseMessage Post([FromBody]TblPenalty value)
         {
-            value.Yra = 1;
+            value.Yra = true;
             CompetitionDB.TblPenalties.Add(value);
 
             return ToJsonCreated(CompetitionDB.SaveChanges());
         }
 
         /** Pakoreguojama bauda;
-          * galima koreguoti baudą, kuri yra duomenų bazėje ir yra Penalty.Active == true*/
+          * galima koreguoti baudą, kuri yra duomenų bazėje ir yra Penalty.Yra == true*/
         public HttpResponseMessage Put(int id, [FromBody]TblPenalty value)
         {
+            value.Yra = true;
             CompetitionDB.Entry(value).State = EntityState.Modified;
 
             return ToJsonOK(CompetitionDB.SaveChanges());
@@ -56,14 +57,14 @@ namespace Competition.Controllers
 
         /** Fiktyvus Delete metodas;
           * Bauda padarome neaktyve;
-          * Penalty.Acrive == false;
-          * Tai galima padaryti tik daudai, kuri  yra duomenų bazėje ir yra Penalty.Active == true*/
+          * Penalty.Yra == false;
+          * Tai galima padaryti tik daudai, kuri  yra duomenų bazėje ir yra Penalty.Yra == true*/
         public HttpResponseMessage Delete(int id)
         {
             if (CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id) != null)
             {
                 TblPenalty penalty = CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == id);
-                penalty.Yra = 0;
+                penalty.Yra = false;
                 CompetitionDB.Entry(penalty).State = EntityState.Modified;
                 return ToJsonOK(CompetitionDB.SaveChanges());
             }

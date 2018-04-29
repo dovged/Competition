@@ -13,7 +13,8 @@
         &nbsp;
     </div>
     <div class="col-md-8">
-        <table class="table table-striped table-bordered table-hover">
+        <h3 ng-hide="noPenalty">Nėra užregistruotų baudų.</h3>
+        <table  ng-hide="!noPenalty" class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
                     <th>Pavadinimas</th>

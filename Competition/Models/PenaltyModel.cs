@@ -16,14 +16,7 @@ namespace Competition.Models
             Id = row.Id;
             Name = row.Name;
             Points = row.Points;
-            if(row.Yra == 1)
-            {
-                Active = true;
-            }
-            else
-            {
-                Active = false;
-            }
+            Active = row.Yra;
         }
     }
 }

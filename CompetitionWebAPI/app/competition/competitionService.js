@@ -147,7 +147,14 @@ app.factory('competitionService', ['$http', 'authService', function ($http, auth
             data: comp
         });
         return request;
-    }
+    };
+
+    // Patikrina ar tai yra KKT organizatorius;
+    var _KKTOrg = function () {
+        return $http.get(serviceBase + 'api/role/' + _user + '/3').then(function (results) {
+            return results;
+        });
+    };
 
     /** PRISKIRIMAI */
     competitionServiceFactory.getCompetitionList = _getCompetitionList;
@@ -167,6 +174,7 @@ app.factory('competitionService', ['$http', 'authService', function ($http, auth
     competitionServiceFactory.getUsersClub = _getUsersClub;
     competitionServiceFactory.updateCompInfo = _updateCompInfo;
     competitionServiceFactory.addCompetition = _addCompetition;
+    competitionServiceFactory.KKTOrg = _KKTOrg;
 
     
 

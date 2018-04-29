@@ -9,8 +9,9 @@ app.controller('updatePenaltyController', ['$scope', 'penaltyService', '$locatio
 
     loadPenaltyInfo();
 
-    // užkrauna baudos informacija
+    // užkrauna vienos baudos informaciją, pagal ID
     function loadPenaltyInfo() {
+        // gaunamas baudos ID
         $scope.penalty.Id = localStorageService.get("penaltyId");
 
         penaltyService.get($scope.penalty.Id).then(function (results) {
@@ -21,7 +22,7 @@ app.controller('updatePenaltyController', ['$scope', 'penaltyService', '$locatio
         });
     };
 
-    // Išsaugojama baudos informacija
+    // Atnaujinama baudos informacija
     $scope.update = function () {
         var p = {
             Id: $scope.penalty.Id,
@@ -30,6 +31,7 @@ app.controller('updatePenaltyController', ['$scope', 'penaltyService', '$locatio
         };
 
         penaltyService.update($scope.penalty.Id, p).then(function (results) {
+            // Grąžinana į baudų sąrašą
             $location.path("/penalties");
         });
     };

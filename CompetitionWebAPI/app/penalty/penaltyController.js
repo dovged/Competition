@@ -8,10 +8,13 @@ app.controller('penaltyController', ['$scope', 'penaltyService', 'localStorageSe
 
     // Užkraunami duomenys į lentelę
     function loadPenaltyList() {
+        $scope.noPenalty = false;
+
         penaltyService.getPenaltyList().then(function (results) {
             $scope.penaltyList = results.data;
             $scope.noPenalty = true;
         });
+
         localStorageService.remove("penaltyId");
     };
 

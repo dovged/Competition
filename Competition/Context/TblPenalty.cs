@@ -9,6 +9,6 @@ namespace Competition.Context
         public int Id { get; set; }
         public string Name { get; set; }
         public int Points { get; set; }
-        public int Yra { get;  set; }
+        public Boolean Yra { get;  set; }
     }
 }
