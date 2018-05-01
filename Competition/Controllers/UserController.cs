@@ -29,7 +29,7 @@ namespace Competition.Controllers
                     {
                         r.RoleName = CompetitionDB.TblRoles.Find(r.RoleId).Name;
                     }
-                    u.roles = roles;
+                    u.Roles = roles;
                 }
                 return ToJsonOK(users);
             }
@@ -47,8 +47,11 @@ namespace Competition.Controllers
             if(CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id.ToString() != null)
             {
                 int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
-           
-                return ToJsonOK(CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == id));
+                TblUser user = CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == id);
+                UserModel u = new UserModel(user);
+
+
+                return ToJsonOK(u);
             }
             else
             {
@@ -76,7 +79,9 @@ namespace Competition.Controllers
             
             if (CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == id).Id.ToString() != null)
             {
-                return ToJsonOK(CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == id));
+                TblUser user = CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == id);
+                UserModel u = new UserModel(user);
+                return ToJsonOK(u);
             }
 
             return ToJsonNotFound("Objektas nerastas.");
@@ -142,11 +147,9 @@ namespace Competition.Controllers
 
         /** Uzpildoma User papildoma informacija */
         [Route("api/user/{userName}")]
-        public HttpResponseMessage Post(string userName)
+        public HttpResponseMessage Post(string userName, [FromBody]TblUser user)
         {
             string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
-            TblUser user = new TblUser();
-            user.Email = userName;
             user.UserId = accountId;
             user.Active = true;
             CompetitionDB.TblUsers.Add(user);
@@ -161,8 +164,8 @@ namespace Competition.Controllers
         }
 
         /** Treneris užregistruoja naują vartotoją*/
-        [Route("api/userTrainee/{userName}")]
-        public HttpResponseMessage Post(string userName, [FromBody]TblUser value)
+        [Route("api/userTrainee/{userName}/{n}")]
+        public HttpResponseMessage Post(string userName, [FromBody]TblUser value, int n)
         {
             string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
             int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.Email == userName).Id;

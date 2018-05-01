@@ -51,14 +51,14 @@ namespace Competition.Controllers
         [Route("api/routeKKT/{routeId}")]
         public HttpResponseMessage Put(int routeId, [FromBody]TblRouteKKT value)
         {
-            if (CompetitionDB.TblRoutesKKT.FirstOrDefault(x => x.Id == routeId) != null)
-            {
+           /* if (CompetitionDB.TblRoutesKKT.FirstOrDefault(x => x.Id == routeId) != null)
+            {*/
                 CompetitionDB.Entry(value).State = EntityState.Modified;
 
                 return ToJsonOK(CompetitionDB.SaveChanges());
-            }
+           /* }
 
-            return ToJsonNotFound("Objektas nerastas.");
+            return ToJsonNotFound("Objektas nerastas.");*/
         }
 
         /** Ištrinti vienos KKT trasos duomenis*/

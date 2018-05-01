@@ -10,6 +10,21 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
         confirmPassword: ""
     };
 
+    $scope.user = {
+        Id: '',
+        Name: '',
+        LastName: '',
+        TelNumber: '',
+        Email: '',
+        ClubId: '',
+        TeamId: '',
+        UserId: '',
+        Active: '',
+        TrainerId: '',
+        BirthYear: '',
+        Lytis: ''
+    };
+
     /** Regsitracija į sistemos*/
     $scope.signUp = function () {
 
@@ -17,6 +32,22 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
 
             $scope.savedSuccessfully = true;
             $scope.message = "vartotojas sėkmingai užregistruotas, po 2 sekundžių matysite Prisijungimo langą.";
+            var u = {
+                Id: $scope.user.Id,
+                Name: $scope.user.Name,
+                LastName: $scope.user.LastName,
+                TelNumber: $scope.user.TelNumber,
+                Email: $scope.user.Email,
+                ClubId: $scope.user.ClubId,
+                TeamId: $scope.user.TeamId,
+                UserId: $scope.user.UserId,
+                Active: $scope.user.Active,
+                TrainerId: $scope.user.TrainerId,
+                BirthYear: $scope.user.BirthYear,
+                Lytis: $scope.user.Lytis
+            };
+
+            authService.addUserInfo($scope.registration.userName, u).then(function (response) { });
             startTimer();
 
         },
@@ -27,7 +58,7 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
                         errors.push(response.data.modelState[key][i]);
                     }
                 }
-                $scope.message = "Failed to register user due to:" + errors.join(' ');
+                $scope.message = "Registracija nepavyko dėl:" + errors.join(' ');
             });
     };
 

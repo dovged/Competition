@@ -102,6 +102,17 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
         });
     }
 
+    // Užregistruojama vartotojo asmeninė informacija
+    var _addUserInfo = function (userName, user) {
+        var addrequest = $http({
+            method: 'put',
+            url: serviceBase + "api/user/" + userName,
+            data: user
+        });
+
+        return addrequest;
+    };
+
     /** PRISKIRIMAI*/
     authServiceFactory.saveRegistration = _saveRegistration;
     authServiceFactory.login = _login;
@@ -111,6 +122,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
     authServiceFactory.isAdmin = _isAdmin;
     authServiceFactory.isTreneris = _isTreneris;
     authServiceFactory.isOrg = _isOrg;
+    authServiceFactory.addUserInfo = _addUserInfo;
 
 
     return authServiceFactory;

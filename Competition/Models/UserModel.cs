@@ -21,7 +21,7 @@ namespace Competition.Models
         public string Name2 { get; set; }
         public string BirthYear2 { get; set; }
 
-        public List<RoleModel> roles { get; set; }
+        public List<RoleModel> Roles { get; set; }
 
         public UserModel(TblUser row)
         {

@@ -31,6 +31,7 @@ app.controller('userController', ['$scope', 'userService', function ($scope, use
     $scope.newMember = {
         UserId: ''
     };
+
     loadUserInfo();
 
     // Užkraunami vartotojo duomenys
