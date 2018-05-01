@@ -20,9 +20,9 @@
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
                     <li data-ng-hide="!authentication.isAuth"><a href="">Sveiki,{{authentication.userName}}</a></li>
-                    <li data-ng-hide="!authentication.isAuth"><a href="#/trainer">Treneriams</a></li>
-                    <li data-ng-hide="!authentication.isAuth"><a href="#/competitionOrg">Varžybos</a></li>
-                    <li data-ng-hide="!authentication.isAuth"><a href="#/admin">Vartotojai</a></li>
+                    <li data-ng-hide="!authentication.isTreneris"><a href="#/trainer">Treneriams</a></li>
+                    <li data-ng-hide="!authentication.isOrg"><a href="#/competitionOrg">Varžybos</a></li>
+                    <li data-ng-hide="!authentication.isAdmin"><a href="#/admin">Vartotojai</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a class="glyphicon glyphicon-calendar" href="#/calendar"></a></li>
                     <li data-ng-hide="!authentication.isAuth"><a class="glyphicon glyphicon-user" href="#/user"></a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Atsijungti</a></li>

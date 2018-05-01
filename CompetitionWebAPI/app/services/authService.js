@@ -8,11 +8,8 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
         isAuth: false,
         userName: "",
         isAdmin: false,
-        isKKTDalyvis: false,
         isTreneris: false,
-        isKKTTreneis: false,
-        isOrg: false,
-        isKKTOrg: false
+        isOrg: false
     };
 
     var _saveRegistration = function (registration) {
@@ -37,7 +34,9 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
 
             _authentication.isAuth = true;
             _authentication.userName = loginData.userName;
-          //  _isAdmin(loginData.userName);
+            _isAdmin(loginData.userName);
+            _isTreneris(authData.userName);
+            _isOrg(authData.userName);
 
             deferred.resolve(response);
 
@@ -57,11 +56,8 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
         _authentication.isAuth = false;
         _authentication.userName = "";
         _authentication.isAdmin = false;
-        _authentication.isKKTDalyvis = false;
         _authentication.isTreneris = false;
-        _authentication.isKKTTreneris = false;
         _authentication.isOrg = false;
-        _authentication.isKKTOrg = false;
 
     };
 
@@ -71,14 +67,14 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
         if (authData) {
             _authentication.isAuth = true;
             _authentication.userName = authData.userName;
+            _isAdmin(authData.userName);
+            _isTreneris(authData.userName);
+            _isOrg(authData.userName);
         }
-
-       // _isAdmin(authData.userName);
-
     }
-
+    // Patriktina ar vartotojas turi Admin rolę
     var _isAdmin = function (userName, role) {
-        $http.post(serviceBase + 'api/role/' + user + '/7').success(function (response) {
+        $http.get(serviceBase + 'api/role/' + userName + '/7').success(function (response) {
             _authentication.isAdmin = true;
 
         }).error(function (err, status) {
@@ -86,15 +82,36 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
         });
     }
 
-   /* var _userInfo(userName){
-    
-    }*/
+    // Patikrina ar vartotojas turi Trenerio arba KKT Trenio rolę
+    var _isTreneris = function (userName, role) {
+        $http.get(serviceBase + 'api/role/' + userName + '/20').success(function (response) {
+            _authentication.isTreneris = true;
 
+        }).error(function (err, status) {
+            _authentication.isTreneris = false;
+        });
+    }
+
+    // Patikrina ar vartotojas turi Org arba KKT Org rolę
+    var _isOrg = function (userName, role) {
+        $http.get(serviceBase + 'api/role/' + user + '/30').success(function (response) {
+            _authentication.isOrg = true;
+
+        }).error(function (err, status) {
+            _authentication.isOrg = false;
+        });
+    }
+
+    /** PRISKIRIMAI*/
     authServiceFactory.saveRegistration = _saveRegistration;
     authServiceFactory.login = _login;
     authServiceFactory.logOut = _logOut;
     authServiceFactory.fillAuthData = _fillAuthData;
     authServiceFactory.authentication = _authentication;
+    authServiceFactory.isAdmin = _isAdmin;
+    authServiceFactory.isTreneris = _isTreneris;
+    authServiceFactory.isOrg = _isOrg;
+
 
     return authServiceFactory;
 }]);

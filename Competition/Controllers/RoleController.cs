@@ -28,10 +28,32 @@ namespace Competition.Controllers
         {
             string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == user).Id;
             int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
-            if (CompetitionDB.TblUserRoles.FirstOrDefault(x => x.UserId == id && x.RoleId == roleId) != null)
+            if(roleId == 20)
+            {
+                if (CompetitionDB.TblUserRoles.FirstOrDefault(x => x.UserId == id && (x.RoleId == 4 || x.RoleId == 5)) != null)
+                {
+                    return ToJsonOK("Rolė yra.");
+                }
+                else
+                {
+                    return ToJsonNotFound("Objektas nerastas");
+                }
+            }
+            else if (roleId == 30)
+            {
+                if (CompetitionDB.TblUserRoles.FirstOrDefault(x => x.UserId == id && (x.RoleId == 2 || x.RoleId == 3)) != null)
+                {
+                    return ToJsonOK("Rolė yra.");
+                }
+                else
+                {
+                    return ToJsonNotFound("Objektas nerastas");
+                }
+            }
+            else if (CompetitionDB.TblUserRoles.FirstOrDefault(x => x.UserId == id && x.RoleId == roleId) != null)
             {
                 return ToJsonOK("Rolė yra.");
-            }
+            }         
             else
             {
                 return ToJsonNotFound("Objektas nerastas");
