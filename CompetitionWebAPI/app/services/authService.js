@@ -35,8 +35,8 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
             _authentication.isAuth = true;
             _authentication.userName = loginData.userName;
             _isAdmin(loginData.userName);
-            _isTreneris(authData.userName);
-            _isOrg(authData.userName);
+            _isTreneris(loginData.userName);
+            _isOrg(loginData.userName);
 
             deferred.resolve(response);
 
@@ -94,7 +94,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
 
     // Patikrina ar vartotojas turi Org arba KKT Org rolę
     var _isOrg = function (userName, role) {
-        $http.get(serviceBase + 'api/role/' + user + '/30').success(function (response) {
+        $http.get(serviceBase + 'api/role/' + userName + '/30').success(function (response) {
             _authentication.isOrg = true;
 
         }).error(function (err, status) {
@@ -105,7 +105,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
     // Užregistruojama vartotojo asmeninė informacija
     var _addUserInfo = function (userName, user) {
         var addrequest = $http({
-            method: 'put',
+            method: 'post',
             url: serviceBase + "api/user/" + userName,
             data: user
         });

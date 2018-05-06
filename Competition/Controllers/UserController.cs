@@ -38,8 +38,6 @@ namespace Competition.Controllers
         }
 
         /** Grazinama vieno User papildoma informacija*/
-        /**NUSPRĘSTI KAIP GERIAU PADARYTI!!!!!!
-         KAI USER NETURI PAPILDOMOS INFO*/
         [Route("api/user/{userName}")]
         public HttpResponseMessage Get(string userName)
         {
@@ -49,24 +47,7 @@ namespace Competition.Controllers
                 int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
                 TblUser user = CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == id);
                 UserModel u = new UserModel(user);
-
-
                 return ToJsonOK(u);
-            }
-            else
-            {
-                TblUser user = new TblUser();
-                user.Email = userName;
-                user.UserId = accountId;
-                user.Active = true;
-                CompetitionDB.TblUsers.Add(user);
-                CompetitionDB.SaveChanges();
-                int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.Email == userName).Id;
-                TblUserRole role = new TblUserRole();
-                role.RoleId = 1;
-                role.UserId = id;
-                CompetitionDB.TblUserRoles.Add(role);
-                return ToJsonOK(user);
             }
 
             return ToJsonNotFound("Objektas nerastas.");

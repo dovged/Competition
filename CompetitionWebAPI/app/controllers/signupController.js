@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('signupController', ['$scope', '$location', '$timeout', 'authService', function ($scope, $location, $timeout, authService) {
+app.controller('signupController', ['$scope', '$location', '$timeout', 'authService', 'userService',function ($scope, $location, $timeout, authService, userService) {
 
     $scope.savedSuccessfully = false;
     $scope.message = "";
@@ -17,37 +17,36 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
         TelNumber: '',
         Email: '',
         ClubId: '',
-        TeamId: '',
-        UserId: '',
-        Active: '',
-        TrainerId: '',
         BirthYear: '',
         Lytis: ''
     };
+
+    $scope.clubs = {};
+
+    /** Klubų sąrašas, atnaujinui skirta*/
+    userService.getClubs().then(function (results) {
+        $scope.clubs = results.data;
+    });
 
     /** Regsitracija į sistemos*/
     $scope.signUp = function () {
 
         authService.saveRegistration($scope.registration).then(function (response) {
-
-            $scope.savedSuccessfully = true;
-            $scope.message = "vartotojas sėkmingai užregistruotas, po 2 sekundžių matysite Prisijungimo langą.";
+           
             var u = {
-                Id: $scope.user.Id,
                 Name: $scope.user.Name,
                 LastName: $scope.user.LastName,
                 TelNumber: $scope.user.TelNumber,
                 Email: $scope.user.Email,
                 ClubId: $scope.user.ClubId,
-                TeamId: $scope.user.TeamId,
-                UserId: $scope.user.UserId,
-                Active: $scope.user.Active,
-                TrainerId: $scope.user.TrainerId,
                 BirthYear: $scope.user.BirthYear,
                 Lytis: $scope.user.Lytis
             };
 
             authService.addUserInfo($scope.registration.userName, u).then(function (response) { });
+
+            $scope.savedSuccessfully = true;
+            $scope.message = "vartotojas sėkmingai užregistruotas, po 2 sekundžių matysite Prisijungimo langą.";
             startTimer();
 
         },
