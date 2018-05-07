@@ -70,17 +70,23 @@ namespace Competition.Controllers
             string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
             int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
             int team = CompetitionDB.TblTeams.FirstOrDefault(x => x.TeamCaptainId == id).Id;
-            List<CompetitorsKKTModel> climKKT = CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => x.TeamId == team).Select(x => new CompetitorsKKTModel(x)).ToList();
-            foreach (CompetitorsKKTModel c in climKKT)
+            if(CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => x.TeamId == team).Select(x => new CompetitorsKKTModel(x)).ToList().Count != 0)
             {
-                c.CompetitionName = CompetitionDB.TblCompetitions.Find(c.CompId).Name;
-                int ClubId = CompetitionDB.TblUsers.Find(CompetitionDB.TblCompetitions.Find(c.CompId).OrgId).ClubId;
-                c.Club = CompetitionDB.TblClubs.Find(ClubId).Name;
-                c.Date = CompetitionDB.TblCompetitions.Find(c.CompId).Date;
-                c.Update = CompetitionDB.TblCompetitions.Find(c.CompId).Update;
+                List<CompetitorsKKTModel> climKKT = CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => x.TeamId == team).Select(x => new CompetitorsKKTModel(x)).ToList();
+                foreach (CompetitorsKKTModel c in climKKT)
+                {
+                    c.CompetitionName = CompetitionDB.TblCompetitions.Find(c.CompId).Name;
+                    int ClubId = CompetitionDB.TblUsers.Find(CompetitionDB.TblCompetitions.Find(c.CompId).OrgId).ClubId;
+                    c.Club = CompetitionDB.TblClubs.Find(ClubId).Name;
+                    c.Date = CompetitionDB.TblCompetitions.Find(c.CompId).Date;
+                    c.Update = CompetitionDB.TblCompetitions.Find(c.CompId).Update;
+                }
+
+                return ToJsonOK(climKKT);
             }
 
-            return ToJsonOK(climKKT);
+            return ToJsonNotFound("Objektas nerastas");
+           
         }
 
         /** Grąžinamas dalyvių sąrašas; Naudojama registracijos langui*/

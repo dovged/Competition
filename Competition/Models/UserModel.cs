@@ -11,6 +11,8 @@ namespace Competition.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
+        public string TelNumber { get; set; }
+        public string Email { get; set; }
         public int ClubId { get; set; }
         public string Club { get; set; }
         public string Team { get; set; }
@@ -28,6 +30,8 @@ namespace Competition.Models
             Id = row.Id;
             Name = row.Name;
             LastName = row.LastName;
+            TelNumber = row.TelNumber;
+            Email = row.Email;
             Active = row.Active;
             ClubId = row.ClubId;
             TrainerId = row.TrainerId;

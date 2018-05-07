@@ -17,7 +17,7 @@ namespace Competition.Controllers
         [Route("api/competition")]
         public HttpResponseMessage Get()
         {
-            if (CompetitionDB.TblCompetitions.AsEnumerable() != null)
+            if (CompetitionDB.TblCompetitions.ToArray().Select(x => new CompetitionModel(x)).ToList().Count != 0)
             {
                 List<CompetitionModel> comps = CompetitionDB.TblCompetitions.ToArray().Select(x => new CompetitionModel(x)).ToList();
                 foreach(CompetitionModel c in comps)
