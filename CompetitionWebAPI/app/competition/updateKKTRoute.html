@@ -6,23 +6,16 @@
     <div class="col-md-8">
         <form role="form" style="max-width: 500px;">
             <strong class="error">{{ error }}</strong>
-            <div class="form-group">
-                <label for="name">
-                    Pavadinimas
-                </label>
-                <input type="text" class="form-control" id="name" ng-model="route.Name" />
-            </div>
-            <div class="form-group">
-                <label for="points">
-                    Taškai
-                </label>
-                <input type="text" class="form-control" id="points" ng-model="route.Points" />
-            </div>
+           
+                <input type="text" class="form-control" placeholder="Pavadinimas" id="name" ng-model="route.Name" />
+           
+                <input type="text" class="form-control" placeholder="Taškai" id="points" ng-model="route.Points" />
+           
             <div class="form-group">
                 <label for="time">
                     Laikas
                 </label>
-                <input type="text" class="form-control" id="time" ng-model="route.Time" />
+                <input type="time" class="form-control" id="time" ng-model="route.Time" />
             </div>
             <div class="form-group radio">
                 <label>

@@ -21,7 +21,7 @@
                     <td> {{ user.Name }} </td>
                     <td> {{ user.LastName }} </td>
                     <td> {{ user.Club }} </td>
-                    <td data-ng-repeat="role in user.roles">
+                    <td data-ng-repeat="role in user.Roles">
                          {{role.RoleName}} 
                         <button title="Pašalinti" class="btn btn-danger" style="padding: 3px 4px; float:right" ng-click="removeRole(role.Id)"><span class="glyphicon glyphicon-remove"></span></button>
                     </td>

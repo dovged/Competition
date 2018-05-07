@@ -135,7 +135,7 @@ namespace Competition.Controllers
             user.Active = true;
             CompetitionDB.TblUsers.Add(user);
             CompetitionDB.SaveChanges();
-            int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.Email == userName).Id;
+            int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
             TblUserRole role = new TblUserRole();
             role.RoleId = 1;
             role.UserId = id;

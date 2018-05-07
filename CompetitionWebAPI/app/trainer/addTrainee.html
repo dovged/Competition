@@ -6,18 +6,11 @@
     <div class="col-md-8">
         <form role="form" style="max-width: 500px;">
             <strong class="error">{{ error }}</strong>
-            <div class="form-group">
-                <label for="name">
-                    Vardas
-                </label>
-                <input type="text" class="form-control" id="name" ng-model="user.Name" />
-            </div>
-            <div class="form-group">
-                <label for="lastname">
-                    Pavardė:
-                </label>
-                <input type="text" class="form-control" id="lastname" ng-model="user.LastName" />
-            </div>
+
+                <input type="text" class="form-control" placeholder="Vardas" id="name" ng-model="user.Name" />
+
+                <input type="text" class="form-control" placeholder="Pavardė" id="lastname" ng-model="user.LastName" />
+
             <div class="form-group">
                 <label for="birthyear">
                     Gimimo data:
