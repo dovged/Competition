@@ -23,6 +23,7 @@
                     <li data-ng-hide="!authentication.isTreneris"><a href="#/trainer">Treneriams</a></li>
                     <li data-ng-hide="!authentication.isOrg"><a href="#/competitionOrg">Varžybos</a></li>
                     <li data-ng-hide="!authentication.isAdmin"><a href="#/admin">Vartotojai</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="#/judges">Teisėjams</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a class="glyphicon glyphicon-calendar" href="#/calendar"></a></li>
                     <li data-ng-hide="!authentication.isAuth"><a class="glyphicon glyphicon-user" href="#/user"></a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Atsijungti</a></li>
@@ -67,6 +68,7 @@
     <script src="app/competition/competitionService.js"></script>
     <script src="app/admin/adminService.js"></script>
     <script src="app/trainer/trainerService.js"></script>
+    <script src="app/judge/judgeService.js"></script>
 
     <!-- KONTROLERIAI -->
     <script src="app/controllers/indexController.js"></script>
@@ -94,6 +96,10 @@
     <script src="app/calendar/competitorClimController.js"></script>
     <script src="app/calendar/competitorKKTController.js"></script>
     <script src="app/competition/addCompetitionController.js"></script>
+    <script src="app/judge/judgeController.js"></script>
+    <script src="app/judge/judgesPapersClim1Controller.js"></script>
+    <script src="app/judge/judgesPapersClim2Controller.js"></script>
+    <script src="app/judge/judgesPapersKKTController.js"></script>
 
 </body>
 </html>

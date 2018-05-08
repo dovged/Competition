@@ -44,6 +44,25 @@ app.config(function ($routeProvider) {
         templateUrl: "app/calendar/competitorKKT.html"
     });
 
+    $routeProvider.when("/judges", {
+        controller: "judgeController",
+        templateUrl: "judge.html"
+    });
+
+    $routeProvider.when("/judgesPapersClim1", {
+        controller: "judgesPapersClim1Controller",
+        templateUrl: "judgesPapersClim1.html"
+    });
+
+    $routeProvider.when("/judgesPapersClim2", {
+        controller: "judgesPapersClim2Controller",
+        templateUrl: "judgesPapersClim2.html"
+    });
+
+    $routeProvider.when("/judgesPapersKKT", {
+        controller: "judgesPapersKKTController",
+        templateUrl: "judgesPapersKKT.html"
+    });
     /** VARŽYBŲ ORGANIZATORIAUS PASIEKIAMI LAGAI*/
     $routeProvider.when("/penalties", {
         controller: "penaltyController",

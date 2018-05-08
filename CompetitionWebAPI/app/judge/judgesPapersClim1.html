@@ -1,0 +1,61 @@
+﻿<h2>
+    Teisėjo lapas
+</h2>
+<br>
+
+<br> <br>
+     <div class="row">
+         <div class="col-md-2">
+             &nbsp;
+         </div>
+         <div class="col-md-8">
+             <div class="form-group">
+                 <label for="group">
+                     Grupė:
+                 </label>
+                 <select>
+                     <option value="JAUNIMAS">JAUNIMAS</option>
+                     <option value="JAUNIAI">JAUNIAI</option>
+                     <option value="JAUNUOLIAI">JAUNUOLIAI</option>
+                     <option value="JAUNUČIAI">JAUNUČIAI</option>
+                     <option value="VAIKAI">VAIKAI</option>
+                 </select>
+             </div>
+             <button class="btn btn-default" ng-click="loadJudgesPapersInfo()">Ieškoti</button>
+             <div ng-hide="!showUser" class="form-group">
+                 <label for="route">
+                     Trasos numeris:
+                 </label>
+                 <select ng-options="route.Id as route.Number for route in routeList" ng-model="paperDetails.routeId"></select>
+             </div>
+             <div ng-hide="!showUser" class="form-group">
+                 <label for="climber">
+                     Dalyvis:
+                 </label>
+                 <select ng-options="user.Id as user.Name2 for user in userList" ng-model="paperDetails.userId"></select>
+             </div>
+             <button class="btn btn-default" ng-click="getJudgePaper()">Rasti teisėjo lapą</button>
+         </div>
+         <table ng-hide="!showPaper" class="table table-striped table-bordered table-hover">
+             <tr>
+                 <th>Topas</th>
+                 <th>Bandymas {{paper.TopAttempt}}</th>
+                 <th>
+                     <button type="button" class="btn btn-success" style="padding: 3px 4px" ng-click="updatePaperAddTop()"><span class="glyphicon glyphicon-plus"></span></button>
+                     <button type="button" class="btn btn-default" style="padding: 3px 4px" ng-click="updatePaperMinusTop()"><span class="glyphicon glyphicon-minus"></span></button>
+                 </th>
+             </tr>
+             <tr>
+                 <th>Bonusas</th>
+                 <th>Bandymas {{paper.BonusAttempt}}</th>
+                 <th>
+                     <button type="button" class="btn btn-success" style="padding: 3px 4px" ng-click="updatePaperAddBonus()"><span class="glyphicon glyphicon-plus"></span></button>
+                     <button type="button" class="btn btn-default" style="padding: 3px 4px" ng-click="updatePaperMinusBonus()"><span class="glyphicon glyphicon-minus"></span></button>
+                 </th>
+             </tr>
+             
+         </table>
+         <div class="col-md-2">
+             &nbsp;
+         </div>
+     </div>

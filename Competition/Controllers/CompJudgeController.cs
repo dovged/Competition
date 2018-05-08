@@ -30,6 +30,28 @@ namespace Competition.Controllers
             return ToJsonNotFound("Tuščias sąrašas.");
         }
 
+        /** Grąžina varžybų sąrašą kuriose vartotojas gali teisėjauti*/
+        [Route("api/compJudge/{user}")]
+        public HttpResponseMessage Get(string user)
+        {
+            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == user).Id;
+            int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
+            if (CompetitionDB.TblCompJudgesClim.ToArray().Where(x => x.UserId == id).Select(x => new CompJudgeModel(x)).ToList().Count != 0)
+            {
+                List<CompJudgeModel> judges = CompetitionDB.TblCompJudgesClim.ToArray().Where(x => x.UserId == id).Select(x => new CompJudgeModel(x)).ToList();
+                List<CompetitionModel> comp = new List<CompetitionModel>();
+                foreach (CompJudgeModel j in judges)
+                {
+                    CompetitionModel c = new CompetitionModel(CompetitionDB.TblCompetitions.Find(j.CompId));
+                    comp.Add(c);
+                }
+
+                return ToJsonOK(comp);
+            }
+
+            return ToJsonNotFound("Tuščias sąrašas.");
+        }
+
         /** Sukuriama naujas teisėjas*/
         [Route("api/compJudge/{compId}/{id}")]
         public HttpResponseMessage Post(int compId, int id)

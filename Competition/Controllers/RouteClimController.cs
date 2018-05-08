@@ -13,12 +13,13 @@ namespace Competition.Controllers
     public class RouteClimController : BaseAPIController
     {
         /** Grąžina visas vienų varžybų laipiojimo trasas, pagal tipą*/
+        [Route("api/routeClim/{compId}/{type}")]
         public HttpResponseMessage Get(int compId, string type)
         {
            
-            if (CompetitionDB.TblRoutesClim.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteClimbModel(x)).ToList() != null)
+            if (CompetitionDB.TblRoutesClim.ToArray().Where(x => x.CompetitionId == compId && x.Type == type).Select(x => new RouteClimbModel(x)).ToList() != null)
             {
-                return ToJsonOK(CompetitionDB.TblRoutesClim.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteClimbModel(x)).ToList());
+                return ToJsonOK(CompetitionDB.TblRoutesClim.ToArray().Where(x => x.CompetitionId == compId && x.Type == type).Select(x => new RouteClimbModel(x)).ToList());
             }
 
             return ToJsonNotFound("Tuščias sąrašas.");

@@ -67,6 +67,8 @@ C:\Users\Dovile\Competition\CompetitionWebAPI\bin\Microsoft.AI.DependencyCollect
 C:\Users\Dovile\Competition\CompetitionWebAPI\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\Dovile\Competition\CompetitionWebAPI\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\Dovile\Competition\CompetitionWebAPI\bin\Microsoft.AI.Web.xml
-C:\Users\Dovile\Competition\CompetitionWebAPI\obj\Debug\CompetitionWebAPI.csprojResolveAssemblyReference.cache
 C:\Users\Dovile\Competition\CompetitionWebAPI\obj\Debug\CompetitionWebAPI.dll
 C:\Users\Dovile\Competition\CompetitionWebAPI\obj\Debug\CompetitionWebAPI.pdb
+C:\Users\Dovile\Competition\CompetitionWebAPI\obj\Debug\CompetitionWebAPI.csprojAssemblyReference.cache
+C:\Users\Dovile\Competition\CompetitionWebAPI\obj\Debug\CompetitionWebAPI.csproj.CoreCompileInputs.cache
+C:\Users\Dovile\Competition\CompetitionWebAPI\obj\Debug\CompetitionWebAPI.csproj.CopyComplete

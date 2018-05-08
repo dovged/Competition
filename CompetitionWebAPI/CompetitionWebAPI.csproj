@@ -26,6 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -178,6 +179,15 @@
     <Content Include="app\controllers\homeController.js" />
     <Content Include="app\controllers\indexController.js" />
     <Content Include="app\controllers\loginController.js" />
+    <Content Include="app\judge\judge.html" />
+    <Content Include="app\judge\judgeController.js" />
+    <Content Include="app\judge\judgeService.js" />
+    <Content Include="app\judge\judgesPapersClim1.html" />
+    <Content Include="app\judge\judgesPapersClim1Controller.js" />
+    <Content Include="app\judge\judgesPapersClim2.html" />
+    <Content Include="app\judge\judgesPapersClim2Controller.js" />
+    <Content Include="app\judge\judgesPapersKKT.html" />
+    <Content Include="app\judge\judgesPapersKKTController.js" />
     <Content Include="app\penalty\addPenalty.html" />
     <Content Include="app\penalty\addPenaltyController.js" />
     <Content Include="app\penalty\penaltyController.js" />
