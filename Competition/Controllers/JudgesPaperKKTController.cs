@@ -11,11 +11,12 @@ using System.Web.Http;
 
 namespace Competition.Controllers
 {
-    [RoutePrefix("/api/competition/id/judgespapersKKT")]
+    
     public class JudgesPaperKKTController : BaseAPIController
     {
         /** Grąžinamas sąrašas teisėjo lapų pagal varžybas;
           Surikiuotas pagal Trasas;*/
+        [Route("api/competition/id/judgespapersKKT")]
         public HttpResponseMessage Get(int compId)
         {
             if (CompetitionDB.TblJudgesPapersKKT.AsEnumerable() != null)
@@ -64,41 +65,33 @@ namespace Competition.Controllers
 
             return ToJsonNotFound("Objektas nerastas.");
         }
-        
-        /** Sukurti teisėjo lapą*/
-        public HttpResponseMessage Post([FromBody]TblJudgesPaperKKT value)
+
+        /** Grąžinamas vienas teisėjo lapas;*/
+        [Route("api/judgespapersKKT/{routeId}/{teamId}/{s}")]
+        public HttpResponseMessage Get(int routeId, int teamId, string s)
         {
-            /**PRIDĖTI TEISĖJO ID PRIE LAPO*/
-            // TO DO
-            /*ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
-            string username = identity.Claims.First().Value;
-            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == username).Id.ToString();*/
-          /*  string accountId = "3";
-            int UserId = Convert.ToInt32(CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id.ToString());
-            if (CompetitionDB.TblCompJuds.FirstOrDefault(x => x.UserId == UserId) != null)
-            {*/
-            CompetitionDB.TblJudgesPapersKKT.Add(value);
-            CompetitionDB.SaveChanges();
 
-            return ToJsonCreated(value);
-           /* }
-
-            return Request.CreateResponse(HttpStatusCode.NotFound, "NO access!");*/
-        }
-
-        /** Redaguoti teisėjo lapą*/
-        public HttpResponseMessage Put(int id, [FromBody]TblJudgesPaperKKT value)
-        {
-            /**AR REIKIA TIKRINTI KAS REDAGUOJA???*/
-
-            if (CompetitionDB.TblJudgesPapersKKT.FirstOrDefault(x => x.Id == id) != null)
+            if (CompetitionDB.TblJudgesPapersKKT.FirstOrDefault(x => x.TeamId == teamId && x.RouteId == routeId) != null)
             {
-                CompetitionDB.Entry(value).State = EntityState.Modified;
-                CompetitionDB.SaveChanges();
-                return ToJsonOK(value);
+                JudgesPaperKKTModel paper = CompetitionDB.TblJudgesPapersKKT.ToArray().Where(x => x.TeamId == teamId && x.RouteId == routeId).Select(x => new JudgesPaperKKTModel(x)).FirstOrDefault();
+
+                //paper.Climber = CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == paper.ClimberId).Name + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == paper.ClimberId).LastName;
+                // paper.RouteNumber = CompetitionDB.TblRoutesClim.FirstOrDefault(x => x.Id == paper.RouteId).Number;
+
+                return ToJsonOK(paper);
             }
 
             return ToJsonNotFound("Objektas nerastas.");
+        }
+
+        /** Redaguoti teisėjo lapą*/
+        [Route("api/judgespapersKKT/{id}")]
+        public HttpResponseMessage Put(int id, [FromBody]TblJudgesPaperKKT value)
+        {
+            value.Date = DateTime.Now;
+
+            CompetitionDB.Entry(value).State = EntityState.Modified;
+            return ToJsonOK(CompetitionDB.SaveChanges());
         }
         
         /**AR REIKIA IŠTRINTI???*/

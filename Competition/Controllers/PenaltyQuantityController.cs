@@ -1,4 +1,5 @@
 ﻿using Competition.Context;
+using Competition.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -9,45 +10,69 @@ using System.Web.Http;
 
 namespace Competition.Controllers
 {
-    [RoutePrefix("api/penaltyquantity")]
     public class PenaltyQuantityController : BaseAPIController
     {
-        public HttpResponseMessage Get(int id)
+        /** Grąžina visas baudas pagal teisėjo lapą*/
+        [Route("api/penaltyquantity/{paperId}")]
+        public HttpResponseMessage Get(int paperId)
         {
-            if (CompetitionDB.TblPenaltyQuantities.FirstOrDefault(x => x.Id == id) != null)
+            if (CompetitionDB.TblPenaltyQuantities.ToArray().Where(x => x.JudgesPaperId == paperId).Select(x => new PenaltyQuantityModel(x)).ToList().Count != 0)
             {
-                return ToJson(CompetitionDB.TblPenaltyQuantities.FirstOrDefault(x => x.Id == id));
+                List<PenaltyQuantityModel> penalties = CompetitionDB.TblPenaltyQuantities.ToArray().Where(x => x.JudgesPaperId == paperId).Select(x => new PenaltyQuantityModel(x)).ToList();
+
+                foreach(PenaltyQuantityModel p in penalties)
+                {
+                    p.PenaltyName = CompetitionDB.TblPenalties.Find(p.PenaltyId).Name;
+                }
+
+                return ToJsonOK(penalties);
             }
-            return Request.CreateResponse(HttpStatusCode.NotFound, "Item not found.");
+            return ToJsonNotFound("Objektas nerastas.");
         }
 
-        [Authorize]
-        public HttpResponseMessage Post([FromBody]TblPenaltyQuantity value)
+        /**Pridedama nauja bauda*/
+        [Route("api/penaltyquantity/{paperId}/{penaltyId}")]
+        public HttpResponseMessage Post(int paperId, int penaltyId)
         {
+            TblPenaltyQuantity value = new TblPenaltyQuantity();
+            value.JudgesPaperId = paperId;
+            value.PenaltyId = penaltyId;
+            value.Quantity = 1;
+
             CompetitionDB.TblPenaltyQuantities.Add(value);
-            return ToJson(CompetitionDB.SaveChanges());
+            return ToJsonOK(CompetitionDB.SaveChanges());
         }
 
-        [Authorize]
-        public HttpResponseMessage Put(int id, [FromBody]TblPenaltyQuantity value)
+        /** Padidinama (n = 1) arba sumažinama (n = 2) baudos vertė 1*/
+        [Route("api/penaltyquantity/{penaltyId}/{n}")]
+        public HttpResponseMessage Put(int penaltyId, int n)
         {
-            if (CompetitionDB.TblPenaltyQuantities.FirstOrDefault(x => x.Id == id) != null)
+            TblPenaltyQuantity value = CompetitionDB.TblPenaltyQuantities.Find(penaltyId);
+            switch (n)
             {
-                CompetitionDB.Entry(value).State = EntityState.Modified;
-                return ToJson(CompetitionDB.SaveChanges());
+                case 1:
+                    value.Quantity++;
+                    break;
+                case 2:
+                    value.Quantity--;
+                    break;
             }
-            return Request.CreateResponse(HttpStatusCode.NotFound, "Item not found.");
+
+            CompetitionDB.Entry(value).State = EntityState.Modified;
+            return ToJsonOK(CompetitionDB.SaveChanges());
+            
         }
 
-        [Authorize]
-        public HttpResponseMessage Delete(int id)
+        /** Ištrinama duota bauda*/
+        [Route("api/penaltyquantity/{penaltyId}")]
+        public HttpResponseMessage Delete(int penaltyId)
         {
-            if (CompetitionDB.TblPenaltyQuantities.FirstOrDefault(x => x.Id == id) != null)
+            if (CompetitionDB.TblPenaltyQuantities.FirstOrDefault(x => x.Id == penaltyId) != null)
             {
-                CompetitionDB.TblPenaltyQuantities.Remove(CompetitionDB.TblPenaltyQuantities.FirstOrDefault(x => x.Id == id));
-                return ToJson(CompetitionDB.SaveChanges());
+                CompetitionDB.TblPenaltyQuantities.Remove(CompetitionDB.TblPenaltyQuantities.FirstOrDefault(x => x.Id == penaltyId));
+                return ToJsonOK(CompetitionDB.SaveChanges());
             }
-            return Request.CreateResponse(HttpStatusCode.NotFound, "Item not found.");
+            return ToJsonNotFound("Objektas nerastas.");
         }
     }
 }

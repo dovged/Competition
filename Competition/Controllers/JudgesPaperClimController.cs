@@ -11,11 +11,12 @@ using System.Web.Http;
 
 namespace Competition.Controllers
 {
-    [RoutePrefix("/api/competition/id/judgespapersClim")]
+    
     public class JudgesPaperClimController : BaseAPIController
     {
         /** Grąžinamas sąrašas teisėjo lapų pagal varžybas;
           Sugrupuotas pagal trasas;*/
+        [Route("api/competition/{compId}/judgespapersClim")]
         public HttpResponseMessage Get(int compId)
         {
             if (CompetitionDB.TblCompetitions.ToArray().Where(x => x.Id == compId) != null)
@@ -64,72 +65,71 @@ namespace Competition.Controllers
             return ToJsonNotFound("Tuščias sąrašas.");
         }
 
-
         /** Grąžinamas vienas teisėjo lapas;*/
-        public HttpResponseMessage Get(int compId, int routeId, int paperId)
+        [Route("api/judgespapersClim/{routeId}/{userId}/{s}")]
+        public HttpResponseMessage Get(int routeId, int userId, string s)
         {
-            if (CompetitionDB.TblJudgesPapersClimb.FirstOrDefault(x => x.Id == paperId) != null)
-            {
-                JudgesPaperClimbModel paper = CompetitionDB.TblJudgesPapersClimb.ToArray().Where(x => x.Id == paperId).Select(x => new JudgesPaperClimbModel(x)).FirstOrDefault();
 
-                paper.Climber = CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == paper.ClimberId).Name + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == paper.ClimberId).LastName;
-                paper.RouteNumber = CompetitionDB.TblRoutesClim.FirstOrDefault(x => x.Id == paper.RouteId).Number;
-                paper.TypeName = CompetitionDB.TblPaperTypes.FirstOrDefault(x => x.Id == paper.PaperTypeId).Name;
+            if (CompetitionDB.TblJudgesPapersClimb.FirstOrDefault(x => x.ClimberId == userId && x.RouteId == routeId) != null)
+            {
+                JudgesPaperClimbModel paper = CompetitionDB.TblJudgesPapersClimb.ToArray().Where(x => x.ClimberId == userId && x.RouteId == routeId).Select(x => new JudgesPaperClimbModel(x)).FirstOrDefault();
+
+                //paper.Climber = CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == paper.ClimberId).Name + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == paper.ClimberId).LastName;
+               // paper.RouteNumber = CompetitionDB.TblRoutesClim.FirstOrDefault(x => x.Id == paper.RouteId).Number;
 
                 return ToJsonOK(paper);
             }
 
             return ToJsonNotFound("Objektas nerastas.");
         }
-        
-        /** Sukurti teisėjo lapą*/
-        public HttpResponseMessage Post([FromBody]TblJudgesPaperClim value)
+
+        /** Redaguoti teisėjo lapą
+         n reikšmės -
+            1 - flash trasą pralipo;
+            2 - redpoint trasą pralipo;
+            3 - bonusas;
+            4 - pridėti bandymą topui;
+            5 - atimpti bandymą topui;
+            6 - pridėti bandymą bonusui;
+            7 - atimpti bandymą bonusui;*/
+        [Route("api/judgespaperClim/{routeId}/{userId}/{n}")]
+        public HttpResponseMessage Put(int routeId, int userId, int n)
         {
-            /**PRIDĖTI TEISĖJO ID PRIE LAPO*/
-            // TO DO
-            /*ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
-            string username = identity.Claims.First().Value;
-            string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == username).Id.ToString();*/
-          /*  string accountId = "3";
-            int UserId = Convert.ToInt32(CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id.ToString());
-            if (CompetitionDB.TblCompJuds.FirstOrDefault(x => x.UserId == UserId) != null)
-            {*/
-            CompetitionDB.TblJudgesPapersClimb.Add(value);
-            CompetitionDB.SaveChanges();
-
-            return ToJsonCreated(value);
-           /* }
-
-            return Request.CreateResponse(HttpStatusCode.NotFound, "NO access!");*/
-        }
-
-        /** Redaguoti teisėjo lapą*/
-        public HttpResponseMessage Put(int id, [FromBody]TblJudgesPaperClim value)
-        {
-            /**AR REIKIA TIKRINTI KAS REDAGUOJA???*/
-
-            if (CompetitionDB.TblJudgesPapersClimb.FirstOrDefault(x => x.Id == id) != null)
+            if (CompetitionDB.TblJudgesPapersClimb.FirstOrDefault(x => x.ClimberId == userId && x.RouteId == routeId) != null)
             {
-                CompetitionDB.Entry(value).State = EntityState.Modified;
-                CompetitionDB.SaveChanges();
-                return ToJsonOK(value);
+                TblJudgesPaperClim paper = CompetitionDB.TblJudgesPapersClimb.FirstOrDefault(x => x.ClimberId == userId && x.RouteId == routeId);
+                switch (n)
+                {
+                    case 1:
+                        paper.TopAttempt = 1;
+                        break;
+                    case 2:
+                        paper.TopAttempt = 2;
+                        break;
+                    case 3:
+                        paper.BonusAttempt = 1;
+                        break;
+                    case 4:
+                        paper.TopAttempt++;
+                        break;
+                    case 5:
+                        paper.TopAttempt--;
+                        break;
+                    case 6:
+                        paper.BonusAttempt++;
+                        break;
+                    case 7:
+                        paper.BonusAttempt--;
+                        break;
+                }
+                paper.Date = DateTime.Now;
+
+                CompetitionDB.Entry(paper).State = EntityState.Modified;
+
+                return ToJsonOK(CompetitionDB.SaveChanges());
             }
 
             return ToJsonNotFound("Objektas nerastas.");
-        }
-        
-        /**Teisėjo lapo ištrinimas*/
-        public HttpResponseMessage Delete(int id)
-        {
-            if (CompetitionDB.TblJudgesPapersClimb.FirstOrDefault(x => x.Id == id) != null)
-            {
-                CompetitionDB.TblJudgesPapersClimb.Remove(CompetitionDB.TblJudgesPapersClimb.FirstOrDefault(x => x.Id == id));
-                CompetitionDB.SaveChanges();
-                return ToJsonOK("Objektas ištrintas.");
-            }
-
-            return ToJsonNotFound("Objektas nerastas.");
-
         }
 
     }

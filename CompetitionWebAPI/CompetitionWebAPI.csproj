@@ -173,8 +173,6 @@
     <Content Include="app\competition\nonPaidClimController.js" />
     <Content Include="app\competition\nonPaidKKT.html" />
     <Content Include="app\competition\nonPaidKKTController.js" />
-    <Content Include="app\competition\updateCompInfo.html" />
-    <Content Include="app\competition\updateCompInfoController.js" />
     <Content Include="app\competition\updateKKTRoute.html" />
     <Content Include="app\competition\updateKKTRouteController.js" />
     <Content Include="app\controllers\homeController.js" />

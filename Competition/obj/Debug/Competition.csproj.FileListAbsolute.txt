@@ -193,7 +193,6 @@ C:\Users\Dovile\Competition\Competition\bin\Microsoft.AI.DependencyCollector.xml
 C:\Users\Dovile\Competition\Competition\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\Dovile\Competition\Competition\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\Dovile\Competition\Competition\bin\Microsoft.AI.Web.xml
-C:\Users\Dovile\Competition\Competition\obj\Debug\Competition.csprojResolveAssemblyReference.cache
 C:\Users\Dovile\Competition\Competition\obj\Debug\Competition.dll
 C:\Users\Dovile\Competition\Competition\obj\Debug\Competition.pdb
 C:\Users\Dovile\Downloads\Competition-master2\Competition-master\Competition\bin\ApplicationInsights.config
@@ -394,3 +393,6 @@ C:\Users\Dovile\Documents\Universitetas\bakalauras\Competition-master\Competitio
 C:\Users\Dovile\Documents\Universitetas\bakalauras\Competition-master\Competition\obj\Debug\Competition.csprojResolveAssemblyReference.cache
 C:\Users\Dovile\Documents\Universitetas\bakalauras\Competition-master\Competition\obj\Debug\Competition.dll
 C:\Users\Dovile\Documents\Universitetas\bakalauras\Competition-master\Competition\obj\Debug\Competition.pdb
+C:\Users\Dovile\Competition\Competition\obj\Debug\Competition.csprojAssemblyReference.cache
+C:\Users\Dovile\Competition\Competition\obj\Debug\Competition.csproj.CoreCompileInputs.cache
+C:\Users\Dovile\Competition\Competition\obj\Debug\Competition.csproj.CopyComplete
