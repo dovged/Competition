@@ -7,7 +7,7 @@ app.factory('judgeService', ['$http', 'authService', function ($http, authServic
 
     // Gaunamas varžybų sąrašas kurioms gali vartotojas pildyti teisejo lapa
     var _getCompetitionList = function () {
-        return $http.get(serviceBase + 'api/compJudge/' + _user).then(function (results) {
+        return $http.get(serviceBase + 'api/judgeCompetitions/' + _user).then(function (results) {
             return results;
         });
     };

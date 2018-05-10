@@ -22,7 +22,7 @@ app.controller('competitorKKTController', ['$scope', 'calendarService', '$locati
     $scope.add = function () {
         var c = {
             CompetitionId: localStorageService.get("calendarId"),
-            Group: $scope.competitor.Group,s
+            Group: $scope.competitor.Group
         };
 
         calendarService.addCompetitorKKT(c, c.CompetitionId).then(function (results) {

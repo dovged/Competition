@@ -116,7 +116,7 @@ namespace Competition.Controllers
             if (CompetitionDB.TblUsers.AsEnumerable() != null)
             {
                 string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
-                int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.Email == userName).Id;
+                int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
                 int clubId = CompetitionDB.TblUsers.Find(id).ClubId;
                 List<UserModel> users = CompetitionDB.TblUsers.ToArray().Where(x => x.Active == true && x.ClubId == clubId).Select(x => new UserModel(x)).ToList();
 

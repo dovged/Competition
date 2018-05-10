@@ -2,7 +2,7 @@
 
 namespace Competition.Context
 {
-    [Table("TblCompJudgeClimb")]
+    [Table("TblCompJudge")]
     public class TblCompJudge
     {
         public int Id { get; set; }

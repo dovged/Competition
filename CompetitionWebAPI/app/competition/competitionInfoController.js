@@ -88,6 +88,13 @@ app.controller('competitionInfoController', ['$scope', 'competitionService', 'lo
         $location.path("/updateKKTRoute");
     };
 
+    // Ištrinama KKT trasa
+    $scope.deleteKKTRoute = function (Id) {
+        competitionService.deleteKKTRoute(id).then(function (results) {
+            loadCompInfo();
+        });
+    }
+
     // Atnaujinama varžybų pagrindinė informacija
     $scope.updateCompInfo = function () {
         var c = {

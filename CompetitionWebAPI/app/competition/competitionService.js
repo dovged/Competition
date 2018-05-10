@@ -114,12 +114,23 @@ app.factory('competitionService', ['$http', 'authService', function ($http, auth
     /** Panaikinamas teisėjas iš sąrašo*/
     var _deleteJudge = function (Id) {
         var deleterequest = $http({
-            method: 'delte',
+            method: 'delete',
             url: serviceBase + "api/compJudge/" + Id,
         });
 
         return deleterequest;
     };
+
+    /** Panaikinamas KKT trasą*/
+    var _deleteKKTRoute = function (Id) {
+        var deleterequest = $http({
+            method: 'delete',
+            url: serviceBase + "api/routeKKT/" + Id,
+        });
+
+        return deleterequest;
+    };
+
 
     // Gaunamas sąrašas vartotojų pagal Org klubą, reikalinga, varžybų duomenims atnaujinti
     var _getUsersClub = function () {
@@ -175,7 +186,7 @@ app.factory('competitionService', ['$http', 'authService', function ($http, auth
     competitionServiceFactory.updateCompInfo = _updateCompInfo;
     competitionServiceFactory.addCompetition = _addCompetition;
     competitionServiceFactory.KKTOrg = _KKTOrg;
-
+    competitionServiceFactory.deleteKKTRoute = _deleteKKTRoute;
     
 
     return competitionServiceFactory;

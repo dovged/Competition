@@ -54,14 +54,19 @@ namespace Competition.Controllers
             /** Atrušiuoti pagal prisijungusio vartotojo ID*/
             string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == user).Id;
             int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
-
-            List<CompetitionModel> comps = CompetitionDB.TblCompetitions.ToArray().Where(x => x.OrgId == id).Select(x => new CompetitionModel(x)).ToList();
-            foreach (CompetitionModel c in comps)
+            if(CompetitionDB.TblCompetitions.ToArray().Where(x => x.OrgId == id).Select(x => new CompetitionModel(x)).ToList().Count != 0)
             {
-                c.Club = CompetitionDB.TblClubs.Find(CompetitionDB.TblUsers.Find(c.OrgId).ClubId).Name;
+                List<CompetitionModel> comps = CompetitionDB.TblCompetitions.ToArray().Where(x => x.OrgId == id).Select(x => new CompetitionModel(x)).ToList();
+                foreach (CompetitionModel c in comps)
+                {
+                    c.Club = CompetitionDB.TblClubs.Find(CompetitionDB.TblUsers.Find(c.OrgId).ClubId).Name;
+                }
+
+                return ToJsonOK(comps);
             }
 
-            return ToJsonOK(comps);
+            return ToJsonNotFound("Tuščias sąrašas.");
+           
           }
 
         /** Grąžina varžybų sąrašas, kuriose gali dalyvauti nepilnamečiai dalyviai*/
@@ -125,43 +130,17 @@ namespace Competition.Controllers
                 if(value.ClimbType == 1)
                 {
                     int i;
-                    int y = 0;
                     int p = 2;
 
-                    for(i = 0; i < 13; i++)
+                    for(i = 0; i < 6; i++)
                     {
-                        y++;
                         route.Number = i + 1;
                         route.PointsFlash = p + (p / 2);
                         route.PointsTop = p;
                         route.PointsBonus = p / 2;
                         route.Type = "ATRANKA";
                         route.CompetitionId = compId;
-                        if (y == 2) { y = 0; }
-                        CompetitionDB.TblRoutesClim.Add(route);
-                        CompetitionDB.SaveChanges();
-                    }
-
-                    for(i = 0; i < 4; i++)
-                    {
-                        route.Number = i + 1;
-                        route.PointsFlash = 1;
-                        route.PointsTop = 1;
-                        route.PointsBonus = 1;
-                        route.Type = "FINALAS MOTERYS";
-                        route.CompetitionId = compId;
-                        CompetitionDB.TblRoutesClim.Add(route);
-                        CompetitionDB.SaveChanges();
-                    }
-
-                    for (i = 0; i < 4; i++)
-                    {
-                        route.Number = i + 1;
-                        route.PointsFlash = 1;
-                        route.PointsTop = 1;
-                        route.PointsBonus = 1;
-                        route.Type = "FINALAS VYRAI";
-                        route.CompetitionId = compId;
+                        p += 2;
                         CompetitionDB.TblRoutesClim.Add(route);
                         CompetitionDB.SaveChanges();
                     }
@@ -169,37 +148,13 @@ namespace Competition.Controllers
                 else if(value.ClimbType == 2)
                 {
                     int i;
-                    for (i = 0; i < 20; i++)
+                    for (i = 0; i < 6; i++)
                     {
                         route.Number = i + 1;
                         route.PointsFlash = 1;
                         route.PointsTop = 1;
                         route.PointsBonus = 1;
                         route.Type = "ATRANKA";
-                        route.CompetitionId = compId;
-                        CompetitionDB.TblRoutesClim.Add(route);
-                        CompetitionDB.SaveChanges();
-                    }
-
-                    for (i = 0; i < 4; i++)
-                    {
-                        route.Number = i + 1;
-                        route.PointsFlash = 1;
-                        route.PointsTop = 1;
-                        route.PointsBonus = 1;
-                        route.Type = "FINALAS MOTERYS";
-                        route.CompetitionId = compId;
-                        CompetitionDB.TblRoutesClim.Add(route);
-                        CompetitionDB.SaveChanges();
-                    }
-
-                    for (i = 0; i < 4; i++)
-                    {
-                        route.Number = i + 1;
-                        route.PointsFlash = 1;
-                        route.PointsTop = 1;
-                        route.PointsBonus = 1;
-                        route.Type = "FINALAS VYRAI";
                         route.CompetitionId = compId;
                         CompetitionDB.TblRoutesClim.Add(route);
                         CompetitionDB.SaveChanges();
@@ -262,29 +217,6 @@ namespace Competition.Controllers
                         route.PointsTop = 1;
                         route.PointsBonus = 1;
                         route.Type = "ATRANKA VAIKAI";
-                        route.CompetitionId = compId;
-                        CompetitionDB.TblRoutesClim.Add(route);
-                        CompetitionDB.SaveChanges();
-                    }
-                    for (i = 0; i < 4; i++)
-                    {
-                        route.Number = i + 1;
-                        route.PointsFlash = 1;
-                        route.PointsTop = 1;
-                        route.PointsBonus = 1;
-                        route.Type = "FINALAS MOTERYS";
-                        route.CompetitionId = compId;
-                        CompetitionDB.TblRoutesClim.Add(route);
-                        CompetitionDB.SaveChanges();
-                    }
-
-                    for (i = 0; i < 4; i++)
-                    {
-                        route.Number = i + 1;
-                        route.PointsFlash = 1;
-                        route.PointsTop = 1;
-                        route.PointsBonus = 1;
-                        route.Type = "FINALAS VYRAI";
                         route.CompetitionId = compId;
                         CompetitionDB.TblRoutesClim.Add(route);
                         CompetitionDB.SaveChanges();

@@ -5,47 +5,45 @@
     </div>
     <div class="col-md-8">
         <form role="form" style="max-width: 500px;">
-                
-                    <input type="text" class="form-control" placeholder="Pavadinimas" id="name" ng-model="competition.Name" />
-                    <label for="date">
-                        Varžybų  data:
-                    </label>
-                    <input type="date" class="form-control" id="date" ng-model="competition.Date" />
-                
-                
-                    <label for="mainjudge">
-                        Vyr. Teisėjas:
-                    </label>
-                    <select ng-options="userClub.Id as userClub.Name2 for userClub in userClubList" ng-model="competition.MainJudgeId"></select>
-                
-                    <label for="mainroutecreator">
-                        Vyr. Trasų statytojas:
-                    </label>
-                    <select ng-options="userClub.Id as userClub.Name2 for userClub in userClubList" ng-model="competition.MainRouteCreatorId"></select>
-   
+            <input type="text" class="form-control" placeholder="Pavadinimas" id="name" ng-model="competition.Name" required>
+            <label for="date">
+                Varžybų  data:
+            </label>
+            <input type="date" class="form-control" id="date" ng-model="competition.Date" required> 
+            <div>
+                <label for="mainjudge">
+                    Vyr. Teisėjas:
+                </label>
+                <select ng-options="userClub.Id as userClub.Name2 for userClub in userClubList" ng-model="competition.MainJudgeId"></select>
+            </div>   
+            <div>
+                <label for="mainroutecreator">
+                    Vyr. Trasų statytojas:
+                </label>
+                <select ng-options="userClub.Id as userClub.Name2 for userClub in userClubList" ng-model="competition.MainRouteCreatorId"></select>
+            </div>
             <div class="form-group radio">
                 <label>
-                    <input type="radio" ng-model="competition.Type" value="true" />Laipiojimo varžybos
+                    <input type="radio" ng-model="competition.Type" value="true">Laipiojimo varžybos
                 </label><br />
                 <label>
-                    <input type="radio" ng-model="competition.Type" value="false" />KKT varžybos
+                    <input type="radio" ng-model="competition.Type" value="false">KKT varžybos
                 </label>
             </div>
             <div class="form-group radio">
                 <label>
-                    <input type="radio" ng-model="competition.CompType" value="1" />Kaboriai/Baudos virsta laiku
+                    <input type="radio" ng-model="competition.ClimbType" value="1" />Kaboriai/Baudos virsta laiku
                 </label><br />
                 <label>
-                    <input type="radio" ng-model="competition.CompType" value="2" />LBČ/Baudos yra taškai
-                </label>
+                    <input type="radio" ng-model="competition.ClimbType" value="2" />LBČ/Baudos yra taškai
+                </label><br />
                 <label>
-                    <input type="radio" ng-model="competition.CompType" value="3" />LJBT
+                    <input type="radio" ng-model="competition.ClimbType" value="3" />LJBT
                 </label>
             </div>
-            
-                <a href="#/competitionOrg" class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span>  Grįžti atgal</a>
-                <button class="btn btn-success" ng-click="add()"><span class="glyphicons glyphicons-ok-sign"></span>  Išsaugoti</button>
-</form>
+            <a href="#/competitionOrg" class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span>  Grįžti atgal</a>
+            <button class="btn btn-success" ng-click="add()"><span class="glyphicons glyphicons-ok-sign"></span>  Išsaugoti</button>
+    </form>
     </div>
     <div class="col-md-2">
         &nbsp;

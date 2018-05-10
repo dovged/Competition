@@ -16,9 +16,9 @@ namespace Competition.Controllers
         [Route("api/compJudge/{compId}")]
         public HttpResponseMessage Get(int compId)
         {
-            if (CompetitionDB.TblCompJudgesClim.ToArray().Where(x => x.CompId == compId).Select(x => new CompJudgeModel(x)).ToList().Count != 0)
+            if (CompetitionDB.TblCompJudges.ToArray().Where(x => x.CompId == compId).Select(x => new CompJudgeModel(x)).ToList().Count != 0)
             {
-                List<CompJudgeModel> judges = CompetitionDB.TblCompJudgesClim.ToArray().Where(x => x.CompId == compId).Select(x => new CompJudgeModel(x)).ToList();
+                List<CompJudgeModel> judges = CompetitionDB.TblCompJudges.ToArray().Where(x => x.CompId == compId).Select(x => new CompJudgeModel(x)).ToList();
                 foreach(CompJudgeModel j in judges)
                 {
                     j.JudgeName = CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == j.UserId).Name.ToString() +" " + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == j.UserId).LastName.ToString();
@@ -31,14 +31,14 @@ namespace Competition.Controllers
         }
 
         /** Grąžina varžybų sąrašą kuriose vartotojas gali teisėjauti*/
-        [Route("api/compJudge/{user}")]
+        [Route("api/judgeCompetitions/{user}")]
         public HttpResponseMessage Get(string user)
         {
             string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == user).Id;
             int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
-            if (CompetitionDB.TblCompJudgesClim.ToArray().Where(x => x.UserId == id).Select(x => new CompJudgeModel(x)).ToList().Count != 0)
+            if (CompetitionDB.TblCompJudges.ToArray().Where(x => x.UserId == id).Select(x => new CompJudgeModel(x)).ToList().Count != 0)
             {
-                List<CompJudgeModel> judges = CompetitionDB.TblCompJudgesClim.ToArray().Where(x => x.UserId == id).Select(x => new CompJudgeModel(x)).ToList();
+                List<CompJudgeModel> judges = CompetitionDB.TblCompJudges.ToArray().Where(x => x.UserId == id).Select(x => new CompJudgeModel(x)).ToList();
                 List<CompetitionModel> comp = new List<CompetitionModel>();
                 foreach (CompJudgeModel j in judges)
                 {
@@ -59,7 +59,7 @@ namespace Competition.Controllers
             TblCompJudge value = new TblCompJudge();
             value.CompId = compId;
             value.UserId = id;
-            CompetitionDB.TblCompJudgesClim.Add(value);
+            CompetitionDB.TblCompJudges.Add(value);
 
             return ToJsonCreated(CompetitionDB.SaveChanges());
         }
@@ -68,9 +68,9 @@ namespace Competition.Controllers
         [Route("api/compJudge/{id}")]
         public HttpResponseMessage Delete(int id)
         {
-            if (CompetitionDB.TblCompJudgesClim.FirstOrDefault(x => x.Id == id) != null)
+            if (CompetitionDB.TblCompJudges.FirstOrDefault(x => x.Id == id) != null)
             {
-                CompetitionDB.TblCompJudgesClim.Remove(CompetitionDB.TblCompJudgesClim.FirstOrDefault(x => x.Id == id));
+                CompetitionDB.TblCompJudges.Remove(CompetitionDB.TblCompJudges.FirstOrDefault(x => x.Id == id));
 
                 return ToJsonOK(CompetitionDB.SaveChanges());
             }

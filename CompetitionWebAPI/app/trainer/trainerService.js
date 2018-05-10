@@ -23,7 +23,7 @@ app.factory('trainerService', ['$http', 'authService', function ($http, authServ
     var _addTrainee = function (t) {
         var addrequest = $http({
             method: 'post',
-            url: serviceBase + "api/userTrainee/" + _user,
+            url: serviceBase + "api/userTrainee/" + _user + "/1",
             data: t
         });
         return addrequest;
