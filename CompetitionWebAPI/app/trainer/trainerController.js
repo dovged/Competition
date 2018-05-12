@@ -3,6 +3,15 @@ app.controller('trainerController', ['$scope', 'trainerService', 'localStorageSe
 
     $scope.userList = {};
     $scope.teamList = {};
+    $scope.team = {
+        Name: '',
+        TeamCaptainId: ''
+    };
+    $scope.newMemberTeam = {
+        MemberId: '',
+        TeamId: ''
+    };
+
     $scope.noKids = false;
     $scope.KKTTrainer = false;
     loadInfo();
@@ -39,4 +48,21 @@ app.controller('trainerController', ['$scope', 'trainerService', 'localStorageSe
         });
     };
 
+    // Prideti komanda
+    $scope.addTeam = function () {
+        var t = {
+            Name: $scope.team.Name,
+            TeamCaptainId: "0"
+        }
+        trainerService.addTeam(t).then(function (results) {
+            loadUserInfo();
+        });
+    };
+
+    // Prideti dalyvi i komanda
+    $scope.addMember = function () {
+        userService.addMember($scope.newMemberTeam.MemberId, $scope.newMemberTeam.TeamId).then(function (results) {
+            loadInfo();
+        });
+    };
 }]);

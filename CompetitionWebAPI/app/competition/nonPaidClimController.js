@@ -9,7 +9,9 @@ app.controller('nonPaidClimController', ['$scope', '$location', 'competitionServ
 
     // užkraunamas varžybų dalyvių sąrašas;
     function loadCompetitorsList() {
-        $scope.CompId = localStorageService.get("CompDetails")
+        $scope.CompId = localStorageService.get("CompDetails");
+        $scope.competitorsList = [];
+        $scope.noCompetitors = false;
         competitionService.getNonPaidClim($scope.CompId).then(function (results) {
             $scope.competitorsList = results.data;
             $scope.noCompetitors = true;

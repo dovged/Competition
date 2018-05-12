@@ -13,7 +13,7 @@ app.controller('judgesPapersClim1Controller', ['$scope', 'judgeService', 'localS
         TopAttempt: '',
         BonusAttempt: '',
         ClimberId: '',
-        RouteId
+        RouteId: ''
     };
     $scope.papersDetails = {
         routeId: '',

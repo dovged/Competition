@@ -69,7 +69,7 @@ namespace Competition.Controllers
         {
             string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
             int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
-            int team = CompetitionDB.TblTeams.FirstOrDefault(x => x.TeamCaptainId == id).Id;
+            int team = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).TeamId;
             if(CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => x.TeamId == team).Select(x => new CompetitorsKKTModel(x)).ToList().Count != 0)
             {
                 List<CompetitorsKKTModel> climKKT = CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => x.TeamId == team).Select(x => new CompetitorsKKTModel(x)).ToList();
@@ -79,6 +79,7 @@ namespace Competition.Controllers
                     int ClubId = CompetitionDB.TblUsers.Find(CompetitionDB.TblCompetitions.Find(c.CompId).OrgId).ClubId;
                     c.Club = CompetitionDB.TblClubs.Find(ClubId).Name;
                     c.Date = CompetitionDB.TblCompetitions.Find(c.CompId).Date;
+                    c.setDate2(c.Date);
                     c.Update = CompetitionDB.TblCompetitions.Find(c.CompId).Update;
                 }
 

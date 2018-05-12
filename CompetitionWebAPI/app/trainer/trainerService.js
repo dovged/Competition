@@ -126,9 +126,30 @@ app.factory('trainerService', ['$http', 'authService', function ($http, authServ
    
     // Ar tai yra KKT treneris
     var _KKTTrainer = function () {
-        return $http.get(serviceBase + 'api/role/' + _user + '/4').then(function (results) {
+        return $http.get(serviceBase + 'api/role/' + _user + '/5').then(function (results) {
             return results;
         });
+    };
+
+    // Prideti KKT komanda
+    var _addTeam = function (team) {
+        var addrequest = $http({
+            method: 'post',
+            url: serviceBase + "api/teamTrainer" + _user,
+            data: team
+        });
+
+        return addrequest;
+    };
+
+    // Prideti nari i komanda
+    var _addTeamMember = function (id, teamid) {
+        var addrequest = $http({
+            method: 'put',
+            url: serviceBase + "api/addMember/" + id + "/" + teamid
+        });
+
+        return addrequest;
     };
 
     /** PRISKIRIMAI */
@@ -147,7 +168,8 @@ app.factory('trainerService', ['$http', 'authService', function ($http, authServ
     trainerServiceFactory.getTeams = _getTeams;
     trainerServiceFactory.removeMember = _removeMember;
     trainerServiceFactory.KKTTrainer = _KKTTrainer;
-
+    trainerServiceFactory.addTeam = _addTeam;
+    trainerServiceFactory.addTeamMember = _addTeamMember;
 
     return trainerServiceFactory;
 

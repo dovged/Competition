@@ -90,7 +90,7 @@ app.controller('competitionInfoController', ['$scope', 'competitionService', 'lo
 
     // Ištrinama KKT trasa
     $scope.deleteKKTRoute = function (Id) {
-        competitionService.deleteKKTRoute(id).then(function (results) {
+        competitionService.deleteKKTRoute(Id).then(function (results) {
             loadCompInfo();
         });
     }

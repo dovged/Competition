@@ -1,5 +1,5 @@
 ﻿<h2>
-    Varžybos skirtos jauniesiams sportininkams
+    Varžybos, kuriose galite pildyti teiėjo lapus
 </h2>
 <br>
 
@@ -22,7 +22,7 @@
             <tbody>
                 <tr data-ng-repeat="competition in competitionList">
                     <td> {{ competition.Name }} </td>
-                    <td> {{ competition.Date }} </td>
+                    <td> {{ competition.Date2 }} </td>
                     <td> {{ competition.Club }} </td>
                     <td>
                         <button type="button" class="btn btn-info" ng-click="judgePaper(competition.Id, competition.Type, competition.ClimbType)">Pildyti</button>

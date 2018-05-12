@@ -94,6 +94,7 @@ namespace Competition.Controllers
                     c.CompetitionName = CompetitionDB.TblCompetitions.Find(c.CompId).Name;
                     int ClubId = CompetitionDB.TblUsers.Find(CompetitionDB.TblCompetitions.Find(c.CompId).OrgId).ClubId;
                     c.Date = CompetitionDB.TblCompetitions.Find(c.CompId).Date;
+                    c.setDate2(c.Date);
                     c.Club = CompetitionDB.TblClubs.Find(ClubId).Name;
                     c.Update = CompetitionDB.TblCompetitions.Find(c.CompId).Update;
                 }
@@ -121,8 +122,8 @@ namespace Competition.Controllers
                     k.CompName = CompetitionDB.TblCompetitions.Find(compId).Name;
                     k.ClimberId = t.Id;
                     k.ClimberName = t.Name + " " + t.LastName;
-
-                    if (CompetitionDB.TblCompetitorsClim.ToArray().Where(x => x.CompetitionId == compId && x.UserId == t.Id).Select(x => new CompetitorsClimModel(x)).ToList().Count != 0)
+                    if(CompetitionDB.TblCompetitorsClim.FirstOrDefault(x => x.CompetitionId == compId && x.UserId == k.ClimberId) != null) 
+                    //ToArray().Where(x => x.CompetitionId == compId && x.UserId == t.Id).Select(x => new CompetitorsClimModel(x)).ToList().Count != 0)
                     {
                         k.Register = true;
                     }
@@ -133,7 +134,7 @@ namespace Competition.Controllers
                     kids.Add(k);
                 }
 
-                return ToJsonOK(kids);
+                    return ToJsonOK(kids);
             }
 
             return ToJsonNotFound("Objektas nerastas.");
@@ -148,7 +149,6 @@ namespace Competition.Controllers
             string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
             value.UserId = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
             value.Paid = false;
-            value.Tag = false;
             CompetitionDB.TblCompetitorsClim.Add(value);
             CompetitionDB.SaveChanges();
             List<RouteClimbModel> routes = CompetitionDB.TblRoutesClim.ToArray().Where(x => x.CompetitionId == compId && x.Type == "ATRANKA").Select(x => new RouteClimbModel(x)).ToList();
@@ -198,51 +198,50 @@ namespace Competition.Controllers
             }
             else if (DateTime.Now.ToString().Length == 20)
             {
-                dateNow = Convert.ToInt32(DateTime.Now.ToString().Substring(5, 4));
-            }
-            else
-            {
                 dateNow = Convert.ToInt32(DateTime.Now.ToString().Substring(4, 4));
             }
-
-            if((dateNow - dateYear) > 17)
+            else if(DateTime.Now.ToString().Length == 21)
             {
-                value.Group = "JAUNIMAS";
-            }
-            else if((dateNow - dateYear) > 15)
-            {
-                value.Group = "JAUNIAI";
-            }
-            else if((dateNow - dateYear) > 13)
-            {
-                value.Group = "JAUNUOLIAI";
-            }
-            else if((dateNow - dateYear) > 11)
-            {
-                value.Group = "JAUNUČIAI";
-            }
-            else
-            {
-                value.Group = "VAIKAI";
+                dateNow = Convert.ToInt32(DateTime.Now.ToString().Substring(5, 4));
             }
 
-            CompetitionDB.TblCompetitorsClim.Add(value);
+             if((dateNow - dateYear) > 17)
+             {
+                 value.Group = "JAUNIMAS";
+             }
+             else if((dateNow - dateYear) > 15)
+             {
+                 value.Group = "JAUNIAI";
+             }
+             else if((dateNow - dateYear) > 13)
+             {
+                 value.Group = "JAUNUOLIAI";
+             }
+             else if((dateNow - dateYear) > 11)
+             {
+                 value.Group = "JAUNUČIAI";
+             }
+             else
+             {
+                 value.Group = "VAIKAI";
+             }
 
-            List<RouteClimbModel> routes = CompetitionDB.TblRoutesClim.ToArray().Where(x => x.CompetitionId == compId && x.Type == value.Group).Select(x => new RouteClimbModel(x)).ToList();
-            TblJudgesPaperClim paper = new TblJudgesPaperClim();
-            foreach (RouteClimbModel r in routes)
-            {
-                paper.JudgeId = 0;
-                paper.RouteId = r.Id;
-                paper.TopAttempt = 0;
-                paper.BonusAttempt = 0;
-                paper.ClimberId = id;
-                paper.Date = DateTime.Now;
-                paper.TypeId = 0;
-                CompetitionDB.TblJudgesPapersClimb.Add(paper);
-                CompetitionDB.SaveChanges();
-            }
+             CompetitionDB.TblCompetitorsClim.Add(value);
 
+             List<RouteClimbModel> routes = CompetitionDB.TblRoutesClim.ToArray().Where(x => x.CompetitionId == compId && x.Type == value.Group).Select(x => new RouteClimbModel(x)).ToList();
+             TblJudgesPaperClim paper = new TblJudgesPaperClim();
+             foreach (RouteClimbModel r in routes)
+             {
+                 paper.JudgeId = 0;
+                 paper.RouteId = r.Id;
+                 paper.TopAttempt = 0;
+                 paper.BonusAttempt = 0;
+                 paper.ClimberId = id;
+                 paper.Date = DateTime.Now;
+                 paper.TypeId = 0;
+                 CompetitionDB.TblJudgesPapersClimb.Add(paper);
+                 CompetitionDB.SaveChanges();
+             }
             return ToJsonCreated(CompetitionDB.SaveChanges());
         }
 

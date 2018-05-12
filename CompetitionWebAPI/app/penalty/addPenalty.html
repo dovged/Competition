@@ -6,8 +6,8 @@
     <div class="col-md-8">
         <form role="form" style="max-width: 500px;">
             <strong class="error">{{ error }}</strong>
-                <input type="text" class="form-control" placeholder="Pavadinimas" id="name" ng-model="pen.Name" />
-                <input type="text" class="form-control" placeholder="Taškai" id="points" ng-model="pen.Points" />
+                <input type="text" class="form-control" placeholder="Pavadinimas" id="name" ng-model="pen.Name" required autofocus>
+                <input type="text" class="form-control" placeholder="Taškai" id="points" ng-model="pen.Points" required>
             <a href="#/penalties" class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span>  Grįžti atgal</a>
             <button class="btn btn-success" ng-click="add()"><span class="glyphicons glyphicons-ok-sign"></span>  Išsaugoti</button>
         </form>

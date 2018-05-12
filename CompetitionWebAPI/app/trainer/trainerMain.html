@@ -37,9 +37,29 @@
         </table>
         <br />
         <br />
-        <h3>Komandos</h3>
-        <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>    Naujos komanda</button>
-        <table data-ng-repeat="team in teamList" class="table table-striped table-bordered table-hover">
+        <h3 ng-hide="!KKTTrainer">Komandos</h3>
+        <div ng-hide="!KKTTrainer" class="form-group">
+            <label for="teamname">
+                Nauja komanda:
+            </label>
+            <input type="text" class="form-control" id="teamname" size="35" ng-model="team.Name" />
+            <button class="btn btn-success" style="padding: 3px 4px; float:right" ng-click="addTeam()"><span class="glyphicon glyphicon-plus"></span></button>
+        </div>
+        <div ng-hide="!KKTTrainer" class="form-group">
+            <label for="newMember">
+                Dalyvis:
+            </label>
+            <select ng-options="u.Id as u.Name2 for u in userList" ng-model="newMemberTeam.MemberId"></select>
+        </div>
+        <button ng-hide="!KKTTrainer" title="Pridėti naują narį" class="btn btn-success" style="padding: 3px 4px" ng-click="addMember()"><span class="glyphicon glyphicon-plus"></span></button>
+        <div ng-hide="!KKTTrainer" class="form-group">
+            <label for="teamIn">
+                Komanda:
+            </label>
+            <select ng-options="t.Id as t.Name for t in teamList" ng-model="newMemberTeam.TeamId"></select>
+        </div>
+
+        <table ng-hide="!KKTTrainer" data-ng-repeat="team in teamList" class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
                     <th>Komanda</th>
@@ -51,8 +71,8 @@
             </thead>
             <tbody>
                 <tr data-ng-repeat="t in team.Teammates">
-                    <td>{{team.Name}}</td>
-                    <td>{{ t.Name }} </td>
+                    <td> {{team.Name}}</td>
+                    <td> {{ t.Name }} </td>
                     <td> {{ t.LastName }} </td>
                     <td> {{ t.BirthYear }}</td>
                     <td>

@@ -43,6 +43,7 @@ namespace Competition.Controllers
                 foreach (CompJudgeModel j in judges)
                 {
                     CompetitionModel c = new CompetitionModel(CompetitionDB.TblCompetitions.Find(j.CompId));
+                    c.Club = CompetitionDB.TblClubs.Find(CompetitionDB.TblUsers.Find(c.OrgId).ClubId).Name;
                     comp.Add(c);
                 }
 

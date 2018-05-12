@@ -80,7 +80,7 @@ namespace Competition.Controllers
             {
                 List<CompetitionModel> comps = new List<CompetitionModel>();
                 List<RoleModel> roles = CompetitionDB.TblUserRoles.ToArray().Where(x => x.UserId == id).Select(x => new RoleModel(x)).ToList();
-                if(roles.Any(x => x.RoleId == 4))
+                if(roles.Any(x => x.RoleId == 5))
                 {
                     List<CompetitionModel> compsKKT = CompetitionDB.TblCompetitions.ToArray().Where(x => !x.Type).Select(x => new CompetitionModel(x)).ToList();
 
@@ -91,7 +91,7 @@ namespace Competition.Controllers
                     }
                 }
 
-                if(roles.Any(x => x.RoleId == 3))
+                if(roles.Any(x => x.RoleId == 4))
                 {
                     List<CompetitionModel> compsClim = CompetitionDB.TblCompetitions.ToArray().Where(x => x.ClimbType == 3 && x.Type).Select(x => new CompetitionModel(x)).ToList();
 
@@ -169,7 +169,7 @@ namespace Competition.Controllers
                         route.PointsFlash = 1;
                         route.PointsTop = 1;
                         route.PointsBonus = 1;
-                        route.Type = "ATRANKA JAUNIMAS";
+                        route.Type = "JAUNIMAS";
                         route.CompetitionId = compId;
                         CompetitionDB.TblRoutesClim.Add(route);
                         CompetitionDB.SaveChanges();
@@ -181,7 +181,7 @@ namespace Competition.Controllers
                         route.PointsFlash = 1;
                         route.PointsTop = 1;
                         route.PointsBonus = 1;
-                        route.Type = "ATRANKA JAUNIAI";
+                        route.Type = "JAUNIAI";
                         route.CompetitionId = compId;
                         CompetitionDB.TblRoutesClim.Add(route);
                         CompetitionDB.SaveChanges();
@@ -193,7 +193,7 @@ namespace Competition.Controllers
                         route.PointsFlash = 1;
                         route.PointsTop = 1;
                         route.PointsBonus = 1;
-                        route.Type = "ATRANKA JAUNUČIAI";
+                        route.Type = "JAUNUČIAI";
                         route.CompetitionId = compId;
                         CompetitionDB.TblRoutesClim.Add(route);
                         CompetitionDB.SaveChanges();
@@ -204,7 +204,7 @@ namespace Competition.Controllers
                         route.PointsFlash = 1;
                         route.PointsTop = 1;
                         route.PointsBonus = 1;
-                        route.Type = "ATRANKA JAUNUOLIAI";
+                        route.Type = "JAUNUOLIAI";
                         route.CompetitionId = compId;
                         CompetitionDB.TblRoutesClim.Add(route);
                         CompetitionDB.SaveChanges();
@@ -216,7 +216,7 @@ namespace Competition.Controllers
                         route.PointsFlash = 1;
                         route.PointsTop = 1;
                         route.PointsBonus = 1;
-                        route.Type = "ATRANKA VAIKAI";
+                        route.Type = "VAIKAI";
                         route.CompetitionId = compId;
                         CompetitionDB.TblRoutesClim.Add(route);
                         CompetitionDB.SaveChanges();

@@ -85,7 +85,7 @@ app.factory('userService',['$http', 'authService', function ($http, authService)
         });
 
         return addrequest;
-    }
+    };
 
     // Pridėti komandą
     var _addTeam = function (team) {

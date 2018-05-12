@@ -3,22 +3,22 @@
     <input type="text" class="form-control" placeholder="Vartotojo vardas" data-ng-model="registration.userName" required autofocus>
     <input type="password" class="form-control" placeholder="Slaptažodis" data-ng-model="registration.password" required>
     <input type="password" class="form-control" placeholder="Pakartokite slaptažodį" data-ng-model="registration.confirmPassword" required>
-    <input type="text" class="form-control" placeholder="Vardas" id="name" ng-model="user.Name" required/>
-    <input type="text" class="form-control" placeholder="Pavardė" id="lastname" ng-model="user.LastName" required/>
+    <input type="text" class="form-control" placeholder="Vardas" id="name" ng-model="user.Name" required>
+    <input type="text" class="form-control" placeholder="Pavardė" id="lastname" ng-model="user.LastName" required>
     <label for="club">
     Klubas:
     </label>
     <select ng-options="club.Id as club.Name for club in clubs" ng-model="user.ClubId" required></select>
-    <input type="text" class="form-control" placeholder="Email" id="email" ng-model="user.Email" required />
-    <input type="text" class="form-control" placeholder="Tel numeris" id="telnumber" ng-model="user.TelNumber" required/>
+    <input type="text" class="form-control" placeholder="Email" id="email" ng-model="user.Email" required >
+    <input type="text" class="form-control" placeholder="Tel numeris" id="telnumber" ng-model="user.TelNumber" required>
     <label for="birthyear">
         Gimimo data:
     </label>
-    <input type="date" class="form-control" id="birthyear" ng-model="user.BirthYear" required/>
+    <input type="date" class="form-control" id="birthyear" ng-model="user.BirthYear" required>
     <div class="form-group radio">
-        <input type="radio" ng-model="user.Lytis" value="Moteris" />Moteris
-        <hr />
-        <input type="radio" ng-model="user.Lytis" value="Vyras" />Vyras
+        <input type="radio" ng-model="user.Lytis" value="Moteris">Moteris
+        <br />
+        <input type="radio" ng-model="user.Lytis" value="Vyras">Vyras
     </div>
     
     <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="signUp()">Registruotis</button>

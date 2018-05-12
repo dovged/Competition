@@ -14,6 +14,5 @@ namespace Competition.Context
         public int UserId { get; set; }
         public string Group { get; set; }
         public Boolean Paid { get; set; }
-        public Boolean Tag { get; set; }
     }
 }

@@ -9,7 +9,9 @@ app.controller('nonPaidKKTController', ['$scope', '$location', 'competitionServi
 
     // užkraunamas varžybų dalyvių komandų sąrašas;
     function loadCompetitorsList() {
-        $scope.CompId = localStorageService.get("CompDetails")
+        $scope.CompId = localStorageService.get("CompDetails");
+        $scope.competitorsList = [];
+        $scope.noCompetitors = false;
         competitionService.getNonPaidKKT($scope.CompId).then(function (results) {
             $scope.competitorsList = results.data;
             $scope.noCompetitors = true;

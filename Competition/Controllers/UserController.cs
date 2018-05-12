@@ -149,7 +149,7 @@ namespace Competition.Controllers
         public HttpResponseMessage Post(string userName, [FromBody]TblUser value, int n)
         {
             string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
-            int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.Email == userName).Id;
+            int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
 
             TblUser user = new TblUser();
             user.Name = value.Name;
@@ -168,7 +168,7 @@ namespace Competition.Controllers
             int idUser = CompetitionDB.TblUsers.FirstOrDefault(x => x.Name == user.Name && x.LastName == user.LastName).Id;
             TblUserRole role = new TblUserRole();
             //Pridedama "NEPILNAMEČIO DALYVIO" rolė
-            role.RoleId = 8;
+            role.RoleId = 6;
             role.UserId = idUser;
             CompetitionDB.TblUserRoles.Add(role);
 
