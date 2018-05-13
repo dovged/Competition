@@ -21,24 +21,24 @@ app.controller('judgesPapersClim2Controller', ['$scope', 'judgeService', 'localS
     };
     $scope.showUser = false;
     $scope.showPaper = false;
-
+    $scope.flash = false;
+    $scope.rredPoint = false;
 
     // užkraunamas varžybų sąrašas;
     $scope.loadJudgesPapersInfo = function () {
         $scope.competition.Id = localStorageService.get("CompjudgeId");
 
         /**Užkraunama dalyvių sąrašas*/
-        judgeService.getUserListGroup().then(function (results) {
+        judgeService.getUserListGroup($scope.competition.Id, $scope.routeType.Id).then(function (results) {
             $scope.userList = results.data;
         });
 
         /**Užkraunamos trasos*/
-        judgeService.getRouteListType($scope.competition.Id, $scope.routeType.Id).then(function (results) {
+        judgeService.getRouteList($scope.competition.Id).then(function (results) {
             $scope.routeList = results.data;
         });
 
         $scope.showUser = true;
-
     };
 
     // Gaunamas teisėjo lapas pagal dalyvį ir trasą
@@ -51,26 +51,34 @@ app.controller('judgesPapersClim2Controller', ['$scope', 'judgeService', 'localS
             $scope.paper.TopAttempt = p.TopAttempt;
             $scope.paper.BonusAttempt = p.BonusAttempt;
             $scope.paper.ClimberId = p.ClimberId;
-            $scope.paper.routeId = p.RouteId;
+            $scope.paper.RouteId = p.RouteId;
+            if ($scope.paper.TopAttempt == 1) {
+                $scope.flash = true;
+                $scope.redPoint = false;
+            }
+            else if ($scope.paper.TopAttempt == 2) {
+                $scope.flash = false;
+                $scope.redPoint = true;
+            }
         });
     };
 
     // Atnaujinamas teisejo lapas : topas 1 bandymu
-    $scope.updatePaperAddTop = function () {
+    $scope.updatePaperFlash = function () {
         judgeService.updateJudgesPaper($scope.paperDetails.routeId, $scope.paperDetails.userId, 1).then(function (results) {
             $scope.getJudgePaper();
         });
     };
 
     // Atnaujinamas teisejo lapas : topas bet kuriuo badnymu
-    $scope.updatePaperMinusTop = function () {
+    $scope.updatePaperRedPoint = function () {
         judgeService.updateJudgesPaper($scope.paperDetails.routeId, $scope.paperDetails.userId, 2).then(function (results) {
             $scope.getJudgePaper();
         });
     };
 
     // Atnaujinamas teisejo lapas : bonusas
-    $scope.updatePaperAddBonus = function () {
+    $scope.updatePaperBonus = function () {
         judgeService.updateJudgesPaper($scope.paperDetails.routeId, $scope.paperDetails.userId, 3).then(function (results) {
             $scope.getJudgePaper();
         });

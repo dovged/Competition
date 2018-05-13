@@ -13,7 +13,7 @@
                  <label for="group">
                      Grupė:
                  </label>
-                 <select>
+                 <select ng-model="routeType.Id">
                      <option value="JAUNIMAS">JAUNIMAS</option>
                      <option value="JAUNIAI">JAUNIAI</option>
                      <option value="JAUNUOLIAI">JAUNUOLIAI</option>
@@ -32,9 +32,9 @@
                  <label for="climber">
                      Dalyvis:
                  </label>
-                 <select ng-options="user.Id as user.Name2 for user in userList" ng-model="paperDetails.userId"></select>
+                 <select ng-options="user.CimberId as user.ClimberName for user in userList" ng-model="paperDetails.userId"></select>
              </div>
-             <button class="btn btn-default" ng-click="getJudgePaper()">Rasti teisėjo lapą</button>
+             <button ng-hide="!showUser" class="btn btn-default" ng-click="getJudgePaper()">Rasti teisėjo lapą</button>
          </div>
          <table ng-hide="!showPaper" class="table table-striped table-bordered table-hover">
              <tr>

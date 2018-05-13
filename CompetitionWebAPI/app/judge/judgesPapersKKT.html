@@ -1,10 +1,84 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
+﻿<h2>
+    Teisėjo lapas
+</h2>
+<br>
 
-</body>
-</html>
+<br> <br>
+     <div class="row">
+         <div class="col-md-2">
+             &nbsp;
+         </div>
+         <div class="col-md-8">
+             <div class="form-group">
+                 <label for="group">
+                     Grupė:
+                 </label>
+                 <select ng-model="routeType.Id">
+                     <option value="PRO">PRO</option>
+                     <option value="MEGĖJAI">MEGĖJAI</option>
+                     <option value="JAUNIAI">JAUNIAI</option>
+                     <option value="JAUNUČIAI">JAUNUČIAI</option>
+                 </select>
+             </div>
+             <button class="btn btn-default" ng-click="loadJudgesPapersInfo()">Ieškoti</button>
+             <div ng-hide="!showTeam" class="form-group">
+                 <label for="route">
+                     Trasos pavadinimas:
+                 </label>
+                 <select ng-options="route.Id as route.Name for route in routeList" ng-model="paperDetails.routeId"></select>
+             </div>
+             <div ng-hide="!showTeam" class="form-group">
+                 <label for="climber">
+                     Komanda:
+                 </label>
+                 <select ng-options="team.TeamId as team.TeamName for team in teamList" ng-model="paperDetails.userId"></select>
+             </div>
+             <button ng-hide="!showTeam" class="btn btn-default" ng-click="getJudgePaper()">Rasti teisėjo lapą</button>
+         </div>
+         <div ng-hide="!showPaper" class="form-group">
+             <label for="time">
+                 Laikas
+             </label>
+             <input type="text" class="form-control" id="time" ng-model="paper.Time" />
+         </div>
+         <div ng-hide="!showPaper" class="form-group">
+             <label for="comment">
+                 Komentaras
+             </label>
+             <input type="text" class="form-control" id="comment" ng-model="paper.Comment" />
+         </div>
+         <div ng-hide="!showPaper" class="form-group">
+             <label for="newPenalty">
+                 Nauja bauda:
+             </label>
+             <select ng-options="penalty.Id as penalty.Name for penalty in penaltyList" ng-model="newPenalty.Id"></select>
+         </div>
+         <button ng-hide="!showPaper" class="btn btn-success" style="padding: 3px 4px;" ng-click="addPenalty()"><span class="glyphicon glyphicon-plus"></span></button>
+         <table ng-hide="!showPaper" class="table table-striped table-bordered table-hover">
+             <thead>
+                 <tr>
+                     <th>Bauda</th>
+                     <th>Kiekis</th>
+                     <th></th>
+                     <th></th>
+                 </tr>
+             </thead>
+             <tbody>
+                 <tr data-ng-repeat="p in paper.Penalties">
+                     <td> {{ p.Name }} </td>
+                     <td> {{ p.Quantity }} </td>
+                     <td>
+                         <button type="button" class="btn btn-success" style="padding: 3px 4px" ng-click="updatePaperAdd(p.Id)"><span class="glyphicon glyphicon-plus"></span></button>
+                         <button type="button" class="btn btn-danger" style="padding: 3px 4px" ng-click="updatePaperMinus(p.Id)"><span class="glyphicon glyphicon-minus"></span></button>
+                     </td>
+                     <td><button title="Pašalinti vartotoją" class="btn btn-danger" style="padding: 3px 4px; float:right" ng-click="deletePenalty(p.Id)"><span class="glyphicon glyphicon-remove"></span></button> </td>
+                 </tr>
+             </tbody>
+
+
+         </table>
+         <button ng-hide="!showTeam" class="btn btn-success" ng-click="updateJudgesPaper()">Išsaugoti</button>
+         <div class="col-md-2">
+             &nbsp;
+         </div>
+     </div>

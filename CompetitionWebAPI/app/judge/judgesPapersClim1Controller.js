@@ -28,7 +28,7 @@ app.controller('judgesPapersClim1Controller', ['$scope', 'judgeService', 'localS
         $scope.competition.Id = localStorageService.get("CompjudgeId");
 
          /**Užkraunama dalyvių sąrašas*/
-        judgeService.getUserListGroup().then(function (results) {
+        judgeService.getUserListGroup($scope.competition.Id, $scope.routeType.Id).then(function (results) {
             $scope.userList = results.data;
         });
 
@@ -51,7 +51,7 @@ app.controller('judgesPapersClim1Controller', ['$scope', 'judgeService', 'localS
             $scope.paper.TopAttempt = p.TopAttempt;
             $scope.paper.BonusAttempt = p.BonusAttempt;
             $scope.paper.ClimberId = p.ClimberId;
-            $scope.paper.routeId = p.RouteId;
+            $scope.paper.RouteId = p.RouteId;
         });
     };
 

@@ -23,5 +23,17 @@ namespace Competition.Controllers
 
             return ToJsonNotFound("Tuščias sąrašas.");
         }
+
+        /** Grąžina visas vienų varžybų laipiojimo trasas*/
+        [Route("api/routeClim/{compId}")]
+        public HttpResponseMessage Get(int compId)
+        {
+            if (CompetitionDB.TblRoutesClim.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteClimbModel(x)).ToList() != null)
+            {
+                return ToJsonOK(CompetitionDB.TblRoutesClim.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteClimbModel(x)).ToList());
+            }
+
+            return ToJsonNotFound("Tuščias sąrašas.");
+        }
     }
 }

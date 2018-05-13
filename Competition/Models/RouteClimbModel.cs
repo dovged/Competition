@@ -19,6 +19,7 @@ namespace Competition.Models
         public RouteClimbModel(TblRouteClimb row)
         {
             Id = row.Id;
+            Number = row.Number;
             PointsBonus = row.PointsBonus;
             PointsTop = row.PointsTop;
             PointsFlash = row.PointsFlash;

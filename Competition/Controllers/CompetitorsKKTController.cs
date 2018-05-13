@@ -63,6 +63,23 @@ namespace Competition.Controllers
             return ToJsonNotFound("Tuščias sąrašas.");
         }
 
+        /** Grąžinamas sąrašas dalyvių vienose varžybose, kurie susimokėjo, pagal grupę*/
+        [Route("api/competitionsKKT/{compId}/{n}/{group}")]
+        public HttpResponseMessage Get(int compId, int n, string group)
+        {
+            if (CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => x.CompetitionId == compId && x.Paid && x.Group == group).Select(x => new CompetitorsKKTModel(x)).ToList().Count != 0)
+            {
+                List<CompetitorsKKTModel> compTeams = CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => x.CompetitionId == compId && x.Paid && x.Group == group).Select(x => new CompetitorsKKTModel(x)).ToList();
+                foreach (CompetitorsKKTModel competitor in compTeams)
+                {
+                    competitor.TeamName = CompetitionDB.TblTeams.Find(competitor.TeamId).Name.ToString();
+                }
+                return ToJsonOK(compTeams);
+            }
+
+            return ToJsonNotFound("Tuščias sąrašas.");
+        }
+
         /** Grąžinamas sąrašas varžybų į kurias užsiregistravo vartotojas*/
         [Route("api/climKKT/{userName}/{n}")]
         public HttpResponseMessage Get(string userName, int n)

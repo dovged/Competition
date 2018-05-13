@@ -26,6 +26,20 @@ namespace Competition.Controllers
             return ToJsonNotFound("Tuščias sąrašas.");
         }
 
+        /** Grąžina visas vienų varžybų KKT trasas*/
+        [Route("api/routeKKT/{compId}/{type}")]
+        public HttpResponseMessage Get(int compId, string type)
+        {
+            if (CompetitionDB.TblRoutesKKT.ToArray().Where(x => x.CompetitionId == compId && x.Type == type).Select(x => new RouteKKTModel(x)).ToList() != null)
+            {
+                List<RouteKKTModel> routes = CompetitionDB.TblRoutesKKT.ToArray().Where(x => x.CompetitionId == compId && x.Type == type).Select(x => new RouteKKTModel(x)).ToList();
+
+                return ToJsonOK(routes);
+            }
+
+            return ToJsonNotFound("Tuščias sąrašas.");
+        }
+
         /** Grąžina vienų varžybų vieną KKT trasą*/
         [Route("api/competition/{compId}/routeKKT/{routeId}")]
         public HttpResponseMessage Get(int compId, int routeId)

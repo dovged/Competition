@@ -13,10 +13,11 @@
             <label for="group">
                 Grupė:
             </label>
-            <select>
+            <select ng-model="routeType.Id">
                 <option value="1">PIRMA</option>
                 <option value="2">ANTRA</option>
                 <option value="3">TREČIA</option>
+                <option value="4">KETVIRTA</option>
             </select>
         </div>
         <button class="btn btn-default" ng-click="loadJudgesPapersInfo()">Ieškoti</button>
@@ -30,25 +31,25 @@
             <label for="climber">
                 Dalyvis:
             </label>
-            <select ng-options="user.Id as user.Name2 for user in userList" ng-model="paperDetails.userId"></select>
+            <select ng-options="user.CimberId as user.ClimberName for user in userList" ng-model="paperDetails.userId"></select>
         </div>
-        <button class="btn btn-default" ng-click="getJudgePaper()">Rasti teisėjo lapą</button>
+        <button ng-hide="!showUser"  class="btn btn-default" ng-click="getJudgePaper()">Rasti teisėjo lapą</button>
     </div>
     <table ng-hide="!showPaper" class="table table-striped table-bordered table-hover">
         <tr>
             <th>Topas</th>
-            <th>Bandymas {{paper.TopAttempt}}</th>
+            <th ng-hide="!flash">Iš pirmo karto</th>
+            <th ng-hide="!redPoint">Iš antro ar daugiau kartų</th>
             <th>
-                <button type="button" class="btn btn-success" style="padding: 3px 4px" ng-click="updatePaperAddTop()"><span class="glyphicon glyphicon-plus"></span></button>
-                <button type="button" class="btn btn-default" style="padding: 3px 4px" ng-click="updatePaperMinusTop()"><span class="glyphicon glyphicon-minus"></span></button>
+                <button type="button" class="btn btn-success" style="padding: 3px 4px" ng-click="updatePaperFlash()"><span class="glyphicon glyphicon-plus"></span>Flash</button>
+                <button type="button" class="btn btn-default" style="padding: 3px 4px" ng-click="updatePaperRedPoint()"><span class="glyphicon glyphicon-minus"></span>Redpoint</button>
             </th>
         </tr>
         <tr>
             <th>Bonusas</th>
-            <th>Bandymas {{paper.BonusAttempt}}</th>
+            <th ng-hide="!paper.BonusAttempt">Paimtas</th>
             <th>
-                <button type="button" class="btn btn-success" style="padding: 3px 4px" ng-click="updatePaperAddBonus()"><span class="glyphicon glyphicon-plus"></span></button>
-                <button type="button" class="btn btn-default" style="padding: 3px 4px" ng-click="updatePaperMinusBonus()"><span class="glyphicon glyphicon-minus"></span></button>
+                <button type="button" class="btn btn-success" style="padding: 3px 4px" ng-click="updatePaperBonus()"><span class="glyphicon glyphicon-plus"></span>Užlipo iki bonuso</button>
             </th>
         </tr>
 

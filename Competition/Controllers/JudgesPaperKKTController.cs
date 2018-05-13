@@ -43,12 +43,13 @@ namespace Competition.Controllers
         }
 
         /** Grąžinamas vienas teisėjo lapas;*/
-        public HttpResponseMessage Get(int compId, int paperId)
+        [Route("api/judgespapersKKT/{routeId}/{teamId}")]
+        public HttpResponseMessage Get(int routeId, int teamId)
         {
-            if (CompetitionDB.TblJudgesPapersKKT.FirstOrDefault(x => x.Id == paperId) != null)
+            if (CompetitionDB.TblJudgesPapersKKT.FirstOrDefault(x => x.TeamId == teamId && x.RouteId == routeId) != null)
             {
-                JudgesPaperKKTModel paper = CompetitionDB.TblJudgesPapersKKT.ToArray().Where(x => x.Id == paperId).Select(x => new JudgesPaperKKTModel(x)).FirstOrDefault();
-                List<PenaltyQuantityModel> quantity = CompetitionDB.TblPenaltyQuantities.ToArray().Where(x => x.JudgesPaperId == paperId).Select(x => new PenaltyQuantityModel(x)).ToList();
+                JudgesPaperKKTModel paper = CompetitionDB.TblJudgesPapersKKT.ToArray().Where(x => x.TeamId == teamId && x.RouteId == routeId).Select(x => new JudgesPaperKKTModel(x)).FirstOrDefault();
+                List<PenaltyQuantityModel> quantity = CompetitionDB.TblPenaltyQuantities.ToArray().Where(x => x.JudgesPaperId == paper.Id).Select(x => new PenaltyQuantityModel(x)).ToList();
                 foreach (var q in quantity)
                 {
                     q.PenaltyName = CompetitionDB.TblPenalties.FirstOrDefault(x => x.Id == q.PenaltyId).Name.ToString();
@@ -66,23 +67,6 @@ namespace Competition.Controllers
             return ToJsonNotFound("Objektas nerastas.");
         }
 
-        /** Grąžinamas vienas teisėjo lapas;*/
-        [Route("api/judgespapersKKT/{routeId}/{teamId}/{s}")]
-        public HttpResponseMessage Get(int routeId, int teamId, string s)
-        {
-
-            if (CompetitionDB.TblJudgesPapersKKT.FirstOrDefault(x => x.TeamId == teamId && x.RouteId == routeId) != null)
-            {
-                JudgesPaperKKTModel paper = CompetitionDB.TblJudgesPapersKKT.ToArray().Where(x => x.TeamId == teamId && x.RouteId == routeId).Select(x => new JudgesPaperKKTModel(x)).FirstOrDefault();
-
-                //paper.Climber = CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == paper.ClimberId).Name + CompetitionDB.TblUsers.FirstOrDefault(x => x.Id == paper.ClimberId).LastName;
-                // paper.RouteNumber = CompetitionDB.TblRoutesClim.FirstOrDefault(x => x.Id == paper.RouteId).Number;
-
-                return ToJsonOK(paper);
-            }
-
-            return ToJsonNotFound("Objektas nerastas.");
-        }
 
         /** Redaguoti teisėjo lapą*/
         [Route("api/judgespapersKKT/{id}")]
