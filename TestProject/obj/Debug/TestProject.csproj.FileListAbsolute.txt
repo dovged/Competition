@@ -34,7 +34,6 @@ C:\Users\Dovile\Competition\TestProject\bin\Debug\Microsoft.VisualStudio.TestPla
 C:\Users\Dovile\Competition\TestProject\bin\Debug\Microsoft.Owin.xml
 C:\Users\Dovile\Competition\TestProject\bin\Debug\System.Web.Optimization.xml
 C:\Users\Dovile\Competition\TestProject\bin\Debug\System.Web.Mvc.xml
-C:\Users\Dovile\Competition\TestProject\bin\Debug\System.Web.Http.xml
 C:\Users\Dovile\Competition\TestProject\bin\Debug\System.Net.Http.Formatting.xml
 C:\Users\Dovile\Competition\TestProject\bin\Debug\Microsoft.AspNet.Identity.Core.xml
 C:\Users\Dovile\Competition\TestProject\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
@@ -49,7 +48,6 @@ C:\Users\Dovile\Competition\TestProject\bin\Debug\System.Web.Razor.xml
 C:\Users\Dovile\Competition\TestProject\bin\Debug\System.Web.WebPages.Razor.xml
 C:\Users\Dovile\Competition\TestProject\bin\Debug\System.Web.WebPages.xml
 C:\Users\Dovile\Competition\TestProject\bin\Debug\System.Web.WebPages.Deployment.xml
-C:\Users\Dovile\Competition\TestProject\obj\Debug\TestProject.csprojResolveAssemblyReference.cache
 C:\Users\Dovile\Competition\TestProject\obj\Debug\TestProject.dll
 C:\Users\Dovile\Competition\TestProject\obj\Debug\TestProject.pdb
 C:\Users\Dovile\Competition\TestProject\bin\Debug\TestProject.dll.config
@@ -81,3 +79,8 @@ C:\Users\Dovile\Competition\TestProject\bin\Debug\roslyn\vbc.exe.config
 C:\Users\Dovile\Competition\TestProject\bin\Debug\roslyn\vbc.rsp
 C:\Users\Dovile\Competition\TestProject\bin\Debug\roslyn\VBCSCompiler.exe
 C:\Users\Dovile\Competition\TestProject\bin\Debug\roslyn\VBCSCompiler.exe.config
+C:\Users\Dovile\Competition\TestProject\bin\Debug\TestProject.dll.CodeAnalysisLog.xml
+C:\Users\Dovile\Competition\TestProject\bin\Debug\TestProject.dll.lastcodeanalysissucceeded
+C:\Users\Dovile\Competition\TestProject\obj\Debug\TestProject.csprojAssemblyReference.cache
+C:\Users\Dovile\Competition\TestProject\obj\Debug\TestProject.csproj.CoreCompileInputs.cache
+C:\Users\Dovile\Competition\TestProject\obj\Debug\TestProject.csproj.CopyComplete

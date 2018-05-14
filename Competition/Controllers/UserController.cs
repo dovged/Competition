@@ -98,7 +98,7 @@ namespace Competition.Controllers
         public HttpResponseMessage Get(string userName, int n, int m)
         {
             string accountId = CompetitionDB.Users.FirstOrDefault(x => x.UserName == userName).Id;
-            int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.Email == userName).Id;
+            int id = CompetitionDB.TblUsers.FirstOrDefault(x => x.UserId == accountId).Id;
             if (CompetitionDB.TblUsers.ToArray().Where(x => x.Active == true && x.TeamId == 0 && x.TrainerId == id).Select(x => new UserModel(x)).ToList().Count != 0)
             {
                 List<UserModel> users = CompetitionDB.TblUsers.ToArray().Where(x => x.Active == true && x.TeamId == 0 && x.TrainerId == id).Select(x => new UserModel(x)).ToList();

@@ -9,7 +9,9 @@ namespace Competition.Controllers
     public class AccountController : BaseAPIController
     {
         private AuthRepository _repo = null;
+#pragma warning disable CS0414 // The field 'AccountController.conRole' is assigned but its value is never used
         private RoleController conRole = null;
+#pragma warning restore CS0414 // The field 'AccountController.conRole' is assigned but its value is never used
 
         public AccountController()
         {

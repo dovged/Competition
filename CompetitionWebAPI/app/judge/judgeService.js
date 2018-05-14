@@ -136,7 +136,7 @@ app.factory('judgeService', ['$http', 'authService', function ($http, authServic
     judgeServiceFactory.updateJudgesPaper = _updateJudgesPaper;
     judgeServiceFactory.getRouteListType = _getRouteListType;
     judgeServiceFactory.getUserListGroup = _getUserListGroup;
-    judgeServiceFactory.getJudgePaper = __getJudgePaper;
+    judgeServiceFactory.getJudgePaper = _getJudgePaper;
     judgeServiceFactory.getRouteList = _getRouteList;
     judgeServiceFactory.getTeamListGroup = _getTeamListGroup;
     judgeServiceFactory.getRouteListTypeKKT = _getRouteListTypeKKT;

@@ -26,13 +26,13 @@
                  <label for="route">
                      Trasos numeris:
                  </label>
-                 <select ng-options="route.Id as route.Number for route in routeList" ng-model="paperDetails.routeId"></select>
+                 <select ng-options="route.Id as route.Number for route in routeList" ng-model="papersDetails.routeId"></select>
              </div>
              <div ng-hide="!showUser" class="form-group">
                  <label for="climber">
                      Dalyvis:
                  </label>
-                 <select ng-options="user.CimberId as user.ClimberName for user in userList" ng-model="paperDetails.userId"></select>
+                 <select ng-options="user.CimberId as user.ClimberName for user in userList" ng-model="papersDetails.userId"></select>
              </div>
              <button ng-hide="!showUser" class="btn btn-default" ng-click="getJudgePaper()">Rasti teisėjo lapą</button>
          </div>
