@@ -12,35 +12,35 @@ namespace Competition.Controllers
     public class ResultController : BaseAPIController
     {
         /** Bendras rezultatų metodas*/
-        [Route("api/results/{compId}/{compType}/{resultType}")]
-        public HttpResponseMessage Get(int compId, int compType, int resultType)
+        [Route("api/results/{compId}/{resultType}/{lytis}/{group}")]
+        public HttpResponseMessage Get(int compId, int resultType, string lytis, string group)
         {
             /**LAIPIOJIMO VARŽYBOS*/
             if (CompetitionDB.TblCompetitions.Find(compId).Type)
             {
-                switch (compType)
+                switch (resultType)
                 {
                     case 1:
-                        List<ResultsClimbKaboriai> results = KaboriaiResults(compId, resultType);
+                        List<ResultsClimbKaboriai> results = KaboriaiResults(compId, resultType, lytis);
                         return ToJsonOK(results);
                     case 2:
-                        List<ResultsClimLBC> resultsLBC = LBCResults(compId, resultType);
+                        List<ResultsClimLBC> resultsLBC = LBCResults(compId, resultType, lytis);
                         return ToJsonOK(resultsLBC);
                     case 3:
-                        List<ResultsClim> resultsClim = ResultsClim(compId, resultType);
+                        List<ResultsClim> resultsClim = ResultsClim(compId, resultType, lytis, group);
                         return ToJsonOK(resultsClim);
                 }
             }
             /**KKT VARŽYBOS*/
             else
             {
-                switch (compType)
+                switch (resultType)
                 {
                     case 1:
-                        List<ResultModel> resultsKKT = ResultsKKT1(compId, resultType);
+                        List<ResultModel> resultsKKT = ResultsKKT1(compId, resultType, group);
                         return ToJsonOK(resultsKKT);
                     case 2:
-                        List<ResultModel> resultsKKT2 = ResultsKKT2(compId, resultType);
+                        List<ResultModel> resultsKKT2 = ResultsKKT2(compId, resultType, group);
                         return ToJsonOK(resultsKKT2);
                 }
             }
@@ -49,7 +49,7 @@ namespace Competition.Controllers
         }
 
         /** LAIPIOJIMO VARŽYBŲ KABORIŲ TIPO rezultatų skaičiavimo algoritmas*/
-        public List<ResultsClimbKaboriai> KaboriaiResults(int compId, int resultType)
+        public List<ResultsClimbKaboriai> KaboriaiResults(int compId, int resultType, string lytis)
         {
             //PRIDĖTI RŪŠIAVIMĄ PAGAL LYTĮ
             List<ResultsClimbKaboriai> results = new List<ResultsClimbKaboriai>();
@@ -57,34 +57,35 @@ namespace Competition.Controllers
             foreach(CompetitorsClimModel u in CompetitionDB.TblCompetitorsClim.ToArray().Where(x => x.CompetitionId == compId).Select(x => new CompetitorsClimModel(x)).ToList())
             {
                 ResultsClimbKaboriai r = new ResultsClimbKaboriai();
-                r.Climber = CompetitionDB.TblUsers.Find(u.ClimberId).Name + " " + CompetitionDB.TblUsers.Find(u.ClimberId).LastName;
-                int ClimberId = u.ClimberId;
-
-                // PAKEISTI PO TO Į 19, NES 18 TRASŲ ATRANKOJE
-                for(int i = 1; i < 6; i++)
+                if (lytis == CompetitionDB.TblUsers.Find(u.ClimberId).Lytis)
                 {
-                    int RouteId = CompetitionDB.TblRoutesClim.First(x => x.CompetitionId == compId && x.Number == i).Id;
-                  /*  if(CompetitionDB.TblJudgesPapersClimb.First(x => x.RouteId == RouteId && x.ClimberId == ClimberId).ToString().Length != 0)
-                    {*/
-                        JudgesPaperClimbModel paper = new JudgesPaperClimbModel(CompetitionDB.TblJudgesPapersClimb.First(x => x.RouteId == RouteId && x.ClimberId == ClimberId));
+                    r.Climber = CompetitionDB.TblUsers.Find(u.ClimberId).Name + " " + CompetitionDB.TblUsers.Find(u.ClimberId).LastName;
+                    int ClimberId = u.ClimberId;
+
+                    foreach (RouteClimbModel route in CompetitionDB.TblRoutesClim.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteClimbModel(x)).ToList())
+                    { 
+                        /*  if(CompetitionDB.TblJudgesPapersClimb.First(x => x.RouteId == RouteId && x.ClimberId == ClimberId).ToString().Length != 0)
+                          {*/
+                        JudgesPaperClimbModel paper = new JudgesPaperClimbModel(CompetitionDB.TblJudgesPapersClimb.First(x => x.RouteId == route.Id && x.ClimberId == ClimberId));
                         if (paper.TopAttempt == 1)
                         {
-                            r.RoutePonts[i-1] = CompetitionDB.TblRoutesClim.Find(RouteId).PointsFlash;
-                            r.PlusPoints(CompetitionDB.TblRoutesClim.Find(RouteId).PointsFlash);
+                            r.RoutePonts[route.Id - 1] = CompetitionDB.TblRoutesClim.Find(route.Id).PointsFlash;
+                            r.PlusPoints(CompetitionDB.TblRoutesClim.Find(route.Id).PointsFlash);
                         }
-                        else if(paper.TopAttempt == 2)
+                        else if (paper.TopAttempt == 2)
                         {
-                            r.RoutePonts[i-1] = CompetitionDB.TblRoutesClim.Find(RouteId).PointsTop;
-                            r.PlusPoints(CompetitionDB.TblRoutesClim.Find(RouteId).PointsTop);
+                            r.RoutePonts[route.Id - 1] = CompetitionDB.TblRoutesClim.Find(route.Id).PointsTop;
+                            r.PlusPoints(CompetitionDB.TblRoutesClim.Find(route.Id).PointsTop);
                         }
-                        else if(paper.BonusAttempt > 0)
+                        else if (paper.BonusAttempt > 0)
                         {
-                            r.RoutePonts[i-1] = CompetitionDB.TblRoutesClim.Find(RouteId).PointsBonus;
-                            r.PlusPoints(CompetitionDB.TblRoutesClim.Find(RouteId).PointsBonus);
+                            r.RoutePonts[route.Id - 1] = CompetitionDB.TblRoutesClim.Find(route.Id).PointsBonus;
+                            r.PlusPoints(CompetitionDB.TblRoutesClim.Find(route.Id).PointsBonus);
                         }
-                    //}
+                        //}
+                    }
+                    results.Add(r);
                 }
-                results.Add(r);
             }
             List<ResultsClimbKaboriai> resultsOrder = results.OrderByDescending(x => x.SumPoints).ToList();
             int p = 1;
@@ -98,42 +99,40 @@ namespace Competition.Controllers
         }
 
         /** LAIPIOJIMO VARŽYBŲ LBČ TIPO rezultatų skaičiavimo algoritmas*/
-        public List<ResultsClimLBC> LBCResults(int compId, int resultType)
+        public List<ResultsClimLBC> LBCResults(int compId, int resultType, string lytis)
         {
             //PRIDĖTI RŪŠIAVIMĄ PAGAL LYTĮ
             List<ResultsClimLBC> results = new List<ResultsClimLBC>();
 
             foreach (CompetitorsClimModel u in CompetitionDB.TblCompetitorsClim.ToArray().Where(x => x.CompetitionId == compId).Select(x => new CompetitorsClimModel(x)).ToList())
             {
-                ResultsClimLBC r = new ResultsClimLBC();
-                r.Climber = CompetitionDB.TblUsers.Find(u.ClimberId).Name + " " + CompetitionDB.TblUsers.Find(u.ClimberId).LastName;
-                int ClimberId = u.ClimberId;
-
-                // PAKEISTI PO TO Į 51, NES 50 TRASŲ ATRANKOJE
-                for (int i = 1; i < 6; i++)
+                if (lytis == CompetitionDB.TblUsers.Find(u.ClimberId).Lytis)
                 {
-                    int RouteId = CompetitionDB.TblRoutesClim.First(x => x.CompetitionId == compId && x.Number == i).Id;
-                    /*  if(CompetitionDB.TblJudgesPapersClimb.First(x => x.RouteId == RouteId && x.ClimberId == ClimberId).ToString().Length != 0)
-                      {*/
-                    JudgesPaperClimbModel paper = new JudgesPaperClimbModel(CompetitionDB.TblJudgesPapersClimb.First(x => x.RouteId == RouteId && x.ClimberId == ClimberId));
-                    if (paper.TopAttempt == 1)
-                    {
-                        r.PlusFlash();
-                        r.PlusTop();
-                        r.PlusBonus();
+                    ResultsClimLBC r = new ResultsClimLBC();
+                    r.Climber = CompetitionDB.TblUsers.Find(u.ClimberId).Name + " " + CompetitionDB.TblUsers.Find(u.ClimberId).LastName;
+                    int ClimberId = u.ClimberId;
+
+                    foreach (RouteClimbModel route in CompetitionDB.TblRoutesClim.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteClimbModel(x)).ToList())
+                    { 
+                        JudgesPaperClimbModel paper = new JudgesPaperClimbModel(CompetitionDB.TblJudgesPapersClimb.First(x => x.RouteId == route.Id && x.ClimberId == ClimberId));
+                        if (paper.TopAttempt == 1)
+                        {
+                            r.PlusFlash();
+                            r.PlusTop();
+                            r.PlusBonus();
+                        }
+                        else if (paper.TopAttempt == 2)
+                        {
+                            r.PlusTop();
+                            r.PlusBonus();
+                        }
+                        else if (paper.BonusAttempt > 0)
+                        {
+                            r.PlusBonus();
+                        }
                     }
-                    else if (paper.TopAttempt == 2)
-                    {
-                        r.PlusTop();
-                        r.PlusBonus();
-                    }
-                    else if (paper.BonusAttempt > 0)
-                    {
-                        r.PlusBonus();
-                    }
-                    //}
+                    results.Add(r);
                 }
-                results.Add(r);
             }
             List<ResultsClimLBC> resultsOrder = results.OrderByDescending(x => x.SumAttemptFlash).ThenByDescending(x => x.SumAttemptTop).ThenByDescending(x => x.SumAttemptBonus).ToList();
             int p = 1;
@@ -146,37 +145,38 @@ namespace Competition.Controllers
             return resultsOrder;
         }
 
-        /** LAIPIOJIMO VARŽYBŲ LBJT IR FINALO TIPO rezultatų skaičiavimo algoritmas*/
-        public List<ResultsClim> ResultsClim(int compId, int resultType)
+        /** LAIPIOJIMO VARŽYBŲ LBJT rezultatų skaičiavimo algoritmas*/
+        public List<ResultsClim> ResultsClim(int compId, int resultType, string lytis, string group)
         {
             //PRIDĖTI RŪŠIAVIMĄ PAGAL LYTĮ
             List<ResultsClim> results = new List<ResultsClim>();
 
-            foreach (CompetitorsClimModel u in CompetitionDB.TblCompetitorsClim.ToArray().Where(x => x.CompetitionId == compId).Select(x => new CompetitorsClimModel(x)).ToList())
+            foreach (CompetitorsClimModel u in CompetitionDB.TblCompetitorsClim.ToArray().Where(x => x.CompetitionId == compId && x.Group == group).Select(x => new CompetitorsClimModel(x)).ToList())
             {
                 ResultsClim r = new ResultsClim();
-                r.Climber = CompetitionDB.TblUsers.Find(u.ClimberId).Name + " " + CompetitionDB.TblUsers.Find(u.ClimberId).LastName;
-                int ClimberId = u.ClimberId;
-
-                // PAKEISTI PO TO Į 5, NES 4 TRASŲ ATRANKOJE
-                for (int i = 1; i < 4; i++)
+                if (lytis == CompetitionDB.TblUsers.Find(u.ClimberId).Lytis)
                 {
-                    int RouteId = CompetitionDB.TblRoutesClim.First(x => x.CompetitionId == compId && x.Number == i).Id;
-                    /*  if(CompetitionDB.TblJudgesPapersClimb.First(x => x.RouteId == RouteId && x.ClimberId == ClimberId).ToString().Length != 0)
-                      {*/
-                    JudgesPaperClimbModel paper = new JudgesPaperClimbModel(CompetitionDB.TblJudgesPapersClimb.First(x => x.RouteId == RouteId && x.ClimberId == ClimberId));
-                    if (paper.TopAttempt > 0)
-                    {
-                        r.AddTop(paper.TopAttempt);
-                    }
+                    r.Climber = CompetitionDB.TblUsers.Find(u.ClimberId).Name + " " + CompetitionDB.TblUsers.Find(u.ClimberId).LastName;
+                    int ClimberId = u.ClimberId;
 
-                    if (paper.BonusAttempt > 0)
+                    // PAKEISTI PO TO Į 5, NES 4 TRASŲ ATRANKOJE
+                    foreach (RouteClimbModel route in CompetitionDB.TblRoutesClim.ToArray().Where(x => x.CompetitionId == compId && x.Type == group).Select(x => new RouteClimbModel(x)).ToList())
                     {
-                        r.AddBonus(paper.BonusAttempt);
+                       
+                        JudgesPaperClimbModel paper = new JudgesPaperClimbModel(CompetitionDB.TblJudgesPapersClimb.First(x => x.RouteId == route.Id && x.ClimberId == ClimberId));
+                        if (paper.TopAttempt > 0)
+                        {
+                            r.AddTop(paper.TopAttempt);
+                        }
+
+                        if (paper.BonusAttempt > 0)
+                        {
+                            r.AddBonus(paper.BonusAttempt);
+                        }
+                        //}
                     }
-                    //}
+                    results.Add(r);
                 }
-                results.Add(r);
             }
             List<ResultsClim> resultsOrder = results.OrderByDescending(x => x.TopNumber).ThenByDescending(x => x.BonusNumber).ThenBy(x => x.TopAttempt).ThenBy(x => x.BonusAttempt).ToList();
             int p = 1;
@@ -190,12 +190,12 @@ namespace Competition.Controllers
         }
 
         /** KKT VARŽYBŲ PIRMAS REZULTATŲ SKAIČIAVIMO ALGORITMAS*/
-        public List<ResultModel> ResultsKKT1(int compId, int resultType)
+        public List<ResultModel> ResultsKKT1(int compId, int resultType, string group)
         {
             List<ResultModel> results = new List<ResultModel>();
 
-            List<CompetitorsKKTModel> compTeam = CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => x.CompetitionId == compId).Select(x => new CompetitorsKKTModel(x)).ToList();
-            List<RouteKKTModel> routes = CompetitionDB.TblRoutesKKT.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteKKTModel(x)).ToList();
+            List<CompetitorsKKTModel> compTeam = CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => x.CompetitionId == compId && x.Group == group).Select(x => new CompetitorsKKTModel(x)).ToList();
+            List<RouteKKTModel> routes = CompetitionDB.TblRoutesKKT.ToArray().Where(x => x.CompetitionId == compId && x.Type == group).Select(x => new RouteKKTModel(x)).ToList();
 
             foreach (var ct in compTeam)
             {
@@ -252,12 +252,12 @@ namespace Competition.Controllers
         }
 
         /** KKT VARŽYBŲ PIRMAS REZULTATŲ SKAIČIAVIMO ALGORITMAS*/
-        public List<ResultModel> ResultsKKT2(int compId, int resultType)
+        public List<ResultModel> ResultsKKT2(int compId, int resultType, string group)
         {
             List<ResultModel> results = new List<ResultModel>();
 
-            List<CompetitorsKKTModel> compTeam = CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => x.CompetitionId == compId).Select(x => new CompetitorsKKTModel(x)).ToList();
-            List<RouteKKTModel> routes = CompetitionDB.TblRoutesKKT.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteKKTModel(x)).ToList();
+            List<CompetitorsKKTModel> compTeam = CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => x.CompetitionId == compId && x.Group == group).Select(x => new CompetitorsKKTModel(x)).ToList();
+            List<RouteKKTModel> routes = CompetitionDB.TblRoutesKKT.ToArray().Where(x => x.CompetitionId == compId && x.Type == group).Select(x => new RouteKKTModel(x)).ToList();
 
             foreach (var ct in compTeam)
             {

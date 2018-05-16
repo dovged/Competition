@@ -14,34 +14,6 @@ namespace Competition.Controllers
     
     public class JudgesPaperKKTController : BaseAPIController
     {
-        /** Grąžinamas sąrašas teisėjo lapų pagal varžybas;
-          Surikiuotas pagal Trasas;*/
-        [Route("api/competition/id/judgespapersKKT")]
-        public HttpResponseMessage Get(int compId)
-        {
-            if (CompetitionDB.TblJudgesPapersKKT.AsEnumerable() != null)
-            {
-                List<RouteKKTModel> routes = CompetitionDB.TblRoutesKKT.ToArray().Where(x => x.CompetitionId == compId).Select(x => new RouteKKTModel(x)).ToList();
-                List<JudgesPaperKKTModel> judgePapers = new List<JudgesPaperKKTModel>();
-
-                foreach (RouteKKTModel r in routes)
-                {
-                    List<JudgesPaperKKTModel> papers = CompetitionDB.TblJudgesPapersKKT.ToArray().Where(x => x.RouteId == r.Id).Select(x => new JudgesPaperKKTModel(x)).ToList();
-
-                    foreach (JudgesPaperKKTModel p in papers)
-                    {
-                        p.RouteName = CompetitionDB.TblRoutesKKT.FirstOrDefault(x => x.Id == p.RouteId).Name;
-                        p.TeamName = CompetitionDB.TblTeams.FirstOrDefault(x => x.Id == p.TeamId).Name;
-                        judgePapers.Add(p);
-                    }
-                }
-
-                return ToJsonOK(judgePapers);
-            }
-
-            return ToJsonNotFound("Tuščias sąrašas.");
-        }
-
         /** Grąžinamas vienas teisėjo lapas;*/
         [Route("api/judgespapersKKT/{routeId}/{teamId}")]
         public HttpResponseMessage Get(int routeId, int teamId)
@@ -78,19 +50,6 @@ namespace Competition.Controllers
             return ToJsonOK(CompetitionDB.SaveChanges());
         }
         
-        /**AR REIKIA IŠTRINTI???*/
-       /* public HttpResponseMessage Delete(int id)
-        {
-            if (CompetitionDB.TblJudgesPapers.AsEnumerable() != null)
-            {
-                CompetitionDB.TblJudgesPapers.Remove(CompetitionDB.TblJudgesPapers.FirstOrDefault(x => x.Id == id));
-                return ToJson(CompetitionDB.SaveChanges());
-            }
-
-            return Request.CreateResponse(HttpStatusCode.NotFound, "Item not found");
-
-        }*/
-
         /** Baudos taškų suma gauna iš visų baudų*/
         public int PointsFromPenalties(int id, List<PenaltyQuantityModel> pen)
         {

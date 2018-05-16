@@ -52,7 +52,7 @@ namespace Competition.Controllers
         {
             if (CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => x.CompetitionId == compId && x.Paid).Select(x => new CompetitorsKKTModel(x)).ToList().Count != 0)
             {
-                List<CompetitorsKKTModel> compTeams = CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => x.CompetitionId == compId).Select(x => new CompetitorsKKTModel(x)).ToList();
+                List<CompetitorsKKTModel> compTeams = CompetitionDB.TblCompetitorsKKT.ToArray().Where(x => x.CompetitionId == compId && x.Paid).Select(x => new CompetitorsKKTModel(x)).ToList();
                 foreach (CompetitorsKKTModel competitor in compTeams)
                 {
                     competitor.TeamName = CompetitionDB.TblTeams.Find(competitor.TeamId).Name.ToString();
@@ -183,7 +183,7 @@ namespace Competition.Controllers
             value.TeamId = id;
             int dateYear = 0;
             int dateNow = 0;
-            if (CompetitionDB.TblUsers.Find(id).BirthYear.ToString().Length == 22)
+            if (CompetitionDB.TblUsers.First(x => x.TeamId == id).BirthYear.ToString().Length == 22)
             {
                 dateYear = Convert.ToInt32(CompetitionDB.TblUsers.Find(id).BirthYear.ToString().Substring(6, 4));
             }

@@ -104,7 +104,7 @@ namespace Competition.Controllers
             return ToJsonNotFound("Objektas nerastas");
         }
 
-        /** Grąžinamas dalyvių sąrašas; Naudojama registracijos langui*/
+        /** Grąžinamas dalyvių sąrašas; Naudojama TRENERIO registracijos langui*/
         [Route("api/compKidsClim/{compId}/{userName}/{m}")]
         public HttpResponseMessage Get(int compId, string userName, int m)
         {

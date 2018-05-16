@@ -72,5 +72,3 @@ C:\Users\Dovile\Competition\CompetitionWebAPI\obj\Debug\CompetitionWebAPI.pdb
 C:\Users\Dovile\Competition\CompetitionWebAPI\obj\Debug\CompetitionWebAPI.csprojAssemblyReference.cache
 C:\Users\Dovile\Competition\CompetitionWebAPI\obj\Debug\CompetitionWebAPI.csproj.CoreCompileInputs.cache
 C:\Users\Dovile\Competition\CompetitionWebAPI\obj\Debug\CompetitionWebAPI.csproj.CopyComplete
-C:\Users\Dovile\Competition\CompetitionWebAPI\bin\CompetitionWebAPI.dll.CodeAnalysisLog.xml
-C:\Users\Dovile\Competition\CompetitionWebAPI\bin\CompetitionWebAPI.dll.lastcodeanalysissucceeded

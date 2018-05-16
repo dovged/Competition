@@ -395,6 +395,4 @@ C:\Users\Dovile\Documents\Universitetas\bakalauras\Competition-master\Competitio
 C:\Users\Dovile\Documents\Universitetas\bakalauras\Competition-master\Competition\obj\Debug\Competition.pdb
 C:\Users\Dovile\Competition\Competition\obj\Debug\Competition.csproj.CoreCompileInputs.cache
 C:\Users\Dovile\Competition\Competition\obj\Debug\Competition.csproj.CopyComplete
-C:\Users\Dovile\Competition\Competition\bin\Competition.dll.CodeAnalysisLog.xml
-C:\Users\Dovile\Competition\Competition\bin\Competition.dll.lastcodeanalysissucceeded
 C:\Users\Dovile\Competition\Competition\obj\Debug\Competition.csprojAssemblyReference.cache

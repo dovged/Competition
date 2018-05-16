@@ -32,7 +32,7 @@
                  <label for="climber">
                      Dalyvis:
                  </label>
-                 <select ng-options="user.CimberId as user.ClimberName for user in userList" ng-model="papersDetails.userId"></select>
+                 <select ng-options="user.ClimberId as user.ClimberName for user in userList" ng-model="papersDetails.userId"></select>
              </div>
              <button ng-hide="!showUser" class="btn btn-default" ng-click="getJudgePaper()">Rasti teisėjo lapą</button>
          </div>

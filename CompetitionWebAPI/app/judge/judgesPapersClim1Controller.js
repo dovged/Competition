@@ -57,28 +57,28 @@ app.controller('judgesPapersClim1Controller', ['$scope', 'judgeService', 'localS
 
     // Atnaujinamas teisejo lapas : pridedama prie topu bandymu 1
     $scope.updatePaperAddTop = function () {
-        judgeService.updateJudgesPaper($scope.paperDetails.routeId, $scope.paperDetails.userId, 4).then(function (results) {
+        judgeService.updateJudgesPaper($scope.papersDetails.routeId, $scope.papersDetails.userId, 4).then(function (results) {
             $scope.getJudgePaper();
         });
     };
 
      // Atnaujinamas teisejo lapas : sumazinama topu bandymai 1
     $scope.updatePaperMinusTop = function () {
-        judgeService.updateJudgesPaper($scope.paperDetails.routeId, $scope.paperDetails.userId, 5).then(function (results) {
+        judgeService.updateJudgesPaper($scope.papersDetails.routeId, $scope.papersDetails.userId, 5).then(function (results) {
             $scope.getJudgePaper();
         });
     };
 
     // Atnaujinamas teisejo lapas : pridedama prie bonusu bandymu 1
     $scope.updatePaperAddBonus = function () {
-        judgeService.updateJudgesPaper($scope.paperDetails.routeId, $scope.paperDetails.userId, 6).then(function (results) {
+        judgeService.updateJudgesPaper($scope.papersDetails.routeId, $scope.papersDetails.userId, 6).then(function (results) {
             $scope.getJudgePaper();
         });
     };
 
     // Atnaujinamas teisejo lapas : sumazinama bonusu bandymai 1
     $scope.updatePaperMinusBonus = function () {
-        judgeService.updateJudgesPaper($scope.paperDetails.routeId, $scope.paperDetails.userId, 7).then(function (results) {
+        judgeService.updateJudgesPaper($scope.papersDetails.routeId, $scope.papersDetails.userId, 7).then(function (results) {
             $scope.getJudgePaper();
         });
     };
