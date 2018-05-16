@@ -22,4 +22,11 @@ app.controller('calendarController', ['$scope', 'calendarService', 'localStorage
         }
     };
 
+    /** Rodyti varžybų rezultatus*/
+    $scope.registerComp = function (Id) {
+        localStorageService.set("resultId", Id);
+        $location.path("/results");
+       
+    };
+
 }]);

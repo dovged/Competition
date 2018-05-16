@@ -19,7 +19,6 @@ app.factory('calendarService', ['$http', 'authService', function ($http, authSer
         });
     };
 
-
     // Užregistruojamas dalyvis į KKT varžybas
     var _addCompetitorKKT = function (c, compId) {
         var request = $http({
@@ -40,11 +39,19 @@ app.factory('calendarService', ['$http', 'authService', function ($http, authSer
         return request;
     };
 
+    // Gauti rezultatus
+    var _getResults = function (compId, resultType, lytis, group) {
+        return $http.get(serviceBase + 'api/results/' + compId + '/' + resultType + '/' + lytis +'/' + group).then(function (results) {
+            return results;
+        });
+    };
+
     /** PRISKIRIMAI*/
     calendarServiceFactory.getCompetitionList = _getCompetitionList;
     calendarServiceFactory.addCompetitorKKT = _addCompetitorKKT;
     calendarServiceFactory.getCompetitionDetails = _getCompetitionDetails;
     calendarServiceFactory.addCompetitorClim = _addCompetitorClim;
+    calendarServiceFactory.getResults = _getResults;
 
 
     return calendarServiceFactory;

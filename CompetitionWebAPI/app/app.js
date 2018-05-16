@@ -64,6 +64,11 @@ app.config(function ($routeProvider) {
         templateUrl: "app/judge/judgesPapersKKT.html"
     });
 
+    $routeProvider.when("/results", {
+        controller: "resultsController",
+        templateUrl: "app/calendar/results.html"
+    });
+
     /** VARŽYBŲ ORGANIZATORIAUS PASIEKIAMI LAGAI*/
     $routeProvider.when("/penalties", {
         controller: "penaltyController",

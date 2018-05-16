@@ -1,5 +1,5 @@
 ﻿<h2>
-    Rezultatai
+    Rezultatai {{competition.Name}} varžybų, kurios vyksta {{competition.Date}}, {{competition.Club}}
 </h2>
 <br> <br>
 <div class="row">
@@ -7,6 +7,78 @@
         &nbsp;
     </div>
     <div class="col-md-8">
+        <div ng-hide="!getGroupClim" class="form-group">
+            <label for="group">
+                Grupė:
+            </label>
+            <select ng-model="group.Id">
+                <option value="JAUNIMAS">JAUNIMAS</option>
+                <option value="JAUNIAI">JAUNIAI</option>
+                <option value="JAUNUOLIAI">JAUNUOLIAI</option>
+                <option value="JAUNUČIAI">JAUNUČIAI</option>
+                <option value="VAIKAI">VAIKAI</option>
+            </select>
+        </div>
+        <button ng-hide="!getGroupClim" class="btn btn-default" ng-click="loadResulstLJBT()">Rezultatai</button>
+        <table ng-hide="!LJBTResults" class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Vieta</th>
+                    <th>Dalyvis</th>
+                    <th>Top</th>
+                    <th>Top bandymai</th>
+                    <th>Bonus</th>
+                    <th>Bonus bandymai</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="result in resultsList">
+                    <td> {{ result.Place }} </td>
+                    <td> {{ result.Climber }} </td>
+                    <td> {{ result.TopNumber }} </td>
+                    <td> {{ result.TopAttempt }} </td>
+                    <td> {{ result.BonusNumber }} </td>
+                    <td> {{ result.BonusAttempt }} </td>
+
+                </tr>
+            </tbody>
+        </table>
+        <table ng-hide="!LJBTResults" class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Vieta</th>
+                    <th>Dalyvis</th>
+                    <th>Top</th>
+                    <th>Top bandymai</th>
+                    <th>Bonus</th>
+                    <th>Bonus bandymai</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="result in results2List">
+                    <td> {{ result.Place }} </td>
+                    <td> {{ result.Climber }} </td>
+                    <td> {{ result.TopNumber }} </td>
+                    <td> {{ result.TopAttempt }} </td>
+                    <td> {{ result.BonusNumber }} </td>
+                    <td> {{ result.BonusAttempt }} </td>
+
+                </tr>
+            </tbody>
+        </table>
+        <div ng-hide="!getGroupKKT" class="form-group">
+            <label for="group">
+                Grupė:
+            </label>
+            <select ng-model="routeType.Id">
+                <option value="PRO">PRO</option>
+                <option value="MEGĖJAI">MEGĖJAI</option>
+                <option value="JAUNIAI">JAUNIAI</option>
+                <option value="JAUNUČIAI">JAUNUČIAI</option>
+            </select>
+        </div>
+        <button ng-hide="!getGroupKKT" class="btn btn-default" ng-click="loadResulstKKT()">Rezultatai</button>
+
         <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
@@ -17,15 +89,15 @@
                 </tr>
             </thead>
             <tbody>
-               <!-- <tr data-ng-repeat="competition in competitionList">
-                    <td> {{ competition.Name }} </td>
-                    <td> {{ competition.Date }} </td>
-                    <td> {{ competition.Club }} </td>
-                    <td>
-                        <button type="button" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span>  Registruotis</button>
-                        <a href="#/results" type="button" class="btn btn-info"><span class="glyphicon glyphicon-list"></span>Rezultatai</a>
-                    </td>
-                </tr>-->
+                <!-- <tr data-ng-repeat="competition in competitionList">
+                <td> {{ competition.Name }} </td>
+                <td> {{ competition.Date }} </td>
+                <td> {{ competition.Club }} </td>
+                <td>
+                    <button type="button" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span>  Registruotis</button>
+                    <a href="#/results" type="button" class="btn btn-info"><span class="glyphicon glyphicon-list"></span>Rezultatai</a>
+                </td>
+            </tr>-->
             </tbody>
         </table>
     </div>

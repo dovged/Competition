@@ -250,7 +250,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JudgesPaperClimController.cs" />
     <Compile Include="Controllers\JudgesPaperKKTController.cs" />
-    <Compile Include="Controllers\PaperTypeController.cs" />
     <Compile Include="Controllers\PenaltyController.cs" />
     <Compile Include="Controllers\PenaltyQuantityController.cs" />
     <Compile Include="Controllers\ResultController.cs" />
